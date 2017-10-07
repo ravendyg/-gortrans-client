@@ -21,7 +21,7 @@ export function createControlsComponent(connectToApi: () => void) {
 
     render() {
       return(
-        <div>controls</div>
+        <div id="controls">controls</div>
       );
     }
   };
