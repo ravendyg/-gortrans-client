@@ -2,7 +2,6 @@ import * as React from 'react';
 import {} from 'mocha';
 import * as sinon from 'sinon';
 import { configure, mount } from 'enzyme';
-// import { mount } from 'react-test-renderer';
 import * as Adapter from 'enzyme-adapter-react-15';
 
 import { createControlsComponent } from '../../src/components/Controls/create-controls';
