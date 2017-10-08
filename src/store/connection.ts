@@ -1,7 +1,7 @@
 import {ConnectionAction} from '../types/action-types';
 import {IAction, IPayload} from '../types';
 
-export function connectionStore(
+export function apiConnection(
   state: IPayload<SocketIOClient.Socket> = { data: null, error: null },
   action: IAction<ConnectionAction, SocketIOClient.Socket>
 ): IPayload<SocketIOClient.Socket> {

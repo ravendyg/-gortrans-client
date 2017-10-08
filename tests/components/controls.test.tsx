@@ -3,10 +3,9 @@ import {} from 'mocha';
 import * as sinon from 'sinon';
 import { configure, mount } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-15';
+configure({ adapter: new Adapter() });
 
 import { createControlsComponent } from '../../src/components/Controls/create-controls';
-
-configure({ adapter: new Adapter() });
 
 const
   connectToApi = sinon.stub()
