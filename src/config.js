@@ -1,7 +1,7 @@
 /* global process */
 const
   apiVersion = 'v1',
-  baseApiUrl = process.env.API_URL,
+  baseApiUrl = process.env.API_URL || '',
   apiUrl = baseApiUrl// + apiVersion + '/'
   ;
 

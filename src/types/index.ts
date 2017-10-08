@@ -1,13 +1,17 @@
 export interface IPayload<P> {
-  data: P,
-  error: Error | null
+  data: P | null;
+  error: Error | null;
 }
 
 export interface IAction<T, P> {
-  type: T,
-  payload: IPayload<P>
+  type: T;
+  payload: IPayload<P>;
 }
 
 export interface IConfig {
-  apiUrl: string
+  apiUrl: string;
+}
+
+export interface ICtor<T> {
+  new(...args: any[]): T;
 }

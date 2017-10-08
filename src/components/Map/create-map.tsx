@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { ICtor } from './../../types';
 
 interface IMapState {
-
+  map: L.Map;
 }
 
 export interface IMapProps {
@@ -10,17 +11,16 @@ export interface IMapProps {
   };
 }
 
-export function createMapComponent(_Map: { new(...args: any[]): L.Map }) {
-  return class MapComponent extends React.Component<IMapState, IMapProps> {
-
-    private map: L.Map;
+export function createMapComponent(_Map: ICtor<L.Map>) {
+  return class MapComponent extends React.PureComponent<IMapProps, IMapState> {
 
     constructor() {
       super();
     }
 
     componentDidMount() {
-      this.map = new _Map('mapid');
+      // no unmount hook because htis component exists though the whole app lifetime
+      this.setState({ map: new _Map('mapid') });
     }
 
     render() {
