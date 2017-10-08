@@ -1,27 +1,52 @@
 import * as React from 'react';
-import { ICtor } from './../../types';
+import { Store } from '../../store';
+import { Store as IStore } from 'redux';
+import { ICtor, IConfig } from '../../types';
+import { IReduxState } from '../../types/state';
 import { MapComponent } from '../Map/map';
+import { Connected } from '../connected';
 
-interface IMapState {
-  map: L.Map;
-}
+interface IMapWrapperState { }
 
-export interface IMapProps {
+export interface IMapWrapperProps {
   Map: ICtor<L.Map>;
+  tileLayer: (urlTemplate: string, options?: L.TileLayerOptions | undefined) => L.TileLayer;
+  config: IConfig;
   actions: {
 
   };
 }
 
-export class MapWrapperComponent extends React.PureComponent<IMapProps, IMapState> {
+export function createMapWrapperComponent(store: IStore<IReduxState>) {
+  class MapWrapperComponent extends Connected<IMapWrapperProps, IMapWrapperState> {
 
-  constructor() {
-    super();
-  }
+      constructor() {
+        super(store);
+      }
 
-  render() {
-    return(
-      <MapComponent Map={this.props.Map} />
-    );
-  }
+      mapState(): IMapWrapperState {
+        return this.state;
+      }
+
+      render() {
+        const
+          coords = this.props.config.defaultCoords,
+          zoom = this.props.config.defaultZoom
+          ;
+
+        return(
+          <MapComponent
+            Map={this.props.Map}
+            tileLayer={this.props.tileLayer}
+            config={this.props.config}
+            coords={coords}
+            zoom={zoom}
+          />
+        );
+      }
+    }
+
+  return MapWrapperComponent;
 }
+
+export const MapWrapperComponent = createMapWrapperComponent(Store);

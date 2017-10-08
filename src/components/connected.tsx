@@ -1,34 +1,34 @@
 import * as React from 'react';
-import { Store } from 'redux';
+import { Store as IStore } from 'redux';
+import { IReduxState } from '../types/state';
 
-/**
+  /**
  * override mapState
  * in `componentWillUnmount` call super.componentWillUnmount()
  */
-export function connect<S>(_store: Store<S>) {
-  abstract class Connected<IProps, IState> extends React.Component<IProps, IState> {
+export abstract class Connected<IProps, IState> extends React.Component<IProps, IState> {
 
-    private _unsubscribe: () => void;
+  private _unsubscribe: () => void;
+  private _store: IStore<IReduxState>;
 
-    constructor() {
-      super();
-      this.subscribeCb = this.subscribeCb.bind(this);
-      this._unsubscribe = _store.subscribe(this.subscribeCb);
-      this.state = this.mapState(_store.getState());
-    }
-
-    componentWillUnmount() {
-      this._unsubscribe();
-    }
-
-    private subscribeCb(): void {
-      const st: IState = this.mapState(_store.getState());
-      this.setState(st);
-    }
-
-    abstract mapState(newStore: S): IState;
-
+  constructor(store: IStore<IReduxState>) {
+    super();
+    this._store = store;
+    this.subscribeCb = this.subscribeCb.bind(this);
+    this._unsubscribe = this._store.subscribe(this.subscribeCb);
+    this.state = this.mapState(this._store.getState());
   }
 
-  return Connected;
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
+
+  private subscribeCb(): void {
+    const st: IState = this.mapState(this._store.getState());
+    this.setState(st);
+  }
+
+  abstract mapState(newState: IReduxState): IState;
+
 }
+
