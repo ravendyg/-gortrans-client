@@ -16,23 +16,15 @@ export function createConnectToApi(
       socket: SocketIOClient.Socket = io.connect(config.apiUrl, { query: { apiKey } })
       ;
 
-    dispatch({
-      type: ConnectionAction.CONNECTING,
-      payload: {
-        data: null,
-        error: null
-      }
-    });
-
     socket.on('connect', establishConnection);
-    socket.on(messages.newApiKey, getApiKey);
+    socket.on(messages.newApiKey, setApiKey);
     socket.on('error', errorConnection);
 
-    function getApiKey(newApiKey: string) {
+    function setApiKey(newApiKey: string): void {
       syncStorage.setItem('apiKey', newApiKey);
     }
 
-    function establishConnection() {
+    function establishConnection(): void {
       dispatch({
         type: ConnectionAction.CONNECTED,
         payload: {
@@ -42,7 +34,7 @@ export function createConnectToApi(
       });
     }
 
-    function errorConnection(error: Error) {
+    function errorConnection(error: Error): void {
       dispatch({
         type: ConnectionAction.ERROR,
         payload: {

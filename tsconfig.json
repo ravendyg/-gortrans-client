@@ -12,7 +12,10 @@
     "allowUnreachableCode": false,
     "noImplicitReturns": true,
     "noImplicitAny": true,
-    "noImplicitThis": true
+    "noImplicitThis": true,
+    "allowUnusedLabels": false,
+    "removeComments": true,
+    "strict": true
   },
   "exclude": [
     "node_modules",

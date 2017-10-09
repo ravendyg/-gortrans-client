@@ -41,16 +41,23 @@ module.exports = {
         }, {
           loader: 'ts-loader'
         }]
+      // }, {
+      //   test: path.join(__dirname, 'src', 'html'),
+      //   use: [
+      //     'htmllint-loader',
+      //     {
+      //       loader: 'html-loader',
+      //       options: {}
+      //     }
+      //   ]
       }, {
-        test: path.join(__dirname, 'src', 'html'),
+        test: /\.scss$/,
         use: [
-          'htmllint-loader',
-          {
-            loader: 'html-loader',
-            options: {}
-          }
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'sass-loader'}
         ]
-      },
+      }
     ]
   },
 
@@ -109,4 +116,10 @@ module.exports = {
       }
     }),
   ],
+
+  externals: {
+    'socket.io-client': 'io',
+    'leaflet': 'L'
+  },
+
 }

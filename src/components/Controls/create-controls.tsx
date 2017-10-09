@@ -9,7 +9,7 @@ export interface IControlsProps {
 }
 
 export function createControlsComponent(connectToApi: () => void) {
-  return class ControlsComponent extends React.Component<IControlsState, IControlsProps> {
+  return class ControlsComponent extends React.PureComponent<IControlsProps, IControlsState> {
 
     constructor() {
       super();
@@ -21,7 +21,7 @@ export function createControlsComponent(connectToApi: () => void) {
 
     render() {
       return(
-        <div>controls</div>
+        <div id="controls">controls</div>
       );
     }
   };
