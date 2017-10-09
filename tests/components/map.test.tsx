@@ -5,7 +5,7 @@ import { configure, mount } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-15';
 configure({ adapter: new Adapter() });
 
-import { MapComponent } from '../../src/components/Map/map';
+import { MapComponent } from '../../src/components/map/map';
 
 describe('map component', () => {
 

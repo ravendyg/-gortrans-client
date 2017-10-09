@@ -6,8 +6,8 @@ import { configure, shallow, ShallowWrapper } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-15';
 configure({ adapter: new Adapter() });
 
-import { MapComponent } from '../../src/components/Map/map';
-import { MapWrapperComponent } from '../../src/components/MapWrapper/map-wrapper';
+import { MapComponent } from '../../src/components/map/map';
+import { MapWrapperComponent } from '../../src/components/map-wrapper/map-wrapper';
 
 describe('map wrapper component', () => {
 

@@ -33,14 +33,16 @@ module.exports = {
         include: [
           path.resolve(__dirname, 'src')
         ],
-        use: [{
-          loader: 'babel-loader',
-          options: {
-            presets: ['es2015', 'react']
-          },
-        }, {
-          loader: 'ts-loader'
-        }]
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['es2015', 'react']
+            },
+          }, {
+            loader: 'ts-loader'
+          }
+        ]
       // }, {
       //   test: path.join(__dirname, 'src', 'html'),
       //   use: [
@@ -50,6 +52,12 @@ module.exports = {
       //       options: {}
       //     }
       //   ]
+      }, {
+        test: /\.png/,
+        use: [
+          { loader: 'url-loader' },
+          { loader: 'img-loader' },
+        ]
       }, {
         test: /\.scss$/,
         use: [

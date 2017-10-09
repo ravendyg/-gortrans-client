@@ -2,3 +2,25 @@ export enum ConnectionAction {
   CONNECTED = 2,
   ERROR = 3
 }
+
+export interface IControlAction {
+  zoomIn: () => void;
+  zoomOut: () => void;
+  toggleSearch: () => void;
+}
+
+export enum ControlActions {
+  ZOOM_IN = 4,
+  ZOOM_OUT = 5,
+  TOGGLE_SEARCH = 6
+}
+
+
+export interface IActions {
+  connect: () => void;
+  controlActions: IControlAction;
+}
+
+export interface IPropsWithAction {
+  actions: IActions;
+}

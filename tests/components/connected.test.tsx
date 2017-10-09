@@ -7,12 +7,14 @@ import * as Adapter from 'enzyme-adapter-react-15';
 configure({ adapter: new Adapter() });
 
 import { combineReducers, createStore } from 'redux';
-import { IReduxState } from '../../src/types/state';
+import { IReduxState, IStore } from '../../src/types/state';
 import { ConnectionAction } from '../../src/types/action-types';
 
 import { Connected } from '../../src/components/connected';
 
-interface IPops {}
+interface IPops {
+  store: IStore<IReduxState>;
+}
 interface IState {
   connection: SocketIOClient.Socket | null;
 }
@@ -48,12 +50,16 @@ Store.subscribe = (cb: any) => {
 class Component extends Connected<IPops, IState> {
 
   constructor() {
-    super(Store);
+    super();
   }
 
   mapState(newStore: IReduxState): IState {
     changeStub(newStore.apiConnection);
     return { connection: newStore.apiConnection.data };
+  }
+
+  componentDidMount() {
+    super.componentDidMount();
   }
 
   componentWillUnmount() {
@@ -65,7 +71,7 @@ class Component extends Connected<IPops, IState> {
   }
 }
 
-const component = mount(<Component />);
+const component = mount(<Component store={Store} />);
 
 describe('connect', () => {
 
