@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { ICtor, IConfig } from './../../types';
+import { IConfig } from './../../types';
+import * as L from 'leaflet';
 
-interface IMapState {
-  map: L.Map;
-}
+interface IMapState { }
 
 export interface IMapProps {
-  Map: ICtor<L.Map>;
-  tileLayer: (urlTemplate: string, options?: L.TileLayerOptions | undefined) => L.TileLayer;
+  L: any;
   coords: [number, number];
   zoom: number;
   config: IConfig;
@@ -15,18 +13,24 @@ export interface IMapProps {
 
 export class MapComponent extends React.PureComponent<IMapProps, IMapState> {
 
+  private _map: L.Map;
+
   constructor() {
     super();
   }
 
   componentDidMount() {
-    const map = new this.props.Map('mapid');
+    const
+      map = new this.props.L.Map('mapid', {
+        zoomControl: false
+      })
+      ;
     map.setView(this.props.coords, this.props.zoom);
-    this.props.tileLayer(
+    this.props.L.tileLayer(
       this.props.config.tileProvider,
       this.props.config.mapOptions
     ).addTo(map);
-    this.setState({ map });
+    this._map = map;
   }
 
   render() {

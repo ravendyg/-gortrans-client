@@ -6,8 +6,46 @@ html, body, #app, #wrapper, #mapid {
   overflow: hidden;
 }
 
-#controls {
+#mapid {
+  z-index: 0;
+}
+
+.controls {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 1;
+
+  &__actions {
+    &--btn {
+      border-radius: 50%;
+      z-index: 20;
+      width: 3rem;
+      height: 3rem;
+      background-color: #eeeeee;
+      box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.5);
+      margin-left: 2rem;
+
+      div {
+        img {
+          margin: 0.5rem 0 0 0.5rem;
+          max-width: 2rem;
+        }
+      }
+
+      &.not-mobile {
+        cursor: pointer;
+        &:hover {
+          box-shadow: 2px 2px 1px 1px rgba(0,0,0,0.5);
+          opacity: 0.8;
+          div {
+            img {
+              opacity: 0.8;
+            }
+          }
+        }
+      }
+    }
+
+  }
 }
