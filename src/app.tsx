@@ -13,8 +13,7 @@ const
   defaultCoords: [number, number] = config.defaultCoords as [number, number],
   _config = Object.assign({}, config, { defaultCoords }),
   mapProps: IMapWrapperProps = {
-    Map: L.Map,
-    tileLayer: L.tileLayer,
+    L,
     config: _config,
     actions: {}
   },

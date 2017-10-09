@@ -12,16 +12,23 @@ import { MapWrapperComponent } from '../../src/components/MapWrapper/map-wrapper
 describe('map wrapper component', () => {
 
   const
-    _map: any = sinon.stub().returns({
-      setView: sinon.stub()
-    }),
-    tileLayer: any = sinon.stub().returns({
+    mapReturn: any = {
+      setView: sinon.stub(),
+      removeControl: sinon.stub()
+    },
+    layerReturn: any = {
       addTo: sinon.stub()
-    }),
+    },
+    tileLayer: any = sinon.stub().returns(layerReturn),
+    Control: any = sinon.stub(),
     mapOptions: any = {},
-    props: any = {
-      Map: _map,
+    L: any = {
+      Map: sinon.stub().returns(mapReturn),
       tileLayer,
+      Control
+    },
+    props: any = {
+      L,
       config: {
         tileProvider: 'tileProvider',
         mapOptions
@@ -37,7 +44,7 @@ describe('map wrapper component', () => {
   });
 
   it('passes leaflet map to the Map component', () => {
-    assert.equal(map.at(0).prop('Map'), _map);
+    assert.equal(map.at(0).prop('L'), L);
   });
 
 });
