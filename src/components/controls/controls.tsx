@@ -9,7 +9,7 @@ interface IControlsState {
 
 export interface IControlsProps extends IPropsWithAction {}
 
-export class ControlsComponent extends Connected<IControlsProps, IControlsState> {
+export class Controls extends Connected<IControlsProps, IControlsState> {
 
   mapState(): IControlsState {
     return this.state;

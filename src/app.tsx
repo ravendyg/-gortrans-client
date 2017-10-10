@@ -7,7 +7,7 @@ import { Store } from './store';
 import { config } from './config';
 import { IActions } from './types/action-types';
 import { MapWrapperComponent, IMapWrapperProps } from './components/map-wrapper/map-wrapper';
-import { ControlsComponent, IControlsProps } from './components/controls/controls';
+import { Controls, IControlsProps } from './components/controls/controls';
 
 import { createControlActions } from './actions/create-control-actions';
 import { createConnectToApi } from './actions/create-connect-to-api';
@@ -35,7 +35,7 @@ const
 render(
   <div id="wrapper">
     <MapWrapperComponent {...mapProps} />
-    <ControlsComponent {...controlProps} />
+    <Controls {...controlProps} />
   </div>,
   document.getElementById('app')
 );

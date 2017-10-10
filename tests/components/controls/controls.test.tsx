@@ -1,14 +1,16 @@
 import * as React from 'react';
 import {} from 'mocha';
+import { assert } from 'chai';
 import * as sinon from 'sinon';
-import { configure, mount } from 'enzyme';
+import { configure, shallow, ShallowWrapper } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-15';
 configure({ adapter: new Adapter() });
 
-import { ControlsComponent } from '../../../src/components/controls/controls';
+import { Controls } from '../../../src/components/controls/controls';
+import { ActionBtns } from '../../../src/components/controls/action-btns';
 import { IControlAction } from '../../../src/types/action-types';
 
-describe('controls component', () => {
+describe('<Controls>', () => {
 
   const
     actions: {controlActions: IControlAction} = {
@@ -20,15 +22,14 @@ describe('controls component', () => {
     },
     props: {actions: any} = {
       actions
-    }
+    },
+    comp: ShallowWrapper = shallow(<Controls {...props} />)
     ;
 
-  it('calls connectToApi on component creation', () => {
-    // const
-      // controlsComponent =
-      mount(<ControlsComponent {...props} />);
-    // ;
-    // sinon.assert.calledOnce(connectToApi);
+  it('renders action btns', () => {
+    const btns: ShallowWrapper = comp.find(ActionBtns);
+    assert.equal(btns.length, 1);
+    assert.equal(btns.prop('actions'), actions);
   });
 
 });
