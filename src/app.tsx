@@ -9,7 +9,7 @@ import { IActions } from './types/action-types';
 import { MapWrapperComponent, IMapWrapperProps } from './components/map-wrapper/map-wrapper';
 import { Controls, IControlsProps } from './components/controls/controls';
 
-import { createControlActions } from './actions/create-control-actions';
+import { createControlActions } from './actions/create-control';
 import { createConnectToApi } from './actions/create-connect-to-api';
 
 require('./styles.scss');
@@ -17,8 +17,8 @@ require('./styles.scss');
 const
   defaultCoords: [number, number] = config.defaultCoords as [number, number],
   _config = Object.assign({}, config, { defaultCoords }),
+  connectToApi = createConnectToApi(Store.dispatch, localStorage, io, _config),
   actions: IActions = {
-    connect: createConnectToApi(Store.dispatch, localStorage, io, _config),
     controlActions: createControlActions(Store.dispatch)
   },
   mapProps: IMapWrapperProps = {
@@ -31,6 +31,8 @@ const
     actions
   }
   ;
+
+connectToApi();
 
 render(
   <div id="wrapper">

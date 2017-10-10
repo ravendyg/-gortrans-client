@@ -1,7 +1,17 @@
+export interface IActions {
+  controlActions: IControlAction;
+}
+
+export interface IPropsWithAction {
+  actions: IActions;
+}
+
+
 export enum ConnectionAction {
   CONNECTED = 2,
   ERROR = 3
 }
+
 
 export interface IControlAction {
   zoomIn: () => void;
@@ -16,11 +26,12 @@ export enum ControlActions {
 }
 
 
-export interface IActions {
-  connect: () => void;
-  controlActions: IControlAction;
+export interface ILeafletListenerAction {
+  moveend: (ev: L.LeafletEvent) => void;
+  zomeend: (ev: L.LeafletEvent) => void;
 }
 
-export interface IPropsWithAction {
-  actions: IActions;
+export enum LeafletListenerActions {
+  MOVE_END = 7,
+  ZOOM_END = 8
 }
