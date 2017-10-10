@@ -1,11 +1,6 @@
-export interface IPayload<P> {
-  data: P | null;
-  error: Error | null;
-}
-
 export interface IAction<T, P> {
   type: T;
-  payload: IPayload<P>;
+  payload: P;
 }
 
 export interface IConfig {

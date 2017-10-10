@@ -1,24 +1,25 @@
-import {ConnectionAction} from '../types/action-types';
-import {IAction, IPayload} from '../types';
+import { ConnectionAction } from '../types/action-types';
+import { IAction } from '../types';
+import { IApiConnectionState, ConnectionPayload } from '../types/state';
 
 export function apiConnection(
-  state: IPayload<SocketIOClient.Socket> = { data: null, error: null },
-  action: IAction<ConnectionAction, SocketIOClient.Socket>
-): IPayload<SocketIOClient.Socket> {
+  state: IApiConnectionState = { socket: null, error: null },
+  action: IAction<ConnectionAction, ConnectionPayload>
+): IApiConnectionState {
 
   switch (action.type) {
 
     case ConnectionAction.CONNECTED: {
       return {
-        data: action.payload.data,
+        socket: (action.payload as SocketIOClient.Socket),
         error: null
       };
     }
 
     case ConnectionAction.ERROR: {
       return {
-        data: null,
-        error: action.payload.error
+        socket: null,
+        error: (action.payload as Error)
       };
     }
 

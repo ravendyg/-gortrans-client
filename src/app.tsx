@@ -11,6 +11,7 @@ import { Controls, IControlsProps } from './components/controls/controls';
 
 import { createControlActions } from './actions/create-control';
 import { createConnectToApi } from './actions/create-connect-to-api';
+import { createLeafletListenersActions } from './actions/create-leaflet-listeners';
 
 require('./styles.scss');
 
@@ -18,14 +19,17 @@ const
   defaultCoords: [number, number] = config.defaultCoords as [number, number],
   _config = Object.assign({}, config, { defaultCoords }),
   connectToApi = createConnectToApi(Store.dispatch, localStorage, io, _config),
+  controlActions = createControlActions(Store.dispatch),
+  leafletListenerActions = createLeafletListenersActions(Store.dispatch),
   actions: IActions = {
-    controlActions: createControlActions(Store.dispatch)
+    controlActions,
+    leafletListenerActions
   },
   mapProps: IMapWrapperProps = {
     L,
     store: Store,
     config: _config,
-    actions: {}
+    actions
   },
   controlProps: IControlsProps = {
     actions

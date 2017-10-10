@@ -3,7 +3,7 @@ import { messages } from '../messages';
 import { ConnectionAction } from '../types/action-types';
 
 export function createConnectToApi(
-  dispatch: (action: IAction<ConnectionAction, SocketIOClient.Socket>) => void,
+  dispatch: (action: IAction<ConnectionAction, SocketIOClient.Socket | Error>) => void,
   syncStorage: Storage,
   io: SocketIOClientStatic,
   config: IConfig
@@ -27,20 +27,14 @@ export function createConnectToApi(
     function establishConnection(): void {
       dispatch({
         type: ConnectionAction.CONNECTED,
-        payload: {
-          data: socket,
-          error: null
-        }
+        payload: socket
       });
     }
 
     function errorConnection(error: Error): void {
       dispatch({
         type: ConnectionAction.ERROR,
-        payload: {
-          data: null,
-          error
-        }
+        payload: error
       });
     }
   };

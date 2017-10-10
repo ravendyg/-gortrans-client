@@ -9,6 +9,21 @@ export interface IMapProps {
   coords: [number, number];
   zoom: number;
   config: IConfig;
+  listeners?: {
+    zoomend: (ev: L.LeafletEvent) => void;
+    moveend: (ev: L.LeafletEvent) => void;
+  };
+  actionWrappers?: {
+
+  };
+}
+
+function addListeners(map: L.Map, listeners: {[x: string]: (ev: L.LeafletEvent) => void}) {
+  Object.keys(listeners)
+  .forEach((eventName: string) => {
+    map.on(eventName, listeners[eventName]);
+  })
+  ;
 }
 
 export class MapComponent extends React.PureComponent<IMapProps, IMapState> {
@@ -17,16 +32,19 @@ export class MapComponent extends React.PureComponent<IMapProps, IMapState> {
 
   componentDidMount() {
     const
-      map = new this.props.L.Map('mapid', {
+      {L, config, listeners = {}, coords, zoom} = this.props,
+      map = new L.Map('mapid', {
         zoomControl: false
       })
       ;
-    map.setView(this.props.coords, this.props.zoom);
-    this.props.L.tileLayer(
-      this.props.config.tileProvider,
-      this.props.config.mapOptions
+    map.setView(coords, zoom);
+    L.tileLayer(
+      config.tileProvider,
+      config.mapOptions
     ).addTo(map);
     this._map = map;
+
+    addListeners(map, listeners);
   }
 
   render() {

@@ -1,9 +1,11 @@
-export interface IActions {
-  controlActions: IControlAction;
-}
-
 export interface IPropsWithAction {
   actions: IActions;
+}
+
+
+export interface IActions {
+  controlActions: IControlAction;
+  leafletListenerActions: ILeafletListenerAction;
 }
 
 
@@ -28,7 +30,7 @@ export enum ControlActions {
 
 export interface ILeafletListenerAction {
   moveend: (ev: L.LeafletEvent) => void;
-  zomeend: (ev: L.LeafletEvent) => void;
+  zoomend: (ev: L.LeafletEvent) => void;
 }
 
 export enum LeafletListenerActions {
