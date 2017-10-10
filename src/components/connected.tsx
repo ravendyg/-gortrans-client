@@ -5,7 +5,7 @@ import { IReduxState } from '../types/state';
   /**
  * override mapState
  * in `componentWillUnmount` call super.componentWillUnmount()
- * * in `componentDidMount` call super.componentDidMount()
+ * * in `componentWillMount` call super.componentWillMount()
  */
 export abstract class Connected<IProps, IState> extends React.PureComponent<IProps, IState> {
 
@@ -17,7 +17,7 @@ export abstract class Connected<IProps, IState> extends React.PureComponent<IPro
     this.subscribeCb = this.subscribeCb.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this._store = (this.props as any).store;
     if (this._store) {
       this._unsubscribe = this._store.subscribe(this.subscribeCb);

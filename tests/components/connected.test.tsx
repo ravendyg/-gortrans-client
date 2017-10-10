@@ -49,26 +49,15 @@ Store.subscribe = (cb: any) => {
 
 class Component extends Connected<IPops, IState> {
 
-  constructor() {
-    super();
-  }
-
   mapState(newStore: IReduxState): IState {
     changeStub(newStore.apiConnection);
     return { connection: newStore.apiConnection.data };
   }
 
-  componentDidMount() {
-    super.componentDidMount();
-  }
-
-  componentWillUnmount() {
-    super.componentWillUnmount();
-  }
-
   render() {
     return(<div></div>);
   }
+
 }
 
 const component = mount(<Component store={Store} />);
