@@ -6,10 +6,7 @@ export interface IReduxState {
     data: SocketIOClient.Socket | null;
     error: Error | null;
   };
-  mapState: {
-    data: IMapStateData;
-    error: Error | null;
-  };
+  mapState: IMapStateData;
 }
 
 export interface IStore<S> extends Store<S> {

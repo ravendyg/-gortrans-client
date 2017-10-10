@@ -6,7 +6,7 @@ interface IMapState { }
 
 export interface IMapProps {
   L: any;
-  coords: [number, number];
+  coords: string [];
   zoom: number;
   config: IConfig;
   listeners?: {
@@ -48,6 +48,21 @@ export class MapComponent extends React.PureComponent<IMapProps, IMapState> {
   }
 
   render() {
+    const
+      {coords, zoom} = this.props
+      ;
+
+    if (this._map) {
+      const {lat, lng} = this._map.getCenter();
+      // change map view only if it change in the state was caused by an external action
+      if (
+        lat.toString() !== coords[0]
+        || lng.toString() !== coords[1]
+        || this._map.getZoom() !== zoom
+      ) {
+        this._map.setView([parseFloat(coords[0]), parseFloat(coords[1])], zoom);
+      }
+    }
     return(
       <div id="mapid">
 

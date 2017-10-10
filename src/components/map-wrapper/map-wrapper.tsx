@@ -5,7 +5,10 @@ import { IReduxState, IStore } from '../../types/state';
 import { MapComponent } from '../map/map';
 import { Connected } from '../connected';
 
-interface IMapWrapperState { }
+interface IMapWrapperState {
+  coords: string [];
+  zoom: number;
+}
 
 export interface IMapWrapperProps {
   L: any;
@@ -16,14 +19,21 @@ export interface IMapWrapperProps {
 
 export class MapWrapperComponent extends Connected<IMapWrapperProps, IMapWrapperState> {
 
-  mapState(): IMapWrapperState {
-    return this.state;
+  mapState(globalState: IReduxState): IMapWrapperState {
+    const
+      {lat, lng, zoom} = globalState.mapState,
+      newState: IMapWrapperState = Object.assign({} , this.state, {
+        coords: [lat, lng],
+        zoom
+      })
+      ;
+    return newState;
   }
 
   render() {
     const
-      coords = this.props.config.defaultCoords,
-      zoom = this.props.config.defaultZoom,
+      coords = this.state.coords,
+      zoom = this.state.zoom,
       listeners = this.props.actions.leafletListenerActions
       ;
 

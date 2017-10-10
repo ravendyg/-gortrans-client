@@ -16,9 +16,7 @@ import { createLeafletListenersActions } from './actions/create-leaflet-listener
 require('./styles.scss');
 
 const
-  defaultCoords: [number, number] = config.defaultCoords as [number, number],
-  _config = Object.assign({}, config, { defaultCoords }),
-  connectToApi = createConnectToApi(Store.dispatch, localStorage, io, _config),
+  connectToApi = createConnectToApi(Store.dispatch, localStorage, io, config),
   controlActions = createControlActions(Store.dispatch),
   leafletListenerActions = createLeafletListenersActions(Store.dispatch),
   actions: IActions = {
@@ -28,7 +26,7 @@ const
   mapProps: IMapWrapperProps = {
     L,
     store: Store,
-    config: _config,
+    config,
     actions
   },
   controlProps: IControlsProps = {

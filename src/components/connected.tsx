@@ -15,6 +15,7 @@ export abstract class Connected<IProps, IState> extends React.PureComponent<IPro
   constructor() {
     super();
     this.subscribeCb = this.subscribeCb.bind(this);
+    this.mapState = this.mapState.bind(this);
   }
 
   componentWillMount() {
@@ -31,7 +32,11 @@ export abstract class Connected<IProps, IState> extends React.PureComponent<IPro
   }
 
   private subscribeCb(): void {
-    const st: IState = this.mapState(this._store.getState());
+    const
+      globalState: IReduxState = this._store.getState(),
+      st: IState = this.mapState(globalState)
+      ;
+
     this.setState(st);
   }
 
