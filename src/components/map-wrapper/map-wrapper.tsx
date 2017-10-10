@@ -17,25 +17,24 @@ export interface IMapWrapperProps {
 
 export class MapWrapperComponent extends Connected<IMapWrapperProps, IMapWrapperState> {
 
-    constructor() { super(); }
-
-    mapState(): IMapWrapperState {
-      return this.state;
-    }
-
-    render() {
-      const
-        coords = this.props.config.defaultCoords,
-        zoom = this.props.config.defaultZoom
-        ;
-
-      return(
-        <MapComponent
-          L={this.props.L}
-          config={this.props.config}
-          coords={coords}
-          zoom={zoom}
-        />
-      );
-    }
+  mapState(): IMapWrapperState {
+    return this.state;
   }
+
+  render() {
+    const
+      coords = this.props.config.defaultCoords,
+      zoom = this.props.config.defaultZoom
+      ;
+
+    return(
+      <MapComponent
+        L={this.props.L}
+        config={this.props.config}
+        coords={coords}
+        zoom={zoom}
+      />
+    );
+  }
+
+}

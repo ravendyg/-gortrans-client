@@ -15,10 +15,6 @@ export class MapComponent extends React.PureComponent<IMapProps, IMapState> {
 
   private _map: L.Map;
 
-  constructor() {
-    super();
-  }
-
   componentDidMount() {
     const
       map = new this.props.L.Map('mapid', {
@@ -40,4 +36,5 @@ export class MapComponent extends React.PureComponent<IMapProps, IMapState> {
       </div>
     );
   }
+
 }

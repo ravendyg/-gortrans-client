@@ -11,10 +11,6 @@ export interface IControlsProps extends IPropsWithAction {}
 
 export class ControlsComponent extends Connected<IControlsProps, IControlsState> {
 
-  constructor() {
-    super();
-  }
-
   mapState(): IControlsState {
     return this.state;
   }
@@ -26,5 +22,6 @@ export class ControlsComponent extends Connected<IControlsProps, IControlsState>
       </div>
     );
   }
+
 }
 
