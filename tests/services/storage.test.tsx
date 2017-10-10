@@ -1,7 +1,8 @@
 import {  } from 'mocha';
 import * as sinon from 'sinon';
 import { assert } from 'chai';
-import { getDefaultViewOptions } from '../../src/services/storage';
+import { createStorageService } from '../../src/services/storage';
+import { IMapStateData } from '../../src/types/state';
 
 const
   config: any = {
@@ -13,23 +14,20 @@ const
     keys: {
       localViewParams: 'aaa'
     }
-  }
+  },
+  storage: any = {
+    getItem: sinon.stub(),
+    setItem: sinon.stub()
+  },
+  {getDefaultViewOptions, setDefaultViewOptions} = createStorageService(storage, config)
   ;
 
 describe('storage service', () => {
 
-  let storage: any;
-
-  before(() => {
-    storage = {
-      getItem: sinon.stub()
-    };
-  });
-
   describe('getDefaultViewOptions', () => {
 
     it('calls getItem', () => {
-      getDefaultViewOptions(storage, config);
+      getDefaultViewOptions();
       sinon.assert.calledWith(storage.getItem, config.keys.localViewParams);
     });
 
@@ -42,7 +40,7 @@ describe('storage service', () => {
         }
         ;
       storage.getItem.returns(JSON.stringify(val));
-      const opt = getDefaultViewOptions(storage, config);
+      const opt = getDefaultViewOptions();
       assert.deepEqual(opt, val);
     });
 
@@ -50,16 +48,33 @@ describe('storage service', () => {
       let opt;
 
       storage.getItem.returns(JSON.stringify('val'));
-      opt = getDefaultViewOptions(storage, config);
+      opt = getDefaultViewOptions();
       assert.deepEqual(opt, config.defaultViewOptions);
 
       storage.getItem.returns(JSON.stringify('{"lat" :'));
-      opt = getDefaultViewOptions(storage, config);
+      opt = getDefaultViewOptions();
       assert.deepEqual(opt, config.defaultViewOptions);
 
       storage.getItem.returns(null);
-      opt = getDefaultViewOptions(storage, config);
+      opt = getDefaultViewOptions();
       assert.deepEqual(opt, config.defaultViewOptions);
+    });
+
+  });
+
+  describe('setDefaultViewOptions', () => {
+
+    it('calls localStorage.setItem', () => {
+      storage.setItem.resetHistory();
+      const
+        val: IMapStateData = {
+          lat: '1',
+          lng: '2',
+          zoom: 3
+        }
+        ;
+      setDefaultViewOptions(val);
+      sinon.assert.calledWith(storage.setItem, config.keys.localViewParams, JSON.stringify(val));
     });
 
   });

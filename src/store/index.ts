@@ -3,11 +3,14 @@ import { apiConnection } from './connection';
 import { createMapState } from './map-state';
 import { IReduxState } from '../types/state';
 import { Store as IStore } from 'redux';
+import { createStorageService } from '../services/storage';
+import { config } from '../config';
 
 const
+  storageService = createStorageService(localStorage, config),
   app = combineReducers({
     apiConnection,
-    mapState: createMapState(localStorage)
+    mapState: createMapState(storageService)
   }),
   win: any = window
   ;
