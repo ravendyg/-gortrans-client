@@ -43,15 +43,6 @@ module.exports = {
             loader: 'ts-loader'
           }
         ]
-      // }, {
-      //   test: path.join(__dirname, 'src', 'html'),
-      //   use: [
-      //     'htmllint-loader',
-      //     {
-      //       loader: 'html-loader',
-      //       options: {}
-      //     }
-      //   ]
       }, {
         test: /\.png/,
         use: [
@@ -120,7 +111,8 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        'API_URL': JSON.stringify(config.API_URL)
+        'API_URL': JSON.stringify(config.URLS.API_URL),
+        'VERSION': JSON.stringify(config.VERSIONS.CLIENT_VERSION)
       }
     }),
   ],

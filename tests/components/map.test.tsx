@@ -12,7 +12,8 @@ describe('map component', () => {
   const
     mapReturn: any = {
       setView: sinon.stub(),
-      removeControl: sinon.stub()
+      removeControl: sinon.stub(),
+      on: sinon.stub()
     },
     layerReturn: any = {
       addTo: sinon.stub()
@@ -33,7 +34,10 @@ describe('map component', () => {
         mapOptions
       },
       coords,
-      zoom: 15
+      zoom: 15,
+      listeners: {
+        'moveend': () => {/**/}
+      }
     }
     ;
 
@@ -47,5 +51,8 @@ describe('map component', () => {
     sinon.assert.calledWith(layerReturn.addTo, mapReturn);
   });
 
+  it('adds listeners to the map', () => {
+    sinon.assert.calledWith(mapReturn.on, 'moveend', props.listeners.moveend);
+  });
 
 });

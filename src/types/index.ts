@@ -1,14 +1,12 @@
-export interface IPayload<P> {
-  data: P | null;
-  error: Error | null;
-}
+import { IMapStateData } from './state';
 
 export interface IAction<T, P> {
   type: T;
-  payload: IPayload<P>;
+  payload: P;
 }
 
 export interface IConfig {
+  apiVersion: string;
   apiUrl: string;
   mapOptions: {
     minZoom: number,
@@ -16,8 +14,10 @@ export interface IConfig {
     maxBounds: L.LatLngBounds
   };
   tileProvider: string;
-  defaultCoords: [number, number];
-  defaultZoom: number;
+  defaultViewOptions: IMapStateData;
+  keys: {
+    localViewParams: string
+  };
 }
 
 export interface ICtor<T> {

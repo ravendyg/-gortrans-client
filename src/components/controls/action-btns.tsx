@@ -13,8 +13,6 @@ export interface IActionBtnsProps extends IPropsWithAction {}
 
 export class ActionBtns extends React.PureComponent<IActionBtnsProps, IActionBtnsState> {
 
-  constructor () { super(); }
-
   render() {
     const btns = [{
         key: 'searchImg',
@@ -41,6 +39,5 @@ export class ActionBtns extends React.PureComponent<IActionBtnsProps, IActionBtn
       </div>
     );
   }
+
 }
-
-

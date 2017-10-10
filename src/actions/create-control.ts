@@ -1,6 +1,5 @@
 import { IAction } from '../types';
 import { ControlActions, IControlAction } from '../types/action-types';
-import { createEmptyPayload } from './empty-payload';
 
 export function createControlActions(
   dispatch: (action: IAction<ControlActions, null>) => void
@@ -9,21 +8,21 @@ export function createControlActions(
   function zoomIn(): void {
     dispatch({
       type: ControlActions.ZOOM_IN,
-      payload: createEmptyPayload()
+      payload: null
     });
   }
 
   function zoomOut(): void {
     dispatch({
       type: ControlActions.ZOOM_OUT,
-      payload: createEmptyPayload()
+      payload: null
     });
   }
 
   function toggleSearch(): void {
     dispatch({
       type: ControlActions.TOGGLE_SEARCH,
-      payload: createEmptyPayload()
+      payload: null
     });
   }
 

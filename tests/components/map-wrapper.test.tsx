@@ -8,6 +8,7 @@ configure({ adapter: new Adapter() });
 
 import { MapComponent } from '../../src/components/map/map';
 import { MapWrapperComponent } from '../../src/components/map-wrapper/map-wrapper';
+import { store } from '../fake-store';
 
 describe('map wrapper component', () => {
 
@@ -33,7 +34,12 @@ describe('map wrapper component', () => {
         tileProvider: 'tileProvider',
         mapOptions
       },
-      actions: {}
+      actions: {
+        leafletListenerActions: {
+          zoomend: () => {/**/}
+        }
+      },
+      store
     },
     comp: ShallowWrapper = shallow(<MapWrapperComponent {...props} />),
     map: ShallowWrapper = comp.find(MapComponent)
@@ -45,6 +51,10 @@ describe('map wrapper component', () => {
 
   it('passes leaflet map to the Map component', () => {
     assert.equal(map.at(0).prop('L'), L);
+  });
+
+  it('passes leaflet listeners to the Map component', () => {
+    assert.equal(map.at(0).prop('listeners'), props.actions.leafletListenerActions);
   });
 
 });
