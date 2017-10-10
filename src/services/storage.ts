@@ -1,9 +1,9 @@
 import { IConfig } from '../types';
-import { IMapStateData } from '../types/state';
+import { IStore, IReduxState, IMapStateData } from '../types/state';
 
 export interface IStorageService {
   getDefaultViewOptions: () => IMapStateData;
-  setDefaultViewOptions: (val: IMapStateData) => void;
+  watchViewOptions: (store: IStore<IReduxState>) => void;
 }
 
 export function createStorageService(storage: Storage, config: IConfig): IStorageService {
@@ -31,8 +31,19 @@ export function createStorageService(storage: Storage, config: IConfig): IStorag
     storage.setItem(config.keys.localViewParams, JSON.stringify(viewOptions));
   }
 
+  function watchViewOptions(store: IStore<IReduxState>) {
+    let oldState: IMapStateData;
+    store.subscribe(() => {
+      const mapState = store.getState().mapState;
+      if (mapState !== oldState) {
+        oldState = mapState;
+        setDefaultViewOptions(oldState);
+      }
+    });
+  }
+
   return {
     getDefaultViewOptions,
-    setDefaultViewOptions
+    watchViewOptions
   };
 }

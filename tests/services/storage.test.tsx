@@ -2,7 +2,6 @@ import {  } from 'mocha';
 import * as sinon from 'sinon';
 import { assert } from 'chai';
 import { createStorageService } from '../../src/services/storage';
-import { IMapStateData } from '../../src/types/state';
 
 const
   config: any = {
@@ -19,7 +18,10 @@ const
     getItem: sinon.stub(),
     setItem: sinon.stub()
   },
-  {getDefaultViewOptions, setDefaultViewOptions} = createStorageService(storage, config)
+  {
+    getDefaultViewOptions,
+    watchViewOptions
+  } = createStorageService(storage, config)
   ;
 
 describe('storage service', () => {
@@ -62,19 +64,47 @@ describe('storage service', () => {
 
   });
 
-  describe('setDefaultViewOptions', () => {
+  describe('watchViewOptions', () => {
 
-    it('calls localStorage.setItem', () => {
+    let
+      sub: any,
+      state: any = {
+        mapState: {}
+      }
+      ;
+
+    const store: any = {
+      subscribe: sinon.stub().callsFake(cb => {
+        sub = cb;
+      }),
+      getState: sinon.stub().returns(state)
+    };
+
+    before(() => {
+      watchViewOptions(store);
+    });
+
+    it('subscribes to the store', () => {
+      sinon.assert.calledOnce(store.subscribe);
+    });
+
+    it('calls store.getState inside cb', () => {
+      store.getState.resetHistory();
+      sub();
+      sinon.assert.calledOnce(store.getState);
+    });
+
+    it('updates data in local storage if state changed', () => {
       storage.setItem.resetHistory();
-      const
-        val: IMapStateData = {
-          lat: '1',
-          lng: '2',
-          zoom: 3
-        }
-        ;
-      setDefaultViewOptions(val);
-      sinon.assert.calledWith(storage.setItem, config.keys.localViewParams, JSON.stringify(val));
+      state.mapState = {a: 'a'};
+      sub();
+      sinon.assert.calledWith(storage.setItem, config.keys.localViewParams, JSON.stringify(state.mapState));
+    });
+
+    it('does not update data in local storage if state has not changed', () => {
+      storage.setItem.resetHistory();
+      sub();
+      sinon.assert.notCalled(storage.setItem);
     });
 
   });

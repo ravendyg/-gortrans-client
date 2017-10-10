@@ -12,10 +12,12 @@ import { Controls, IControlsProps } from './components/controls/controls';
 import { createControlActions } from './actions/create-control';
 import { createConnectToApi } from './actions/create-connect-to-api';
 import { createLeafletListenersActions } from './actions/create-leaflet-listeners';
+import { createStorageService } from './services/storage';
 
 require('./styles.scss');
 
 const
+  storageService = createStorageService(localStorage, config),
   connectToApi = createConnectToApi(Store.dispatch, localStorage, io, config),
   controlActions = createControlActions(Store.dispatch),
   leafletListenerActions = createLeafletListenersActions(Store.dispatch),
@@ -34,6 +36,7 @@ const
   }
   ;
 
+storageService.watchViewOptions(Store);
 connectToApi();
 
 render(
