@@ -3,7 +3,7 @@ import { messages } from '../messages';
 import { ConnectionAction } from '../types/action-types';
 
 export function createConnectToApi(
-  dispatch: (action: IAction<ConnectionAction, SocketIOClient.Socket | Error>) => void,
+  dispatch: (action: IAction<ConnectionAction, SocketIOClient.Socket | Error | null>) => void,
   syncStorage: Storage,
   io: SocketIOClientStatic,
   config: IConfig
@@ -19,6 +19,12 @@ export function createConnectToApi(
     socket.on('connect', establishConnection);
     socket.on(messages.newApiKey, setApiKey);
     socket.on('error', errorConnection);
+    socket.on('disconnect', () => {
+      dispatch({
+        type: ConnectionAction.CONNECTING,
+        payload: null
+      });
+    });
 
     function setApiKey(newApiKey: string): void {
       syncStorage.setItem('apiKey', newApiKey);
