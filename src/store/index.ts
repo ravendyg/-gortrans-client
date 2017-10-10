@@ -10,7 +10,7 @@ const
   storageService = createStorageService(localStorage, config),
   app = combineReducers({
     apiConnection,
-    mapState: createMapState(storageService)
+    mapState: createMapState(storageService, config)
   }),
   win: any = window
   ;

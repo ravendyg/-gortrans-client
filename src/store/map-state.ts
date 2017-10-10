@@ -1,10 +1,9 @@
 import { LeafletListenerActions, ControlActions } from '../types/action-types';
-import { IAction } from '../types';
+import { IAction, IConfig } from '../types';
 import { IMapStateData, MapStatePayload } from '../types/state';
-import { config } from '../config';
 import { IStorageService } from '../services/storage';
 
-export function createMapState(storageService: IStorageService) {
+export function createMapState(storageService: IStorageService, config: IConfig) {
 
   const defViewOptions = storageService.getDefaultViewOptions();
 
@@ -16,11 +15,16 @@ export function createMapState(storageService: IStorageService) {
     switch (action.type) {
 
       case LeafletListenerActions.MOVE_END: {
-        return Object.assign({} , state, action.payload);
+        let newState: IMapStateData = Object.assign({}, state);
+        newState.lat = action.payload.lat as string;
+        newState.lng = action.payload.lng as string;
+        return newState;
       }
 
       case LeafletListenerActions.ZOOM_END: {
-        return Object.assign({} , state, action.payload);
+        let newState: IMapStateData = Object.assign({}, state);
+        newState.zoom = action.payload.zoom as number;
+        return newState;
       }
 
       case ControlActions.ZOOM_IN: {
