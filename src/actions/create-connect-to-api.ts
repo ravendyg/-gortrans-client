@@ -13,7 +13,16 @@ export function createConnectToApi(
 
     const
       apiKey: string | null = syncStorage.getItem('apiKey') || null,
-      socket: SocketIOClient.Socket = io.connect(config.apiUrl, { query: { apiKey } })
+      socket: SocketIOClient.Socket = io.connect(
+        config.apiUrl,
+        {
+          query: {
+            apiKey,
+            version: config.apiVersion,
+            lang: 'ru'  // hardcode for now
+          }
+        }
+      )
       ;
 
     socket.on('connect', establishConnection);

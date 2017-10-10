@@ -1,7 +1,7 @@
 /* global process, L */
 
 const
-  apiVersion = 'v1',
+  apiVersion = process.env.VERSION,
   baseApiUrl = process.env.API_URL || '',
   apiUrl = baseApiUrl,// + apiVersion + '/'
   southWest = L.latLng(30, 10),
@@ -10,6 +10,7 @@ const
   ;
 
 export const config = {
+  apiVersion,
   apiUrl,
   mapOptions: {
     minZoom: 4,
