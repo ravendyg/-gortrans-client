@@ -16,6 +16,13 @@ export function apiConnection(
       };
     }
 
+    case ConnectionAction.CONNECTING: {
+      return {
+        socket: null,
+        error: null
+      };
+    }
+
     case ConnectionAction.ERROR: {
       return {
         socket: null,

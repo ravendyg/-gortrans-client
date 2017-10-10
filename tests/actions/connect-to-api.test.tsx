@@ -27,7 +27,7 @@ const
 
 connectToApi();
 
-describe.only('api connectin actions', () => {
+describe('api connectin actions', () => {
 
   it('connects to the server', () => {
     sinon.assert.calledWith(io.connect, config.apiUrl, sinon.match({ query: { apiKey } }));

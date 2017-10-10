@@ -4,8 +4,8 @@ import { assert } from 'chai';
 import { ConnectionAction } from '../../src/types/action-types';
 import { apiConnection } from '../../src/store/connection';
 
-function createDefaultState() {
-  return { socket: null, error: null };
+function createDefaultState(socket?: any) {
+  return { socket: socket || null, error: null };
 }
 
 describe('apiConnection reducer', () => {
@@ -38,7 +38,7 @@ describe('apiConnection reducer', () => {
 
   it('returns null on CONNECTING', () => {
     const
-      state = createDefaultState(),
+      state = createDefaultState('not null'),
       newState = apiConnection(state, {
         type: ConnectionAction.CONNECTING,
         payload: null
