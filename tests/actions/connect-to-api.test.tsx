@@ -5,7 +5,7 @@ import { ConnectionAction } from '../../src/types/action-types';
 import { EventEmitter } from 'events';
 
 import { messages } from '../../src/messages';
-import { createConnectToApi } from '../../src/actions/create-connect-to-api';
+import { createConnectToApi } from '../../src/actions/connect-to-api';
 
 const
   socket: any = new EventEmitter(),

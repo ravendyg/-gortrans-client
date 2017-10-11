@@ -1,6 +1,6 @@
 import {  } from 'mocha';
 import * as sinon from 'sinon';
-import { createLeafletListenersActions } from '../../src/actions/create-leaflet-listeners';
+import { createLeafletListenersActions } from '../../src/actions/leaflet-listeners';
 import { LeafletListenerActions } from '../../src/types/action-types';
 
 describe('leaflet listener actions', () => {
