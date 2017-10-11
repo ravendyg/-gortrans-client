@@ -43,7 +43,7 @@ export enum LeafletListenerActions {
 
 
 export interface IBusListAction {
-  updateBusList: (list: ListMarsh) => void;
+  updateBusList: (list: ListMarsh []) => void;
   updateQuery: (query: string) => void;
 }
 
