@@ -1,7 +1,7 @@
 /* global process, L */
 
 const
-  apiVersion = process.env.VERSION,
+  apiVersion = process.env.VERSION || '',
   baseApiUrl = process.env.API_URL || '',
   apiUrl = baseApiUrl,// + apiVersion + '/'
   southWest = L.latLng(30, 10),

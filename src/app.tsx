@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import * as L from 'leaflet';
 import * as io from 'socket.io-client';
 
-import { Store } from './store';
+import { storeFactory } from './store';
 import { config } from './config';
 import { IActions } from './types/action-types';
 import { MapWrapperComponent, IMapWrapperProps } from './components/map-wrapper/map-wrapper';
@@ -18,6 +18,7 @@ require('./styles.scss');
 
 const
   storageService = createStorageService(localStorage, config),
+  Store = storeFactory(storageService),
   connectToApi = createConnectToApi(Store.dispatch, localStorage, io, config),
   controlActions = createControlActions(Store.dispatch),
   leafletListenerActions = createLeafletListenersActions(Store.dispatch),

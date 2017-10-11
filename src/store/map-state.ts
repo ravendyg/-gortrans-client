@@ -1,12 +1,8 @@
 import { LeafletListenerActions, ControlActions } from '../types/action-types';
 import { IAction, IConfig } from '../types';
 import { IMapStateData, MapStatePayload } from '../types/state';
-import { IStorageService } from '../services/storage';
 
-export function createMapState(storageService: IStorageService, config: IConfig) {
-
-  const defViewOptions = storageService.getDefaultViewOptions();
-
+export function createMapState(defViewOptions: IMapStateData, config: IConfig) {
   return function mapState(
     state: IMapStateData = defViewOptions,
     action: IAction<LeafletListenerActions | ControlActions, MapStatePayload>

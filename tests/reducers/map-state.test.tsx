@@ -23,11 +23,7 @@ function createDefaultState(zoom?: number): IMapStateData {
   return { lat: '1', lng: '2', zoom: zoom || 3 };
 }
 
-describe('apiConnection reducer', () => {
-
-  it('calls storageService.getDefaultViewOptions', () => {
-    sinon.assert.calledOnce(storageService.getDefaultViewOptions);
-  });
+describe('map state reducer', () => {
 
   it('move end', () => {
     const
