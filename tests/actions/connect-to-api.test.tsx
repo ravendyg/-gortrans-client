@@ -1,11 +1,10 @@
 import {  } from 'mocha';
 import * as sinon from 'sinon';
-// import { assert } from 'chai';
-import { ConnectionAction } from '../../src/types/action-types';
 import { EventEmitter } from 'events';
 
+import { ConnectionAction } from '../../src/types/action-types';
 import { messages } from '../../src/messages';
-import { createConnectToApi } from '../../src/actions/create-connect-to-api';
+import { createConnectToApi } from '../../src/actions/connect-to-api';
 
 const
   socket: any = new EventEmitter(),
@@ -27,7 +26,7 @@ const
 
 connectToApi();
 
-describe('api connectin actions', () => {
+describe('api connection actions', () => {
 
   it('connects to the server', () => {
     sinon.assert.calledWith(io.connect, config.apiUrl, sinon.match({ query: { apiKey } }));

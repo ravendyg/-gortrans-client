@@ -3,19 +3,22 @@ import { apiConnection } from './connection';
 import { createMapState } from './map-state';
 import { IReduxState } from '../types/state';
 import { Store as IStore } from 'redux';
-import { createStorageService } from '../services/storage';
+import { IStorageService } from '../services/storage';
 import { config } from '../config';
 
-const
-  storageService = createStorageService(localStorage, config),
-  app = combineReducers({
-    apiConnection,
-    mapState: createMapState(storageService, config)
-  }),
-  win: any = window
-  ;
+export function storeFactory(storageService: IStorageService) {
+  const
+    defViewOptions = storageService.getDefaultViewOptions(),
+    app = combineReducers({
+      apiConnection,
+      mapState: createMapState(defViewOptions, config)
+    }),
+    win: any = window,
+    Store = createStore(
+      app,
+      win && win.__REDUX_DEVTOOLS_EXTENSION__ && win.__REDUX_DEVTOOLS_EXTENSION__()
+    ) as IStore<IReduxState>
+    ;
 
-export const Store = createStore(
-  app,
-  win.__REDUX_DEVTOOLS_EXTENSION__ && win.__REDUX_DEVTOOLS_EXTENSION__()
-) as IStore<IReduxState>;
+  return Store;
+}

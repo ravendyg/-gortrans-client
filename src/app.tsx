@@ -3,21 +3,22 @@ import { render } from 'react-dom';
 import * as L from 'leaflet';
 import * as io from 'socket.io-client';
 
-import { Store } from './store';
+import { storeFactory } from './store';
 import { config } from './config';
 import { IActions } from './types/action-types';
 import { MapWrapperComponent, IMapWrapperProps } from './components/map-wrapper/map-wrapper';
 import { Controls, IControlsProps } from './components/controls/controls';
 
-import { createControlActions } from './actions/create-control';
-import { createConnectToApi } from './actions/create-connect-to-api';
-import { createLeafletListenersActions } from './actions/create-leaflet-listeners';
+import { createControlActions } from './actions/control';
+import { createConnectToApi } from './actions/connect-to-api';
+import { createLeafletListenersActions } from './actions/leaflet-listeners';
 import { createStorageService } from './services/storage';
 
 require('./styles.scss');
 
 const
   storageService = createStorageService(localStorage, config),
+  Store = storeFactory(storageService),
   connectToApi = createConnectToApi(Store.dispatch, localStorage, io, config),
   controlActions = createControlActions(Store.dispatch),
   leafletListenerActions = createLeafletListenersActions(Store.dispatch),

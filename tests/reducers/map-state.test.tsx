@@ -3,7 +3,7 @@ import { assert } from 'chai';
 import * as sinon from 'sinon';
 
 import { LeafletListenerActions, ControlActions } from '../../src/types/action-types';
-import { IMapStateData, MapStatePayload } from '../../src/types/state';
+import { IMapState, MapStatePayload } from '../../src/types/state';
 import { createMapState } from '../../src/store/map-state';
 
 const
@@ -19,15 +19,11 @@ const
   mapState = createMapState(storageService, config)
   ;
 
-function createDefaultState(zoom?: number): IMapStateData {
+function createDefaultState(zoom?: number): IMapState {
   return { lat: '1', lng: '2', zoom: zoom || 3 };
 }
 
-describe('apiConnection reducer', () => {
-
-  it('calls storageService.getDefaultViewOptions', () => {
-    sinon.assert.calledOnce(storageService.getDefaultViewOptions);
-  });
+describe('map state reducer', () => {
 
   it('move end', () => {
     const

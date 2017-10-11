@@ -1,7 +1,8 @@
 import {  } from 'mocha';
 import * as sinon from 'sinon';
+
 import { ControlActions } from '../../src/types/action-types';
-import { createControlActions } from '../../src/actions/create-control';
+import { createControlActions } from '../../src/actions/control';
 
 const
   dispatch = sinon.stub(),
