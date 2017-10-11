@@ -39,7 +39,7 @@ export function createBusListProvider(
     if (connection && syncOutdated) {
       requested = tmp;
       connection.on(messages.syncBusListResponse, handleResponse);
-      connection.emit(messages.syncBusListRequest);
+      connection.emit(messages.syncBusListRequest, lastSyncInfo.version);
     }
   }
 
