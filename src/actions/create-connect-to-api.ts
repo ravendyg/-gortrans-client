@@ -25,28 +25,30 @@ export function createConnectToApi(
       )
       ;
 
-    socket.on('connect', establishConnection);
+    socket.on('connect', onConnect);
     socket.on(messages.newApiKey, setApiKey);
-    socket.on('error', errorConnection);
-    socket.on('disconnect', () => {
+    socket.on('error', onError);
+    socket.on('disconnect', onDisconnect);
+
+    function onDisconnect() {
       dispatch({
         type: ConnectionAction.CONNECTING,
         payload: null
       });
-    });
+    }
 
     function setApiKey(newApiKey: string): void {
       syncStorage.setItem('apiKey', newApiKey);
     }
 
-    function establishConnection(): void {
+    function onConnect(): void {
       dispatch({
         type: ConnectionAction.CONNECTED,
         payload: socket
       });
     }
 
-    function errorConnection(error: Error): void {
+    function onError(error: Error): void {
       dispatch({
         type: ConnectionAction.ERROR,
         payload: error
