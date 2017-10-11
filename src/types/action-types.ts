@@ -1,4 +1,4 @@
-import { ListMarsh } from './data-types';
+import { BusList } from './data-types';
 
 export interface IPropsWithAction {
   actions: IActions;
@@ -8,6 +8,7 @@ export interface IPropsWithAction {
 export interface IActions {
   controlActions: IControlAction;
   leafletListenerActions: ILeafletListenerAction;
+  busListActions: IBusListAction;
 }
 
 
@@ -43,7 +44,7 @@ export enum LeafletListenerActions {
 
 
 export interface IBusListAction {
-  updateBusList: (list: ListMarsh []) => void;
+  updateBusList: (list: BusList []) => void;
   updateQuery: (query: string) => void;
 }
 

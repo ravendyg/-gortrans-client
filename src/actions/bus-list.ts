@@ -1,4 +1,4 @@
-import { ListMarsh } from '../types/data-types';
+import { BusList } from '../types/data-types';
 import { IAction } from '../types';
 import { BusListPayload } from '../types/state';
 import { BusListActions, IBusListAction } from '../types/action-types';
@@ -7,7 +7,7 @@ export function createBusListActions(
   dispatch: (action: IAction<BusListActions, BusListPayload>) => void
 ): IBusListAction {
 
-  function updateBusList(list: ListMarsh []) {
+  function updateBusList(list: BusList []) {
     dispatch({
       type: BusListActions.UPDATE_LIST,
       payload: {

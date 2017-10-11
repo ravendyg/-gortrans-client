@@ -8,11 +8,12 @@ configure({ adapter: new Adapter() });
 
 import { MapComponent } from '../../src/components/map/map';
 import { MapWrapperComponent } from '../../src/components/map-wrapper/map-wrapper';
-import { store } from '../fake-store';
+import { storeFactory } from '../fake-store';
 
 describe('map wrapper component', () => {
 
   const
+    store = storeFactory(),
     mapReturn: any = {
       setView: sinon.stub(),
       removeControl: sinon.stub()
