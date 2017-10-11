@@ -1,3 +1,5 @@
+import { ListMarsh } from './data-types';
+
 export interface IPropsWithAction {
   actions: IActions;
 }
@@ -37,4 +39,15 @@ export interface ILeafletListenerAction {
 export enum LeafletListenerActions {
   MOVE_END = 7,
   ZOOM_END = 8
+}
+
+
+export interface IBusListAction {
+  updateBusList: (list: ListMarsh) => void;
+  updateQuery: (query: string) => void;
+}
+
+export enum BusListActions {
+  UPDATE_LIST = 9,
+  UPDATE_QUERY = 10
 }

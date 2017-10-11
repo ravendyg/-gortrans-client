@@ -1,9 +1,8 @@
 import {  } from 'mocha';
 import * as sinon from 'sinon';
-// import { assert } from 'chai';
-import { ConnectionAction } from '../../src/types/action-types';
 import { EventEmitter } from 'events';
 
+import { ConnectionAction } from '../../src/types/action-types';
 import { messages } from '../../src/messages';
 import { createConnectToApi } from '../../src/actions/connect-to-api';
 

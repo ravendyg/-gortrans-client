@@ -1,4 +1,4 @@
-import { IMapStateData } from './state';
+import { IMapState } from './state';
 
 export interface IAction<T, P> {
   type: T;
@@ -14,7 +14,7 @@ export interface IConfig {
     maxBounds: L.LatLngBounds
   };
   tileProvider: string;
-  defaultViewOptions: IMapStateData;
+  defaultViewOptions: IMapState;
   keys: {
     localViewParams: string
   };
