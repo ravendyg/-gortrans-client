@@ -3,6 +3,7 @@ import { combineReducers, createStore } from 'redux';
 import { apiConnection } from './connection';
 import { createMapState } from './map-state';
 import { busList } from './bus-list';
+import { appState } from './app-state';
 // interfaces
 import { IReduxState } from '../types/state';
 import { Store as IStore } from 'redux';
@@ -15,7 +16,8 @@ export function storeFactory(storageService: IStorageService, config: IConfig) {
     app = combineReducers({
       apiConnection,
       mapState: createMapState(defViewOptions, config),
-      busList
+      busList,
+      appState,
     }),
     win: any = window,
     Store = createStore(

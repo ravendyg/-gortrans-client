@@ -6,7 +6,7 @@ const defAppState: IAppState = {
   showSearch: false
 };
 
-export function mapState(
+export function appState(
   state: IAppState = defAppState,
   action: IAction<ControlActions, null>
 ): IAppState {
