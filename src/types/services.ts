@@ -5,6 +5,6 @@ export interface IStorageService {
   getDefaultViewOptions: () => IMapState;
   watchViewOptions: (store: IStore<IReduxState>) => void;
 
-  getBusListSync: () => BusListSync;
-  setBusListSync: (info: BusListSync) => void;
+  getBusList: () => Promise<BusListSync>;
+  setBusList: (info: BusListSync) => void;
 }

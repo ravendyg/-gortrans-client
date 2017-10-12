@@ -114,7 +114,7 @@ module.exports = {
         'API_URL': JSON.stringify(config.URLS.API_URL),
         'VERSION': JSON.stringify(config.VERSIONS.CLIENT_VERSION)
       }
-    }),
+    })
   ],
 
   externals: {

@@ -13,9 +13,9 @@ export interface IActions {
 
 
 export enum ConnectionAction {
-  CONNECTING = 1,
-  CONNECTED = 2,
-  ERROR = 3
+  CONNECTING = 'CONNECTING',
+  CONNECTED = 'CONNECTED',
+  ERROR = 'ERROR'
 }
 
 
@@ -26,9 +26,9 @@ export interface IControlAction {
 }
 
 export enum ControlActions {
-  ZOOM_IN = 4,
-  ZOOM_OUT = 5,
-  TOGGLE_SEARCH = 6
+  ZOOM_IN = 'ZOOM_IN',
+  ZOOM_OUT = 'ZOOM_OUT',
+  TOGGLE_SEARCH = 'TOGGLE_SEARCH'
 }
 
 
@@ -38,8 +38,8 @@ export interface ILeafletListenerAction {
 }
 
 export enum LeafletListenerActions {
-  MOVE_END = 7,
-  ZOOM_END = 8
+  MOVE_END = 'MOVE_END',
+  ZOOM_END = 'ZOOM_END'
 }
 
 
@@ -49,6 +49,6 @@ export interface IBusListAction {
 }
 
 export enum BusListActions {
-  UPDATE_LIST = 9,
-  UPDATE_QUERY = 10
+  UPDATE_LIST = 'UPDATE_LIST',
+  UPDATE_QUERY = 'UPDATE_QUERY'
 }

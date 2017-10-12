@@ -1,6 +1,6 @@
 import { IConfig } from '../types';
 import { IStore, IReduxState } from '../types/state';
-import { BusListSyncResponse } from '../types/data-types';
+import { BusListSyncResponse, BusListSync } from '../types/data-types';
 import { IBusListProvider } from '../types/providers';
 import { IBusListAction } from '../types/action-types';
 import { IStorageService } from '../types/services';
@@ -13,20 +13,38 @@ export function createBusListProvider(
   date: DateConstructor
 ): IBusListProvider {
 
-  let
-    requested = 0,
-    lastSyncInfo = storageService.getBusListSync()
-    ;
+  let lastSyncInfo: BusListSync;
+
+  const loaded = new Promise(resolve => {
+    storageService.getBusList()
+    .then((data: BusListSync) => {
+      lastSyncInfo = data;
+      resolve();
+      actions.updateBusList(data.list);
+    })
+    .catch((err: Error) => {
+      console.error(err);
+      lastSyncInfo = {
+        tsp: 0,
+        version: '',
+        list: []
+      };
+      resolve();
+      actions.updateBusList([]);
+    });
+  });
 
   function handleResponse(msg: BusListSyncResponse) {
-    lastSyncInfo.tsp = requested;
-
-    if (msg.version > lastSyncInfo.version) {
+    lastSyncInfo.tsp = msg.tsp;
+    if (msg.version ) {
       lastSyncInfo.version = msg.version;
+    }
+    if (msg.list) {
+      lastSyncInfo.list = msg.list;
       actions.updateBusList(msg.list);
     }
 
-    storageService.setBusListSync(lastSyncInfo);
+    storageService.setBusList(lastSyncInfo);
   }
 
   function updateIfRequired(store: IStore<IReduxState>): void {
@@ -37,18 +55,20 @@ export function createBusListProvider(
       ;
 
     if (connection && syncOutdated) {
-      requested = tmp;
       connection.on(messages.syncBusListResponse, handleResponse);
       connection.emit(messages.syncBusListRequest, lastSyncInfo.version);
     }
   }
 
-  function subscribe(store: IStore<IReduxState>) {
-    store.subscribe(() => {
+  function subscribe(store: IStore<IReduxState>): Promise<void> {
+    return loaded.then(() => {
+      store.subscribe(() => {
+        if (loaded) {
+          updateIfRequired(store);
+        }
+      });
       updateIfRequired(store);
     });
-
-    updateIfRequired(store);
   }
 
   return {

@@ -12,10 +12,12 @@ export declare type BusList = {
 
 export declare type BusListSync = {
   tsp: number;
-  version: number;
+  version: string;
+  list: BusList []
 };
 
 export declare type BusListSyncResponse = {
-  version: number;
-  list: BusList []
+  tsp: number,
+  version?: string;
+  list?: BusList []
 };

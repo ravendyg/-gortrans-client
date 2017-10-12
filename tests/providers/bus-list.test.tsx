@@ -18,15 +18,24 @@ const
   },
   busListSync: BusListSync = {
     tsp: 0,
-    version: 0
+    version: '',
+    list: [{
+      type: 'type',
+      ways: [{
+        marsh: 'marsh',
+        name: 'name',
+        stopb: 'stopb',
+        stope: 'stope'
+      }]
+    }]
   },
   date: any = {
     now: sinon.stub().returns(0)
   },
   storageService: any = {
-    getBusListSync: sinon.stub().returns(busListSync),
+    getBusList: sinon.stub().returns(Promise.resolve(busListSync)),
     getDefaultViewOptions: sinon.stub(),
-    setBusListSync: sinon.stub(),
+    setBusList: sinon.stub(),
     watchViewOptions: sinon.stub()
   },
   busListActions: any = {
@@ -41,32 +50,48 @@ describe('bus list provider', () => {
     store._resetAllHistory();
     date.now.resetHistory();
     busListActions.updateBusList.resetHistory();
-    storageService.setBusListSync.resetHistory();
+    storageService.setBusList.resetHistory();
   });
 
-  it('fetches last sync info', () => {
-    busListProvider.subscribe(store);
-    sinon.assert.calledOnce(storageService.getBusListSync);
+  it('fetches last sync info', done => {
+    busListProvider.subscribe(store)
+    .then(() => {
+      sinon.assert.calledOnce(storageService.getBusList);
+      done();
+    })
+    .catch(done);
   });
 
-  it('calls Store.subscribe', () => {
-    busListProvider.subscribe(store);
-    sinon.assert.calledOnce(store.subscribe);
+  it('calls Store.subscribe', done => {
+    busListProvider.subscribe(store)
+    .then(() => {
+      sinon.assert.calledOnce(store.subscribe);
+      done();
+    })
+    .catch(done);
   });
 
-  it('checks connection status on subscription', () => {
-    busListProvider.subscribe(store);
-    sinon.assert.calledOnce(store.getState);
+  it('checks connection status on subscription', done => {
+    busListProvider.subscribe(store)
+    .then(() => {
+      sinon.assert.calledOnce(store.getState);
+      done();
+    })
+    .catch(done);
   });
 
-  it('checks last sync tsp if connected and does nothing if is up to date', () => {
+  it('checks last sync tsp if connected and does nothing if is up to date', done => {
     const connection = new EventEmitter();
     apiConnection.socket = connection;
-    busListProvider.subscribe(store);
-    sinon.assert.calledOnce(date.now);
+    busListProvider.subscribe(store)
+    .then(() => {
+      sinon.assert.calledOnce(date.now);
+      done();
+    })
+    .catch(done);
   });
 
-  it('subscribes to "syncBusListResponse" and emits "syncBusListRequest" if outdated', () => {
+  it('subscribes to "syncBusListResponse" and emits "syncBusListRequest" if outdated', done => {
     const
       connection = new EventEmitter(),
       spyOn = sinon.spy(connection, 'on'),
@@ -76,46 +101,61 @@ describe('bus list provider', () => {
     apiConnection.socket = connection;
     date.now.returns(100);
 
-    busListProvider.subscribe(store);
-    sinon.assert.calledWith(spyOn, messages.syncBusListResponse);
-    sinon.assert.calledWith(spyEmit, messages.syncBusListRequest);
+    busListProvider.subscribe(store)
+    .then(() => {
+      sinon.assert.calledWith(spyOn, messages.syncBusListResponse);
+      sinon.assert.calledWith(spyEmit, messages.syncBusListRequest);
+      done();
+    })
+    .catch(done);
   });
 
-  it('updates bus list sync info', () => {
+  it('updates bus list sync info', done => {
     const
-      connection = new EventEmitter()
+      connection = new EventEmitter(),
+      newData = {
+        tsp: 123, version: 'v', list: []
+      }
       ;
     apiConnection.socket = connection;
     date.now.returns(200);
 
-    busListProvider.subscribe(store);
-    connection.emit(messages.syncBusListResponse, {
-      version: 0, list: []
-    });
+    busListProvider.subscribe(store)
+    .then(() => {
+      setTimeout(() => {
+        connection.emit(messages.syncBusListResponse, newData);
 
-    sinon.assert.calledWith(storageService.setBusListSync, sinon.match({
-      version: 0, tsp: 200
-    }));
-    sinon.assert.notCalled(busListActions.updateBusList);
+        sinon.assert.calledWith(storageService.setBusList, sinon.match(newData));
+        sinon.assert.calledWith(busListActions.updateBusList, sinon.match([]));
+        done();
+      }, 5);
+    })
+    .catch(done);
   });
 
-  it('updates bus list if response version is greater', () => {
+  it('updates ony tsp and does not dispatch', done => {
     const
       connection = new EventEmitter(),
-      list: any [] = []
+      newData = {
+        tsp: 123
+      }
       ;
     apiConnection.socket = connection;
-    date.now.returns(300);
+    date.now.returns(200);
 
-    busListProvider.subscribe(store);
-    connection.emit(messages.syncBusListResponse, {
-      version: 1, list
-    });
+    busListProvider.subscribe(store)
+    .then(() => {
+      setTimeout(() => {
+        connection.emit(messages.syncBusListResponse, newData);
 
-    sinon.assert.calledWith(storageService.setBusListSync, sinon.match({
-      version: 1, tsp: 300
-    }));
-    sinon.assert.calledWith(busListActions.updateBusList, list);
+              sinon.assert.calledWith(storageService.setBusList, sinon.match(
+                Object.assign({}, busListSync, newData)
+              ));
+              sinon.assert.notCalled(busListActions.updateBusList);
+        done();
+      }, 5);
+    })
+    .catch(done);
   });
 
 });

@@ -40,14 +40,15 @@ export function createStorageService(storage: Storage, config: IConfig): IStorag
     });
   }
 
-  function getBusListSync(): BusListSync {
-    return {
+  function getBusList(): Promise<BusListSync> {
+    return Promise.resolve({
       tsp: 0,
-      version: 0
-    };
+      version: '',
+      list: []
+    });
   }
 
-  function setBusListSync(info: BusListSync) {
+  function setBusList(info: BusListSync) {
     console.log(info);
   }
 
@@ -55,7 +56,7 @@ export function createStorageService(storage: Storage, config: IConfig): IStorag
     getDefaultViewOptions,
     watchViewOptions,
 
-    getBusListSync,
-    setBusListSync
+    getBusList,
+    setBusList
   };
 }
