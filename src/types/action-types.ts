@@ -31,7 +31,7 @@ export enum ControlActions {
 export interface ILeafletAction {
   zoomIn: () => void;
   zoomOut: () => void;
-  mooveend: (ev: L.LeafletEvent) => void;
+  moveend: (ev: L.LeafletEvent) => void;
   zoomend: (ev: L.LeafletEvent) => void;
 }
 

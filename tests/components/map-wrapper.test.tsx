@@ -30,7 +30,7 @@ describe('map wrapper component', () => {
       Control
     },
     zoomend = () => {/**/},
-    mooveend = () => {/**/},
+    moveend = () => {/**/},
     props: any = {
       L,
       config: {
@@ -39,7 +39,7 @@ describe('map wrapper component', () => {
       },
       actions: {
         leafletActions: {
-          mooveend, zoomend
+          moveend, zoomend
         }
       },
       store
@@ -57,7 +57,7 @@ describe('map wrapper component', () => {
   });
 
   it('passes leaflet listeners to the Map component', () => {
-    assert.deepEqual(map.at(0).prop('listeners'), { mooveend, zoomend });
+    assert.deepEqual(map.at(0).prop('listeners'), { moveend, zoomend });
   });
 
 });

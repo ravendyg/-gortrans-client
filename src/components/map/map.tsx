@@ -11,7 +11,7 @@ export interface IMapProps {
   config: IConfig;
   listeners?: {
     zoomend: (ev: L.LeafletEvent) => void;
-    mooveend: (ev: L.LeafletEvent) => void;
+    moveend: (ev: L.LeafletEvent) => void;
   };
   actionWrappers?: {
 

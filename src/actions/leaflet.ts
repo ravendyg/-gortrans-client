@@ -1,32 +1,34 @@
 import { IAction } from '../types';
 import { LeafletActions, ILeafletAction } from '../types/action-types';
-import { MapStatePayload } from '../types/state';
+import { IMapState } from '../types/state';
+
+function createMapStatePayload(ev: L.LeafletEvent): IMapState {
+  const
+    coords: L.LatLng = ev.target.getCenter(),
+    payload: IMapState = {
+      lat: (coords.lat).toString(),
+      lng: (coords.lng).toString(),
+      zoom: ev.target.getZoom(),
+    }
+    ;
+  return payload;
+}
 
 export function createLeafletActions(
-  dispatch: (action: IAction<LeafletActions, MapStatePayload | null>) => void
+  dispatch: (action: IAction<LeafletActions, IMapState | null>) => void
 ): ILeafletAction {
 
-  function mooveend(ev: L.LeafletEvent): void {
-    const
-      coords: L.LatLng = ev.target.getCenter(),
-      payload: MapStatePayload = {
-        lat: (coords.lat).toString(),
-        lng: (coords.lng).toString()
-      }
-      ;
-
+  function moveend(ev: L.LeafletEvent): void {
     dispatch({
       type: LeafletActions.MOVE_END,
-      payload
+      payload: createMapStatePayload(ev)
     });
   }
 
   function zoomend(ev: L.LeafletEvent): void {
-    const payload: MapStatePayload = { zoom: ev.target.getZoom() };
-
     dispatch({
       type: LeafletActions.ZOOM_END,
-      payload
+      payload: createMapStatePayload(ev)
     });
   }
 
@@ -47,7 +49,7 @@ export function createLeafletActions(
   return {
     zoomIn,
     zoomOut,
-    mooveend,
+    moveend,
     zoomend,
   };
 }

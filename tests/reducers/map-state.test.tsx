@@ -3,7 +3,7 @@ import { assert } from 'chai';
 import * as sinon from 'sinon';
 
 import { LeafletActions } from '../../src/types/action-types';
-import { IMapState, MapStatePayload } from '../../src/types/state';
+import { IMapState } from '../../src/types/state';
 import { createMapState } from '../../src/store/map-state';
 
 const
@@ -28,8 +28,8 @@ describe('map state reducer', () => {
   it('move end', () => {
     const
       state = createDefaultState(),
-      payload: MapStatePayload = {
-        lat: '4', lng: '5'
+      payload: IMapState = {
+        lat: '4', lng: '5', zoom: 6
       },
       newState = mapState(state, {
         type: LeafletActions.MOVE_END,
@@ -43,8 +43,8 @@ describe('map state reducer', () => {
   it('zoom end', () => {
     const
       state = createDefaultState(),
-      payload: MapStatePayload = {
-        zoom: 10
+      payload: IMapState = {
+        lat: '100', lng: '101', zoom: 10
       },
       newState = mapState(state, {
         type: LeafletActions.ZOOM_END,

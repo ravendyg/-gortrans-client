@@ -1,25 +1,22 @@
 import { LeafletActions } from '../types/action-types';
 import { IAction, IConfig } from '../types';
-import { IMapState, MapStatePayload } from '../types/state';
+import { IMapState } from '../types/state';
 
 export function createMapState(defViewOptions: IMapState, config: IConfig) {
   return function mapState(
     state: IMapState = defViewOptions,
-    action: IAction<LeafletActions, MapStatePayload>
+    action: IAction<LeafletActions, IMapState>
   ): IMapState {
 
     switch (action.type) {
 
       case LeafletActions.MOVE_END: {
-        let newState: IMapState = Object.assign({}, state);
-        newState.lat = action.payload.lat as string;
-        newState.lng = action.payload.lng as string;
+        let newState: IMapState = Object.assign({}, state, action.payload);
         return newState;
       }
 
       case LeafletActions.ZOOM_END: {
-        let newState: IMapState = Object.assign({}, state);
-        newState.zoom = action.payload.zoom as number;
+        let newState: IMapState = Object.assign({}, state, action.payload);
         return newState;
       }
 

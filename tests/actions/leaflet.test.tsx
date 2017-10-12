@@ -23,7 +23,7 @@ describe('leaflet listener actions', () => {
       ev.target.getCenter.resetHistory();
       ev.target.getZoom.resetHistory();
       dispatch.resetHistory();
-      methods.mooveend((ev as any));
+      methods.moveend((ev as any));
     });
 
     it('calls L.Map.getCenter', () => {
