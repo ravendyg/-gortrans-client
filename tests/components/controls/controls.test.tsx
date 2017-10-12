@@ -15,9 +15,7 @@ describe('<Controls>', () => {
   const
     actions: {controlActions: IControlAction} = {
       controlActions: {
-        zoomIn: sinon.stub(),
-        zoomOut: sinon.stub(),
-        toggleSearch: sinon.stub()
+        toggleSearch: sinon.stub(),
       }
     },
     props: {actions: any} = {

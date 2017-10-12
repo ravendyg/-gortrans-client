@@ -1,6 +1,6 @@
 import { BusListActions } from '../types/action-types';
 import { IAction } from '../types';
-import { BusListPayload, IBusListState } from '../types/state';
+import { IBusListState } from '../types/state';
 
 const defaultBusList: IBusListState = {
   list: ['0', '1', '2', '7'].map(type => ({ type, ways: [] })),
@@ -9,7 +9,7 @@ const defaultBusList: IBusListState = {
 
 export function busList(
   state: IBusListState = defaultBusList,
-  action: IAction<BusListActions, BusListPayload>
+  action: IAction<BusListActions, IBusListState>
 ): IBusListState {
 
   switch (action.type) {

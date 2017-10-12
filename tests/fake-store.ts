@@ -11,6 +11,9 @@ export function storeFactory(_newState?: IReduxState) {
     apiConnection: {
       socket: null,
       error: null
+    },
+    appState: {
+      showSearch: false
     }
   };
 

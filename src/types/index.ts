@@ -1,4 +1,5 @@
 import { IMapState } from './state';
+import { BusListSync } from './data-types';
 
 export interface IAction<T, P> {
   type: T;
@@ -9,14 +10,16 @@ export interface IConfig {
   apiVersion: string;
   apiUrl: string;
   mapOptions: {
-    minZoom: number,
-    maxZoom: number,
-    maxBounds: L.LatLngBounds
+    minZoom: number;
+    maxZoom: number;
+    maxBounds: L.LatLngBounds;
   };
   tileProvider: string;
   defaultViewOptions: IMapState;
+  defaultBusListSync: BusListSync;
   keys: {
-    localViewParams: string
+    localViewParams: string;
+    busListSync: string;
   };
   syncPeriod: number;
 }

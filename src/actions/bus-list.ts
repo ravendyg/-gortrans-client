@@ -1,10 +1,10 @@
 import { BusList } from '../types/data-types';
 import { IAction } from '../types';
-import { BusListPayload } from '../types/state';
+import { IBusListState } from '../types/state';
 import { BusListActions, IBusListAction } from '../types/action-types';
 
 export function createBusListActions(
-  dispatch: (action: IAction<BusListActions, BusListPayload>) => void
+  dispatch: (action: IAction<BusListActions, IBusListState>) => void
 ): IBusListAction {
 
   function updateBusList(list: BusList []) {

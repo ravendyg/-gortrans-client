@@ -3,6 +3,15 @@ import { IStore, IReduxState, IMapState } from '../types/state';
 import { BusListSync } from '../types/data-types';
 import { IStorageService } from '../types/services';
 
+/**
+ * @throws Error('bad entry')
+ */
+function verifyStorageEntry(entry: any): void {
+  if (!entry || typeof entry !== 'object') {
+    throw new Error('bad entry');
+  }
+}
+
 export function createStorageService(storage: Storage, config: IConfig): IStorageService {
 
   function getDefaultViewOptions(): IMapState {
@@ -10,9 +19,7 @@ export function createStorageService(storage: Storage, config: IConfig): IStorag
     try {
       const resStr = storage.getItem(config.keys.localViewParams) || '';
       res = JSON.parse(resStr);
-      if (!resStr || typeof res !== 'object') {
-        throw new Error('bad entry');
-      }
+      verifyStorageEntry(res);
     } catch (err) {
       res = {
         lat: config.defaultViewOptions.lat,
@@ -41,15 +48,24 @@ export function createStorageService(storage: Storage, config: IConfig): IStorag
   }
 
   function getBusList(): Promise<BusListSync> {
-    return Promise.resolve({
-      tsp: 0,
-      version: '',
-      list: []
-    });
+    // probably should use indexeddb, but all data including route lines is about 3-4 MB; will try to stay with localStorage
+    let busListSync: BusListSync;
+    try {
+      const busListSyncInfoStr = storage.getItem(config.keys.busListSync) || '';
+      busListSync = JSON.parse(busListSyncInfoStr);
+      verifyStorageEntry(busListSync);
+    } catch (err) {
+      busListSync = {
+        tsp: 0,
+        version: '',
+        list: []
+      };
+    }
+    return Promise.resolve(busListSync);
   }
 
-  function setBusList(info: BusListSync) {
-    console.log(info);
+  function setBusList(busListSync: BusListSync) {
+    storage.setItem(config.keys.busListSync, JSON.stringify(busListSync));
   }
 
   return {
@@ -57,6 +73,6 @@ export function createStorageService(storage: Storage, config: IConfig): IStorag
     watchViewOptions,
 
     getBusList,
-    setBusList
+    setBusList,
   };
 }

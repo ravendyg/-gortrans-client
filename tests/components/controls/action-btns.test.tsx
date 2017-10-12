@@ -15,9 +15,11 @@ describe('<ActionBtns>', () => {
       actions: {
         controlActions: {
           toggleSearch: () => {/**/},
+        },
+        leafletActions: {
           zoomIn: () => {/**/},
-          zoomOut: () => {/**/}
-        }
+          zoomOut: () => {/**/},
+        },
       }
     },
     btn: ShallowWrapper = shallow(<ActionBtns {...props} />)

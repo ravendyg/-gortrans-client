@@ -10,6 +10,11 @@ const
       lng: '83.0291748046875',
       zoom: 12,
     },
+    defaultBusListSync: {
+      tsp: 0,
+      version: '',
+      list: []
+    },
     keys: {
       localViewParams: 'aaa'
     }
@@ -20,7 +25,9 @@ const
   },
   {
     getDefaultViewOptions,
-    watchViewOptions
+    watchViewOptions,
+    getBusList,
+    setBusList
   } = createStorageService(storage, config)
   ;
 
@@ -105,6 +112,100 @@ describe('storage service', () => {
       storage.setItem.resetHistory();
       sub();
       sinon.assert.notCalled(storage.setItem);
+    });
+
+  });
+
+  describe('getBusList', () => {
+
+    it('calls getItem', done => {
+      getBusList()
+      .then(() => {
+        try {
+          sinon.assert.calledWith(storage.getItem, config.keys.busListSync);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      })
+      .catch(done);
+    });
+
+    it('returns parsed string found in the storage', done => {
+      const
+        val = {
+          tsp: 345345,
+          version: 'sdfgfg',
+          list: []
+        }
+        ;
+      storage.getItem.returns(JSON.stringify(val));
+      getBusList()
+      .then(opt => {
+        try {
+          assert.deepEqual(opt, val);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      })
+      .catch(done);
+    });
+
+    it('returns default if the storage is empty', done => {
+      storage.getItem.returns(null);
+      getBusList()
+      .then(opt => {
+        try {
+          assert.deepEqual(opt, config.defaultBusListSync);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      })
+      .catch(done);
+    });
+
+    it('returns default if the storage returns not an object', done => {
+      storage.getItem.returns(JSON.stringify('val'));
+      getBusList()
+      .then(opt => {
+        try {
+          assert.deepEqual(opt, config.defaultBusListSync);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      })
+      .catch(done);
+    });
+
+    it('returns default if the storage is empty or contains malformed string ', done => {
+      storage.getItem.returns(JSON.stringify('{"lat" :'));
+      getBusList()
+      .then(opt => {
+        try {
+          assert.deepEqual(opt, config.defaultBusListSync);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      })
+      .catch(done);
+    });
+
+  });
+
+  describe('setBusList', () => {
+
+    it('calls storage.setItem', () => {
+      const val = {
+        tsp: 234234,
+        version: 'sdfsdf',
+        list: []
+      };
+      setBusList(val);
+      sinon.assert.calledWith(storage.setItem, config.keys.busListSync, JSON.stringify(val));
     });
 
   });

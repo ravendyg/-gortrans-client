@@ -34,7 +34,7 @@ export function createBusListProvider(
     });
   });
 
-  function handleResponse(msg: BusListSyncResponse) {
+  function updateBusListSyncInfo(msg: BusListSyncResponse) {
     lastSyncInfo.tsp = msg.tsp;
     if (msg.version ) {
       lastSyncInfo.version = msg.version;
@@ -55,7 +55,7 @@ export function createBusListProvider(
       ;
 
     if (connection && syncOutdated) {
-      connection.on(messages.syncBusListResponse, handleResponse);
+      connection.on(messages.syncBusListResponse, updateBusListSyncInfo);
       connection.emit(messages.syncBusListRequest, lastSyncInfo.version);
     }
   }

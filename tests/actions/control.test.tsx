@@ -5,8 +5,8 @@ import { ControlActions } from '../../src/types/action-types';
 import { createControlActions } from '../../src/actions/control';
 
 const
-  dispatch = sinon.stub(),
-  { zoomIn, zoomOut, toggleSearch } = createControlActions(dispatch)
+  dispatch: any = sinon.stub(),
+  { toggleSearch } = createControlActions(dispatch)
   ;
 
 describe('control action', () => {
@@ -15,23 +15,7 @@ describe('control action', () => {
     dispatch.resetHistory();
   });
 
-  it('dispatch correct actin on zoomIn', () => {
-    zoomIn();
-    sinon.assert.calledWith(dispatch, sinon.match({
-      type: ControlActions.ZOOM_IN,
-      payload: null
-    }));
-  });
-
-  it('dispatch correct actin on zoomOut', () => {
-    zoomOut();
-    sinon.assert.calledWith(dispatch, sinon.match({
-      type: ControlActions.ZOOM_OUT,
-      payload: null
-    }));
-  });
-
-  it('dispatch correct actin on toggleSearch', () => {
+  it('dispatch correct action on toggleSearch', () => {
     toggleSearch();
     sinon.assert.calledWith(dispatch, sinon.match({
       type: ControlActions.TOGGLE_SEARCH,

@@ -2,8 +2,8 @@ import {  } from 'mocha';
 import { assert } from 'chai';
 import * as sinon from 'sinon';
 
-import { LeafletListenerActions, ControlActions } from '../../src/types/action-types';
-import { IMapState, MapStatePayload } from '../../src/types/state';
+import { LeafletActions } from '../../src/types/action-types';
+import { IMapState } from '../../src/types/state';
 import { createMapState } from '../../src/store/map-state';
 
 const
@@ -28,11 +28,11 @@ describe('map state reducer', () => {
   it('move end', () => {
     const
       state = createDefaultState(),
-      payload: MapStatePayload = {
-        lat: '4', lng: '5'
+      payload: IMapState = {
+        lat: '4', lng: '5', zoom: 6
       },
       newState = mapState(state, {
-        type: LeafletListenerActions.MOVE_END,
+        type: LeafletActions.MOVE_END,
         payload
       })
       ;
@@ -43,11 +43,11 @@ describe('map state reducer', () => {
   it('zoom end', () => {
     const
       state = createDefaultState(),
-      payload: MapStatePayload = {
-        zoom: 10
+      payload: IMapState = {
+        lat: '100', lng: '101', zoom: 10
       },
       newState = mapState(state, {
-        type: LeafletListenerActions.ZOOM_END,
+        type: LeafletActions.ZOOM_END,
         payload
       })
       ;
@@ -60,7 +60,7 @@ describe('map state reducer', () => {
       state = createDefaultState(10),
       payload: any = {},
       newState = mapState(state, {
-        type: ControlActions.ZOOM_IN,
+        type: LeafletActions.ZOOM_IN,
         payload
       })
       ;
@@ -73,7 +73,7 @@ describe('map state reducer', () => {
       state = createDefaultState(20),
       payload: any = {},
       newState = mapState(state, {
-        type: ControlActions.ZOOM_IN,
+        type: LeafletActions.ZOOM_IN,
         payload
       })
       ;
@@ -86,7 +86,7 @@ describe('map state reducer', () => {
       state = createDefaultState(10),
       payload: any = {},
       newState = mapState(state, {
-        type: ControlActions.ZOOM_OUT,
+        type: LeafletActions.ZOOM_OUT,
         payload
       })
       ;
@@ -99,7 +99,7 @@ describe('map state reducer', () => {
       state = createDefaultState(5),
       payload: any = {},
       newState = mapState(state, {
-        type: ControlActions.ZOOM_OUT,
+        type: LeafletActions.ZOOM_OUT,
         payload
       })
       ;

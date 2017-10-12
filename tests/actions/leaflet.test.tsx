@@ -1,8 +1,8 @@
 import {  } from 'mocha';
 import * as sinon from 'sinon';
 
-import { createLeafletListenersActions } from '../../src/actions/leaflet-listeners';
-import { LeafletListenerActions } from '../../src/types/action-types';
+import { createLeafletActions } from '../../src/actions/leaflet';
+import { LeafletActions } from '../../src/types/action-types';
 
 describe('leaflet listener actions', () => {
 
@@ -14,7 +14,7 @@ describe('leaflet listener actions', () => {
         getZoom: sinon.stub().returns(12)
       }
     },
-    methods = createLeafletListenersActions(dispatch)
+    methods = createLeafletActions(dispatch)
     ;
 
   describe('moveend', () => {
@@ -32,7 +32,7 @@ describe('leaflet listener actions', () => {
 
     it('dispatches correct action', () => {
       sinon.assert.calledWith(dispatch, sinon.match({
-        type: LeafletListenerActions.MOVE_END,
+        type: LeafletActions.MOVE_END,
         payload: {
           lat: '10', lng: '11'
         }
@@ -56,10 +56,34 @@ describe('leaflet listener actions', () => {
 
     it('dispatches correct action', () => {
       sinon.assert.calledWith(dispatch, sinon.match({
-        type: LeafletListenerActions.ZOOM_END,
+        type: LeafletActions.ZOOM_END,
         payload: {
           zoom: 12
         }
+      }));
+    });
+
+  });
+
+  describe('zoomIn', () => {
+
+    it('dispatch correct action', () => {
+      methods.zoomIn();
+      sinon.assert.calledWith(dispatch, sinon.match({
+        type: LeafletActions.ZOOM_IN,
+        payload: null
+      }));
+    });
+
+  });
+
+  describe('zoomOut', () => {
+
+    it('dispatch correct action', () => {
+      methods.zoomOut();
+      sinon.assert.calledWith(dispatch, sinon.match({
+        type: LeafletActions.ZOOM_OUT,
+        payload: null
       }));
     });
 

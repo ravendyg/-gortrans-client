@@ -5,6 +5,7 @@ export interface IReduxState {
   [x: string]: any;
   apiConnection: IApiConnectionState;
   mapState: IMapState;
+  appState: IAppState;
 }
 
 export interface IStore<S> extends Store<S> {
@@ -19,11 +20,10 @@ export interface IApiConnectionState {
 }
 
 
-export declare type MapStatePayload = {
-  zoom?: number;
-  lat?: string;
-  lng?: string;
-};
+export interface IAppState {
+  showSearch: boolean;
+}
+
 
 export interface IMapState {
   zoom: number;
@@ -31,11 +31,6 @@ export interface IMapState {
   lng: string;
 }
 
-
-export declare type BusListPayload = {
-  list: BusList [];
-  query: string;
-};
 
 export interface IBusListState {
   list: BusList [];
