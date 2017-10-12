@@ -23,8 +23,14 @@ export const config = {
     lng: '83.0291748046875',
     zoom: 12,
   },
+  defaultBusListSync: {
+    tsp: 0,
+    version: '',
+    list: []
+  },
   keys: {
-    localViewParams: 'stored-coordinates'
+    localViewParams: 'stored-coordinates',
+    busListSync: 'bus-list-sync,'
   },
   syncPeriod: 1000 * 60 * 60 * 24,  // check bus list and routes every 24 hours
 };
