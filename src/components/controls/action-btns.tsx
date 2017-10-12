@@ -22,12 +22,12 @@ export class ActionBtns extends React.PureComponent<IActionBtnsProps, IActionBtn
       }, {
         key: 'plusImg',
         srcImg: plusImg,
-        click: this.props.actions.controlActions.zoomIn,
+        click: this.props.actions.leafletActions.zoomIn,
         offset: 2
       }, {
         key: 'minusImg',
         srcImg: minusImg,
-        click: this.props.actions.controlActions.zoomOut,
+        click: this.props.actions.leafletActions.zoomOut,
         offset: 1
       }]
       ;

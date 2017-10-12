@@ -2,7 +2,7 @@ import {  } from 'mocha';
 import { assert } from 'chai';
 import * as sinon from 'sinon';
 
-import { LeafletListenerActions, ControlActions } from '../../src/types/action-types';
+import { LeafletActions } from '../../src/types/action-types';
 import { IMapState, MapStatePayload } from '../../src/types/state';
 import { createMapState } from '../../src/store/map-state';
 
@@ -32,7 +32,7 @@ describe('map state reducer', () => {
         lat: '4', lng: '5'
       },
       newState = mapState(state, {
-        type: LeafletListenerActions.MOVE_END,
+        type: LeafletActions.MOVE_END,
         payload
       })
       ;
@@ -47,7 +47,7 @@ describe('map state reducer', () => {
         zoom: 10
       },
       newState = mapState(state, {
-        type: LeafletListenerActions.ZOOM_END,
+        type: LeafletActions.ZOOM_END,
         payload
       })
       ;
@@ -60,7 +60,7 @@ describe('map state reducer', () => {
       state = createDefaultState(10),
       payload: any = {},
       newState = mapState(state, {
-        type: ControlActions.ZOOM_IN,
+        type: LeafletActions.ZOOM_IN,
         payload
       })
       ;
@@ -73,7 +73,7 @@ describe('map state reducer', () => {
       state = createDefaultState(20),
       payload: any = {},
       newState = mapState(state, {
-        type: ControlActions.ZOOM_IN,
+        type: LeafletActions.ZOOM_IN,
         payload
       })
       ;
@@ -86,7 +86,7 @@ describe('map state reducer', () => {
       state = createDefaultState(10),
       payload: any = {},
       newState = mapState(state, {
-        type: ControlActions.ZOOM_OUT,
+        type: LeafletActions.ZOOM_OUT,
         payload
       })
       ;
@@ -99,7 +99,7 @@ describe('map state reducer', () => {
       state = createDefaultState(5),
       payload: any = {},
       newState = mapState(state, {
-        type: ControlActions.ZOOM_OUT,
+        type: LeafletActions.ZOOM_OUT,
         payload
       })
       ;

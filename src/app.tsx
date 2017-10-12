@@ -16,7 +16,7 @@ import { createStorageService } from './services/storage';
 /** actions */
 import { createControlActions } from './actions/control';
 import { createConnectToApi } from './actions/connect-to-api';
-import { createLeafletListenersActions } from './actions/leaflet-listeners';
+import { createLeafletActions } from './actions/leaflet';
 import { createBusListActions } from './actions/bus-list';
 /** /actions */
 
@@ -32,11 +32,11 @@ const
   // actions
   connectToApi = createConnectToApi(Store.dispatch, localStorage, io, config),
   controlActions = createControlActions(Store.dispatch),
-  leafletListenerActions = createLeafletListenersActions(Store.dispatch),
+  leafletActions = createLeafletActions(Store.dispatch),
   busListActions = createBusListActions(Store.dispatch),
   actions: IActions = {
     controlActions,
-    leafletListenerActions,
+    leafletActions,
     busListActions
   },
 

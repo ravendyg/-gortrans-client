@@ -7,7 +7,7 @@ export interface IPropsWithAction {
 
 export interface IActions {
   controlActions: IControlAction;
-  leafletListenerActions: ILeafletListenerAction;
+  leafletActions: ILeafletAction;
   busListActions: IBusListAction;
 }
 
@@ -20,26 +20,26 @@ export enum ConnectionAction {
 
 
 export interface IControlAction {
-  zoomIn: () => void;
-  zoomOut: () => void;
   toggleSearch: () => void;
 }
 
 export enum ControlActions {
-  ZOOM_IN = 'ZOOM_IN',
-  ZOOM_OUT = 'ZOOM_OUT',
   TOGGLE_SEARCH = 'TOGGLE_SEARCH'
 }
 
 
-export interface ILeafletListenerAction {
-  moveend: (ev: L.LeafletEvent) => void;
+export interface ILeafletAction {
+  zoomIn: () => void;
+  zoomOut: () => void;
+  mooveend: (ev: L.LeafletEvent) => void;
   zoomend: (ev: L.LeafletEvent) => void;
 }
 
-export enum LeafletListenerActions {
+export enum LeafletActions {
+  ZOOM_IN = 'ZOOM_IN',
+  ZOOM_OUT = 'ZOOM_OUT',
   MOVE_END = 'MOVE_END',
-  ZOOM_END = 'ZOOM_END'
+  ZOOM_END = 'ZOOM_END',
 }
 
 

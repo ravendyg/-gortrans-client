@@ -34,7 +34,10 @@ export class MapWrapperComponent extends Connected<IMapWrapperProps, IMapWrapper
     const
       coords = this.state.coords,
       zoom = this.state.zoom,
-      listeners = this.props.actions.leafletListenerActions
+      {
+        mooveend,
+        zoomend
+      } = this.props.actions.leafletActions
       ;
 
     return(
@@ -43,7 +46,10 @@ export class MapWrapperComponent extends Connected<IMapWrapperProps, IMapWrapper
         config={this.props.config}
         coords={coords}
         zoom={zoom}
-        listeners={listeners}
+        listeners={{
+          mooveend,
+          zoomend
+        }}
       />
     );
   }

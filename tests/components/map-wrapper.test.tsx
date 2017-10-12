@@ -29,6 +29,8 @@ describe('map wrapper component', () => {
       tileLayer,
       Control
     },
+    zoomend = () => {/**/},
+    mooveend = () => {/**/},
     props: any = {
       L,
       config: {
@@ -36,8 +38,8 @@ describe('map wrapper component', () => {
         mapOptions
       },
       actions: {
-        leafletListenerActions: {
-          zoomend: () => {/**/}
+        leafletActions: {
+          mooveend, zoomend
         }
       },
       store
@@ -55,7 +57,7 @@ describe('map wrapper component', () => {
   });
 
   it('passes leaflet listeners to the Map component', () => {
-    assert.equal(map.at(0).prop('listeners'), props.actions.leafletListenerActions);
+    assert.deepEqual(map.at(0).prop('listeners'), { mooveend, zoomend });
   });
 
 });
