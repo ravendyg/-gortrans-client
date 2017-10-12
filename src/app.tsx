@@ -9,23 +9,37 @@ import { IActions } from './types/action-types';
 import { MapWrapperComponent, IMapWrapperProps } from './components/map-wrapper/map-wrapper';
 import { Controls, IControlsProps } from './components/controls/controls';
 
+/** services */
+import { createStorageService } from './services/storage';
+/** /services */
+
+/** actions */
 import { createControlActions } from './actions/control';
 import { createConnectToApi } from './actions/connect-to-api';
 import { createLeafletListenersActions } from './actions/leaflet-listeners';
-import { createStorageService } from './services/storage';
+import { createBusListActions } from './actions/bus-list';
+/** /actions */
+
+/** providers */
+import { createBusListProvider } from './providers/bus-list';
+/** /providers */
 
 require('./styles.scss');
 
 const
   storageService = createStorageService(localStorage, config),
-  Store = storeFactory(storageService),
+  Store = storeFactory(storageService, config),
+  // actions
   connectToApi = createConnectToApi(Store.dispatch, localStorage, io, config),
   controlActions = createControlActions(Store.dispatch),
   leafletListenerActions = createLeafletListenersActions(Store.dispatch),
+  busListActions = createBusListActions(Store.dispatch),
   actions: IActions = {
     controlActions,
-    leafletListenerActions
+    leafletListenerActions,
+    busListActions
   },
+
   mapProps: IMapWrapperProps = {
     L,
     store: Store,
@@ -34,10 +48,14 @@ const
   },
   controlProps: IControlsProps = {
     actions
-  }
+  },
+  // providers
+  busListProvider = createBusListProvider(busListActions, storageService, config, Date)
   ;
 
 storageService.watchViewOptions(Store);
+busListProvider.subscribe(Store);
+
 connectToApi();
 
 render(

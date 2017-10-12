@@ -3,10 +3,10 @@ import { apiConnection } from './connection';
 import { createMapState } from './map-state';
 import { IReduxState } from '../types/state';
 import { Store as IStore } from 'redux';
-import { IStorageService } from '../services/storage';
-import { config } from '../config';
+import { IStorageService } from '../types/services';
+import { IConfig } from '../types';
 
-export function storeFactory(storageService: IStorageService) {
+export function storeFactory(storageService: IStorageService, config: IConfig) {
   const
     defViewOptions = storageService.getDefaultViewOptions(),
     app = combineReducers({

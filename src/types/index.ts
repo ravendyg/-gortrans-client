@@ -18,6 +18,7 @@ export interface IConfig {
   keys: {
     localViewParams: string
   };
+  syncPeriod: number;
 }
 
 export interface ICtor<T> {

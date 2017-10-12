@@ -16,16 +16,16 @@ interface IPops {
   store: IStore<IReduxState>;
 }
 interface IState {
-  connection: SocketIOClient.Socket | null;
+  socket: SocketIOClient.Socket | null;
 }
 
 const
   Store: any = createStore(
     combineReducers({
-      apiConnection: function (state: any = { data: null, error: null }, action: any) {
+      apiConnection: function (state: any = { socket: null, error: null }, action: any) {
         return action.type === ConnectionAction.CONNECTED
           ? {
-            data: action.payload.data,
+            socket: action.payload.data,
             error: null
           }
           : state
@@ -51,7 +51,7 @@ class Component extends Connected<IPops, IState> {
 
   mapState(newStore: IReduxState): IState {
     changeStub(newStore.apiConnection);
-    return { connection: newStore.apiConnection.data };
+    return { socket: newStore.apiConnection.socket };
   }
 
   render() {
@@ -76,8 +76,8 @@ describe('connect', () => {
     });
     setTimeout(() => {
       try {
-        assert.deepEqual(component.state(), { connection: 'data'});
-        sinon.assert.calledWith(changeStub, sinon.match({ data: 'data', error: null }));
+        assert.deepEqual(component.state(), { socket: 'data'});
+        sinon.assert.calledWith(changeStub, sinon.match({ socket: 'data', error: null }));
         done();
       } catch (err) {
         done(err);

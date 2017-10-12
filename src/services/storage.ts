@@ -1,10 +1,7 @@
 import { IConfig } from '../types';
 import { IStore, IReduxState, IMapState } from '../types/state';
-
-export interface IStorageService {
-  getDefaultViewOptions: () => IMapState;
-  watchViewOptions: (store: IStore<IReduxState>) => void;
-}
+import { BusListSync } from '../types/data-types';
+import { IStorageService } from '../types/services';
 
 export function createStorageService(storage: Storage, config: IConfig): IStorageService {
 
@@ -31,6 +28,7 @@ export function createStorageService(storage: Storage, config: IConfig): IStorag
     storage.setItem(config.keys.localViewParams, JSON.stringify(viewOptions));
   }
 
+  // TODO: extract to a provider?
   function watchViewOptions(store: IStore<IReduxState>) {
     let oldState: IMapState;
     store.subscribe(() => {
@@ -42,8 +40,23 @@ export function createStorageService(storage: Storage, config: IConfig): IStorag
     });
   }
 
+  function getBusList(): Promise<BusListSync> {
+    return Promise.resolve({
+      tsp: 0,
+      version: '',
+      list: []
+    });
+  }
+
+  function setBusList(info: BusListSync) {
+    console.log(info);
+  }
+
   return {
     getDefaultViewOptions,
-    watchViewOptions
+    watchViewOptions,
+
+    getBusList,
+    setBusList
   };
 }

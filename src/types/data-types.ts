@@ -5,7 +5,19 @@ export declare type Way = {
   stope: string
 };
 
-export declare type ListMarsh = {
+export declare type BusList = {
   type: string,
   ways: Way []
+};
+
+export declare type BusListSync = {
+  tsp: number;
+  version: string;
+  list: BusList []
+};
+
+export declare type BusListSyncResponse = {
+  tsp: number,
+  version?: string;
+  list?: BusList []
 };

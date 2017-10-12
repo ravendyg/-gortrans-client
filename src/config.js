@@ -25,5 +25,6 @@ export const config = {
   },
   keys: {
     localViewParams: 'stored-coordinates'
-  }
+  },
+  syncPeriod: 1000 * 60 * 60 * 24,  // check bus list and routes every 24 hours
 };

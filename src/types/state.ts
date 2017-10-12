@@ -1,12 +1,9 @@
-import { ListMarsh } from './data-types';
+import { BusList } from './data-types';
 import { Store } from 'redux';
 
 export interface IReduxState {
   [x: string]: any;
-  apiConnection: {
-    data: SocketIOClient.Socket | null;
-    error: Error | null;
-  };
+  apiConnection: IApiConnectionState;
   mapState: IMapState;
 }
 
@@ -36,11 +33,11 @@ export interface IMapState {
 
 
 export declare type BusListPayload = {
-  list: ListMarsh [];
+  list: BusList [];
   query: string;
 };
 
 export interface IBusListState {
-  list: ListMarsh [];
+  list: BusList [];
   query: string;
 }
