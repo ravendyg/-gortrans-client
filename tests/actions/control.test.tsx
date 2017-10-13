@@ -23,10 +23,18 @@ describe('control action', () => {
     }));
   });
 
-  it('dispatch correct action on hideSearch', () => {
-    controlActions.hideSearch();
+  it('dispatch correct action on showSettings', () => {
+    controlActions.showSettings();
     sinon.assert.calledWith(dispatch, sinon.match({
-      type: ControlActions.HIDE_SEARCH,
+      type: ControlActions.SHOW_SETTINGS,
+      payload: null
+    }));
+  });
+
+  it('dispatch correct action on goToRoot', () => {
+    controlActions.goToRoot();
+    sinon.assert.calledWith(dispatch, sinon.match({
+      type: ControlActions.GO_TO_ROOT,
       payload: null
     }));
   });

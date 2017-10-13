@@ -4,13 +4,14 @@ import { assert } from 'chai';
 import { ControlActions } from '../../src/types/action-types';
 import { IAppState } from '../../src/types/state';
 import { appState } from '../../src/store/app-state';
+import { RouterState } from '../../src/types/data-types';
 
 describe('appState reducer', () => {
 
   it('shows search', () => {
     const
       state: IAppState = {
-        showSearch: false
+        routerState: RouterState.BLANK
       },
       newState = appState(state, {
         type: ControlActions.SHOW_SEARCH,
@@ -18,27 +19,27 @@ describe('appState reducer', () => {
       })
       ;
 
-    assert.deepEqual(newState, { showSearch: true });
+    assert.deepEqual(newState, { routerState: RouterState.SEARCH });
   });
 
   it('hides search', () => {
     const
       state: IAppState = {
-        showSearch: false
+        routerState: RouterState.BLANK
       },
       newState = appState(state, {
-        type: ControlActions.HIDE_SEARCH,
+        type: ControlActions.GO_TO_ROOT,
         payload: null
       })
       ;
 
-    assert.deepEqual(newState, { showSearch: false });
+    assert.deepEqual(newState, { routerState: RouterState.BLANK });
   });
 
   it('ignores unknown action', () => {
     const
       state: IAppState = {
-        showSearch: false
+        routerState: RouterState.BLANK
       },
       action: any = {
         type: 'type',

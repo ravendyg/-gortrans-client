@@ -20,13 +20,15 @@ export enum ConnectionAction {
 
 
 export interface IControlAction {
+  goToRoot: () => void;
   showSearch: () => void;
-  hideSearch: () => void;
+  showSettings: () => void;
 }
 
 export enum ControlActions {
+  GO_TO_ROOT = 'GO_TO_ROOT',
   SHOW_SEARCH = 'SHOW_SEARCH',
-  HIDE_SEARCH = 'HIDE_SEARCH',
+  SHOW_SETTINGS = 'SHOW_SETTINGS',
 }
 
 
