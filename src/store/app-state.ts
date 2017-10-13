@@ -1,9 +1,10 @@
 import { ControlActions } from '../types/action-types';
 import { IAction } from '../types';
 import { IAppState } from '../types/state';
+import { RouterState } from '../types/data-types';
 
 const defAppState: IAppState = {
-  showSearch: false
+  routerState: RouterState.BLANK
 };
 
 export function appState(
@@ -13,11 +14,15 @@ export function appState(
   switch (action.type) {
 
     case ControlActions.SHOW_SEARCH: {
-      return Object.assign({} , state, { showSearch: true });
+      return Object.assign({} , state, { routerState: RouterState.SEARCH });
     }
 
-    case ControlActions.HIDE_SEARCH: {
-      return Object.assign({} , state, { showSearch: false });
+    case ControlActions.SHOW_SETTINGS: {
+      return Object.assign({} , state, { routerState: RouterState.SETTINGS });
+    }
+
+    case ControlActions.GO_TO_ROOT: {
+      return Object.assign({} , state, { routerState: RouterState.BLANK });
     }
 
     default: {

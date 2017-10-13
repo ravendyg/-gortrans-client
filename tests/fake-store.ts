@@ -1,5 +1,6 @@
 import * as sinon from 'sinon';
 import { IReduxState } from '../src/types/state';
+import { RouterState } from '../src/types/data-types';
 
 export function storeFactory(_newState?: IReduxState) {
   let state: IReduxState = {
@@ -13,7 +14,7 @@ export function storeFactory(_newState?: IReduxState) {
       error: null
     },
     appState: {
-      showSearch: false
+      routerState: RouterState.BLANK
     }
   };
 

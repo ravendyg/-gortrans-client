@@ -14,7 +14,9 @@ describe('<ActionBtns>', () => {
     props: any = {
       actions: {
         controlActions: {
-          toggleSearch: () => {/**/},
+          goToRoot: () => {/**/},
+          showSearch: () => {/**/},
+          showSettings: () => {/**/},
         },
         leafletActions: {
           zoomIn: () => {/**/},
@@ -27,7 +29,7 @@ describe('<ActionBtns>', () => {
 
   it('renders btns', () => {
     const len = btn.find(ActionBtn).length;
-    assert.equal(len, 3);
+    assert.equal(len, 4);
   });
 
 });

@@ -1,4 +1,4 @@
-import { BusList } from './data-types';
+import { BusList, RouterState } from './data-types';
 import { Store } from 'redux';
 
 export interface IReduxState {
@@ -21,7 +21,7 @@ export interface IApiConnectionState {
 
 
 export interface IAppState {
-  showSearch: boolean;
+  routerState: RouterState;
 }
 
 

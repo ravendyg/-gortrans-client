@@ -1,17 +1,18 @@
 import {  } from 'mocha';
 import { assert } from 'chai';
 import * as sinon from 'sinon';
-import { createRouter, searchHash } from '../../src/services/router';
+import { createRouter } from '../../src/services/router';
+import { RouterState } from '../../src/types/data-types';
 
 const
   win: any = {
     location: {
       hash: 'qweqw'
     },
-    addEventListener: sinon.stub()
+    addEventListener: sinon.stub(),
   },
   appState = {
-    showSearch: false
+    routerState: RouterState.BLANK,
   },
   store: any = {
     subscribe: sinon.stub(),
@@ -19,7 +20,8 @@ const
   },
   controlActions: any = {
     showSearch: sinon.stub(),
-    hideSearch: sinon.stub(),
+    showSettings: sinon.stub(),
+    goToRoot: sinon.stub(),
   },
   initRouter = createRouter(win, store, controlActions)
   ;
@@ -39,11 +41,12 @@ describe('router service', () => {
 
   beforeEach(() => {
     controlActions.showSearch.resetHistory();
-    controlActions.hideSearch.resetHistory();
+    controlActions.showSettings.resetHistory();
+    controlActions.goToRoot.resetHistory();
   });
 
   it('resets the hash on init', () => {
-    assert.equal(win.location.hash, '');
+    assert.equal(win.location.hash, RouterState.BLANK);
   });
 
   it('subscribes to changes', () => {
@@ -51,35 +54,29 @@ describe('router service', () => {
     sinon.assert.calledOnce(store.subscribe);
   });
 
-  it('displays search when hash changed manually to a correct value', () => {
-    hashchange({newURL: `sdfsdf/${searchHash}`});
+  it(`displays search when hash changed manually to ${RouterState.SEARCH}`, () => {
+    hashchange({newURL: `sdfsdf/${RouterState.SEARCH}`});
     sinon.assert.calledOnce(controlActions.showSearch);
   });
 
-  it(`hides search when hash changed manually to some value different from "${searchHash}"`, () => {
-    hashchange({newURL: 'sdfsdf/#'});
-    sinon.assert.calledOnce(controlActions.hideSearch);
+  it(`displays settings when hash changed manually to ${RouterState.SETTINGS}`, () => {
+    hashchange({newURL: `sdfsdf/${RouterState.SETTINGS}`});
+    sinon.assert.calledOnce(controlActions.showSettings);
   });
 
-  it(`changes hash to "${searchHash}" when appState.showSearch === true and location !== ${searchHash}`, () => {
-    win.location.hash = '';
-    appState.showSearch = true;
-    dispatch();
-    assert.equal(win.location.hash, searchHash);
+  it(`displays blank when hash changed manually to an incorrect hash`, () => {
+    hashchange({newURL: `sdfsdf/#fgdfg`});
+    sinon.assert.calledOnce(controlActions.goToRoot);
   });
 
-  it(`empties hash when appState.showSearch === false and location === ${searchHash}`, () => {
-    win.location.hash = searchHash;
-    appState.showSearch = false;
-    dispatch();
-    assert.equal(win.location.hash, '');
+  it(`displays blank when hash changed manually to ${RouterState.BLANK}`, () => {
+    hashchange({newURL: `sdfsdf/${RouterState.BLANK}`});
+    sinon.assert.calledOnce(controlActions.goToRoot);
   });
 
-  it(`does not changes hash when appState.showSearch === true and location === ${searchHash}`, () => {
-    win.location.hash = searchHash;
-    appState.showSearch = true;
-    dispatch();
-    assert.equal(win.location.hash, searchHash);
+  it(`displays blank when hash changed manually to ${RouterState.EMPTY}`, () => {
+    hashchange({newURL: `sdfsdf/${RouterState.EMPTY}`});
+    sinon.assert.calledOnce(controlActions.goToRoot);
   });
 
 });

@@ -5,7 +5,8 @@ import { ActionBtn } from './action-btn';
 const
   searchImg = require('../../assets/search-64.png'),
   plusImg = require('../../assets/plus-64.png'),
-  minusImg = require('../../assets/minus-64.png')
+  minusImg = require('../../assets/minus-64.png'),
+  settingsImgs = require('../../assets/cog-64.png')
   ;
 
 interface IActionBtnsState {}
@@ -29,7 +30,12 @@ export class ActionBtns extends React.PureComponent<IActionBtnsProps, IActionBtn
         srcImg: minusImg,
         click: this.props.actions.leafletActions.zoomOut,
         offset: 1
-      }]
+      }, {
+        key: 'settingsImgs',
+        srcImg: settingsImgs,
+        click: this.props.actions.controlActions.showSettings,
+        offset: 3
+      }, ]
       ;
     return(
       <div className="control__actions">

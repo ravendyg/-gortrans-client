@@ -5,6 +5,13 @@ export function createControlActions(
   dispatch: (action: IAction<ControlActions, null>) => void
 ): IControlAction {
 
+  function goToRoot(): void {
+    dispatch({
+      type: ControlActions.GO_TO_ROOT,
+      payload: null
+    });
+  }
+
   function showSearch(): void {
     dispatch({
       type: ControlActions.SHOW_SEARCH,
@@ -12,15 +19,16 @@ export function createControlActions(
     });
   }
 
-  function hideSearch(): void {
+  function showSettings(): void {
     dispatch({
-      type: ControlActions.HIDE_SEARCH,
+      type: ControlActions.SHOW_SETTINGS,
       payload: null
     });
   }
 
   return {
+    goToRoot,
     showSearch,
-    hideSearch
+    showSettings,
   };
 }

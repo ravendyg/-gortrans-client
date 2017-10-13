@@ -21,3 +21,10 @@ export declare type BusListSyncResponse = {
   version?: string;
   list?: BusList []
 };
+
+export enum RouterState {
+  BLANK = '',
+  EMPTY = '#',
+  SEARCH = '#search',
+  SETTINGS = '#settings',
+}
