@@ -39,8 +39,6 @@
     "webpack": "^3.6.0"
   },
   "devDependencies": {
-    "react": "^15.6.2",
-    "react-dom": "^15.6.2",
     "@types/chai": "^4.0.4",
     "@types/enzyme": "^2.8.11",
     "@types/leaflet": "^1.2.0",
@@ -55,6 +53,8 @@
     "enzyme-adapter-react-15": "^1.0.1",
     "ignore-styles": "^5.0.1",
     "mocha": "^4.0.1",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
     "react-test-renderer": "^15.6.2",
     "sinon": "^4.0.1",
     "testdom": "^2.0.0",

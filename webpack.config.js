@@ -68,7 +68,7 @@ module.exports = {
     alias: {
       'react': 'preact-compat',
       'react-dom': 'preact-compat',
-      'react-redux': 'preact-redux'
+      'react-redux': 'preact-redux',
     },
 
     extensions: ['.js', '.ts', '.tsx', '.css'],

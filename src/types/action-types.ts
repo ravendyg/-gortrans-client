@@ -20,11 +20,13 @@ export enum ConnectionAction {
 
 
 export interface IControlAction {
-  toggleSearch: () => void;
+  showSearch: () => void;
+  hideSearch: () => void;
 }
 
 export enum ControlActions {
-  TOGGLE_SEARCH = 'TOGGLE_SEARCH'
+  SHOW_SEARCH = 'SHOW_SEARCH',
+  HIDE_SEARCH = 'HIDE_SEARCH',
 }
 
 

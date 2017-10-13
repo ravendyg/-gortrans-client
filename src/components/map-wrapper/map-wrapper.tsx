@@ -22,7 +22,7 @@ export class MapWrapperComponent extends Connected<IMapWrapperProps, IMapWrapper
   mapState(globalState: IReduxState): IMapWrapperState {
     const
       {lat, lng, zoom} = globalState.mapState,
-      newState: IMapWrapperState = Object.assign({} , this.state, {
+      newState: IMapWrapperState = Object.assign({}, this.state, {
         coords: [lat, lng],
         zoom
       })
