@@ -11,6 +11,7 @@ import { Controls, IControlsProps } from './components/controls/controls';
 
 /** services */
 import { createStorageService } from './services/storage';
+import { createRouter } from './services/router';
 /** /services */
 
 /** actions */
@@ -40,6 +41,8 @@ const
     busListActions
   },
 
+  initRouting = createRouter(window, Store, controlActions),
+
   mapProps: IMapWrapperProps = {
     L,
     store: Store,
@@ -57,6 +60,7 @@ storageService.watchViewOptions(Store);
 busListProvider.subscribe(Store);
 
 connectToApi();
+initRouting();
 
 render(
   <div id="wrapper">
