@@ -7,18 +7,32 @@ import { appState } from '../../src/store/app-state';
 
 describe('appState reducer', () => {
 
-  it('toggles search displayed', () => {
+  it('shows search', () => {
     const
       state: IAppState = {
         showSearch: false
       },
       newState = appState(state, {
-        type: ControlActions.TOGGLE_SEARCH,
+        type: ControlActions.SHOW_SEARCH,
         payload: null
       })
       ;
 
     assert.deepEqual(newState, { showSearch: true });
+  });
+
+  it('hides search', () => {
+    const
+      state: IAppState = {
+        showSearch: false
+      },
+      newState = appState(state, {
+        type: ControlActions.HIDE_SEARCH,
+        payload: null
+      })
+      ;
+
+    assert.deepEqual(newState, { showSearch: false });
   });
 
   it('ignores unknown action', () => {

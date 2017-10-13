@@ -12,8 +12,12 @@ export function appState(
 ): IAppState {
   switch (action.type) {
 
-    case ControlActions.TOGGLE_SEARCH: {
-      return Object.assign({} , state, { showSearch: !state.showSearch });
+    case ControlActions.SHOW_SEARCH: {
+      return Object.assign({} , state, { showSearch: true });
+    }
+
+    case ControlActions.HIDE_SEARCH: {
+      return Object.assign({} , state, { showSearch: false });
     }
 
     default: {

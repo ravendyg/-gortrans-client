@@ -5,14 +5,22 @@ export function createControlActions(
   dispatch: (action: IAction<ControlActions, null>) => void
 ): IControlAction {
 
-  function toggleSearch(): void {
+  function showSearch(): void {
     dispatch({
-      type: ControlActions.TOGGLE_SEARCH,
+      type: ControlActions.SHOW_SEARCH,
+      payload: null
+    });
+  }
+
+  function hideSearch(): void {
+    dispatch({
+      type: ControlActions.HIDE_SEARCH,
       payload: null
     });
   }
 
   return {
-    toggleSearch,
+    showSearch,
+    hideSearch
   };
 }

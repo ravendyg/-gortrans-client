@@ -6,7 +6,7 @@ import { createControlActions } from '../../src/actions/control';
 
 const
   dispatch: any = sinon.stub(),
-  { toggleSearch } = createControlActions(dispatch)
+  controlActions = createControlActions(dispatch)
   ;
 
 describe('control action', () => {
@@ -15,10 +15,18 @@ describe('control action', () => {
     dispatch.resetHistory();
   });
 
-  it('dispatch correct action on toggleSearch', () => {
-    toggleSearch();
+  it('dispatch correct action on showSearch', () => {
+    controlActions.showSearch();
     sinon.assert.calledWith(dispatch, sinon.match({
-      type: ControlActions.TOGGLE_SEARCH,
+      type: ControlActions.SHOW_SEARCH,
+      payload: null
+    }));
+  });
+
+  it('dispatch correct action on hideSearch', () => {
+    controlActions.hideSearch();
+    sinon.assert.calledWith(dispatch, sinon.match({
+      type: ControlActions.HIDE_SEARCH,
       payload: null
     }));
   });

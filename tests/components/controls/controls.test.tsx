@@ -15,7 +15,8 @@ describe('<Controls>', () => {
   const
     actions: {controlActions: IControlAction} = {
       controlActions: {
-        toggleSearch: sinon.stub(),
+        showSearch: sinon.stub(),
+        hideSearch: sinon.stub(),
       }
     },
     props: {actions: any} = {

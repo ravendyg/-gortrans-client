@@ -17,7 +17,7 @@ export class ActionBtns extends React.PureComponent<IActionBtnsProps, IActionBtn
     const btns = [{
         key: 'searchImg',
         srcImg: searchImg,
-        click: this.props.actions.controlActions.toggleSearch,
+        click: this.props.actions.controlActions.showSearch,
         offset: 1
       }, {
         key: 'plusImg',
