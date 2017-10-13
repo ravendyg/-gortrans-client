@@ -28,7 +28,9 @@ export abstract class Connected<IProps, IState> extends React.PureComponent<IPro
   }
 
   componentWillUnmount() {
-    this._unsubscribe();
+    if (this._unsubscribe) {
+      this._unsubscribe();
+    }
   }
 
   private subscribeCb(): void {

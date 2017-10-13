@@ -6,8 +6,8 @@ import * as io from 'socket.io-client';
 import { storeFactory } from './store';
 import { config } from './config';
 import { IActions } from './types/action-types';
-import { MapWrapperComponent, IMapWrapperProps } from './components/map-wrapper/map-wrapper';
-import { Controls, IControlsProps } from './components/controls/controls';
+import { App } from './components/app';
+import { IMapWrapperProps } from './components/map-wrapper/map-wrapper';
 
 /** services */
 import { createStorageService } from './services/storage';
@@ -49,9 +49,6 @@ const
     config,
     actions
   },
-  controlProps: IControlsProps = {
-    actions
-  },
   // providers
   busListProvider = createBusListProvider(busListActions, storageService, config, Date)
   ;
@@ -63,9 +60,6 @@ connectToApi();
 initRouting();
 
 render(
-  <div id="wrapper">
-    <MapWrapperComponent {...mapProps} />
-    <Controls {...controlProps} />
-  </div>,
+  <App actions={actions} mapProps={mapProps} store={Store}/>,
   document.getElementById('app')
 );

@@ -23,7 +23,7 @@ export function storeFactory(_newState?: IReduxState) {
   }
 
   function _setState(newState: IReduxState) {
-    state = Object.assign({}, state, newState);
+    Object.assign(state, newState);
   }
 
   const

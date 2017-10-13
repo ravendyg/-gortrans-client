@@ -7,7 +7,7 @@ configure({ adapter: new Adapter() });
 
 import { MapComponent } from '../../src/components/map/map';
 
-describe('map component', () => {
+describe('<MapComponent>', () => {
 
   const
     mapReturn: any = {

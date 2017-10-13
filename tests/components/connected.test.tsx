@@ -62,7 +62,7 @@ class Component extends Connected<IPops, IState> {
 
 const component = mount(<Component store={Store} />);
 
-describe('connect', () => {
+describe('<Connected>', () => {
 
   it('subscribes to store changes', () => {
     sinon.assert.calledOnce(subStub);

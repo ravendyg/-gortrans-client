@@ -10,7 +10,7 @@ import { MapComponent } from '../../src/components/map/map';
 import { MapWrapperComponent } from '../../src/components/map-wrapper/map-wrapper';
 import { storeFactory } from '../fake-store';
 
-describe('map wrapper component', () => {
+describe('<MapWrapper>', () => {
 
   const
     store = storeFactory(),

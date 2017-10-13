@@ -1,0 +1,71 @@
+import * as React from 'react';
+import { Connected } from './connected';
+import { IPropsWithAction } from '../types/action-types';
+import { MapWrapperComponent, IMapWrapperProps } from './map-wrapper/map-wrapper';
+import { Controls } from './controls/controls';
+import { IStore, IReduxState } from '../types/state';
+import { RouterState } from '../types/data-types';
+import { Settings } from './settings/settings';
+import { Search } from './search/search';
+import { SidePanel } from './side-panel';
+
+export declare type PanelContent = JSX.Element | null;
+
+interface IAppState {
+  panelContent: PanelContent;
+}
+
+export interface IAppProps extends IPropsWithAction {
+  mapProps: IMapWrapperProps;
+  store: IStore<IReduxState>;
+}
+
+function mapRouterStateToPanelState(routerState: RouterState): PanelContent {
+  switch (routerState) {
+    case RouterState.SEARCH: {
+      return <Search />;
+    }
+
+    case RouterState.SETTINGS: {
+      return <Settings />;
+    }
+
+    default: {
+      return null;
+    }
+  }
+}
+
+export function mapState(newState: IReduxState): IAppState {
+  return {
+    panelContent: mapRouterStateToPanelState(newState.appState.routerState),
+  };
+}
+
+export class App extends Connected<IAppProps, IAppState> {
+
+  mapState(newState: IReduxState): IAppState {
+    return mapState(newState);
+  }
+
+  render() {
+    const
+      controls = !this.state.panelContent
+        ? <Controls actions={this.props.actions} />
+        : null
+        ,
+      sidePanel = this.state.panelContent
+        ? <SidePanel children={this.state.panelContent} />
+        : null
+      ;
+
+    return(
+      <div id="wrapper">
+        <MapWrapperComponent {...this.props.mapProps} />
+        {controls}
+        {sidePanel}
+      </div>
+    );
+  }
+
+}
