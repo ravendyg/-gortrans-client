@@ -27,3 +27,7 @@ export interface IConfig {
 export interface ICtor<T> {
   new(...args: any[]): T;
 }
+
+export interface IWindowProps {
+  win: Window;
+}

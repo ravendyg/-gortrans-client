@@ -60,6 +60,11 @@ connectToApi();
 initRouting();
 
 render(
-  <App actions={actions} mapProps={mapProps} store={Store}/>,
+  <App
+    actions={actions}
+    mapProps={mapProps}
+    store={Store}
+    win={window}
+  />,
   document.getElementById('app')
 );

@@ -17,10 +17,16 @@ import { App, mapState } from '../../src/components/app';
 const
   store = storeFactory(),
   mapProps: any = {},
-  actions: any = {
-
-  },
-  app: ShallowWrapper = shallow(<App mapProps={mapProps} actions={actions} store={store}/>)
+  actions: any = {},
+  win: any = {},
+  app: ShallowWrapper = shallow(
+    <App
+      mapProps={mapProps}
+      actions={actions}
+      store={store}
+      win={win}
+    />
+  )
   ;
 
 describe('<App>', () => {

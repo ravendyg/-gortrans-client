@@ -5,6 +5,7 @@ import { MapWrapperComponent, IMapWrapperProps } from './map-wrapper/map-wrapper
 import { Controls } from './controls/controls';
 import { IStore, IReduxState } from '../types/state';
 import { RouterState } from '../types/data-types';
+import { IWindowProps } from '../types';
 import { Settings } from './settings/settings';
 import { Search } from './search/search';
 import { SidePanel } from './side-panel';
@@ -15,7 +16,7 @@ interface IAppState {
   panelContent: PanelContent;
 }
 
-export interface IAppProps extends IPropsWithAction {
+export interface IAppProps extends IPropsWithAction, IWindowProps {
   mapProps: IMapWrapperProps;
   store: IStore<IReduxState>;
 }
@@ -55,7 +56,14 @@ export class App extends Connected<IAppProps, IAppState> {
         : null
         ,
       sidePanel = this.state.panelContent
-        ? <SidePanel children={this.state.panelContent} />
+        ? (
+          <SidePanel
+            children={this.state.panelContent}
+            closeMe={() => {/**/}}
+            slideLength={'0.5s'}
+            win={this.props.win}
+          />
+        )
         : null
       ;
 

@@ -1,32 +1,79 @@
 import * as React from 'react';
+import { IWindowProps } from '../types';
 
 interface ISidePanelState {
-  className: string;
+  transition: string;
+  transform: string;
 }
 
-export interface ISidePanelProps {
-
+export interface ISidePanelProps extends IWindowProps {
+  slideLength: string;
+  closeMe: () => void;
 }
 
-export class SidePanel extends React.Component<ISidePanelProps, ISidePanelState> {
+export class SidePanel extends React.PureComponent<ISidePanelProps, ISidePanelState> {
+
+  private timeout: number;
 
   constructor() {
     super();
+
     this.state = {
-      className: 'side_panel--menu',
+      transform: '',
+      transition: ''
+    };
+
+    this.handleClose = this.handleClose.bind(this);
+    this.handleKeyPressed = this.handleKeyPressed.bind(this);
+  }
+
+  componentWillMount() {
+    this.timeout = Math.round(parseFloat(this.props.slideLength) * 1000);
+    this.state = {
+      transition: this.props.slideLength + ' linear',
+      transform: 'translate(-100%, 0)'
     };
   }
 
-  componenDidMount() {
-    this.setState({
-      className: 'side_panel--menu__opened',
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        transform: 'translate(0, 0)'
+      });
     });
+
+    this.props.win.document.addEventListener('keyup', this.handleKeyPressed);
+  }
+
+  componentWillUnmount() {
+    this.props.win.document.removeEventListener('keyup', this.handleKeyPressed);
+  }
+
+  handleClose() {
+    this.setState({
+      transform: 'translate(-100%, 0)'
+    });
+    setTimeout(() => {
+      this.props.closeMe();
+    }, this.timeout);
+  }
+
+  handleKeyPressed(ev: KeyboardEvent) {
+    if (ev.key === 'Escape') {
+      this.handleClose();
+    }
   }
 
   render() {
     return(
-      <div className="side_panel--overlay">
-        <div className={this.state.className}>
+      <div
+        className="side_panel--overlay"
+        onClick={this.handleClose}
+      >
+        <div
+          className="side_panel--content-wrapper"
+          style={{...this.state}}
+        >
           { this.props.children }
         </div>
       </div>
