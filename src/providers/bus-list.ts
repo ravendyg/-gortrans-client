@@ -1,7 +1,7 @@
 import { IConfig } from '../types';
 import { IStore, IReduxState } from '../types/state';
 import { BusListSyncResponse, BusListSync } from '../types/data-types';
-import { IBusListProvider } from '../types/providers';
+import { IProvider } from '../types/providers';
 import { IBusListAction } from '../types/action-types';
 import { IStorageService } from '../types/services';
 import { messages } from '../messages';
@@ -11,7 +11,7 @@ export function createBusListProvider(
   storageService: IStorageService,
   config: IConfig,
   date: DateConstructor
-): IBusListProvider {
+): IProvider {
 
   let lastSyncInfo: BusListSync;
 

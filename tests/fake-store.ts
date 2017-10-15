@@ -25,6 +25,12 @@ export function storeFactory(_newState?: IReduxState) {
       text: {
         searchInputPlaceholder: 'searchInputPlaceholder',
       }
+    },
+    busSearch: {
+      '0': [],
+      '1': [],
+      '2': [],
+      '7': [],
     }
   };
 

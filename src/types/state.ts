@@ -1,4 +1,4 @@
-import { BusList, RouterState } from './data-types';
+import { BusList, RouterState, BusSearch } from './data-types';
 import { Store } from 'redux';
 
 export interface IReduxState {
@@ -8,6 +8,7 @@ export interface IReduxState {
   appState: IAppState;
   busList: IBusListState;
   translation: ITranslationState;
+  busSearch: IBusSearchState;
 }
 
 export interface IStore<S> extends Store<S> {
@@ -45,4 +46,9 @@ export interface ITranslationState {
   text: {
     [key: string]: string
   };
+}
+
+
+export interface IBusSearchState {
+  [key: string]: BusSearch [];
 }

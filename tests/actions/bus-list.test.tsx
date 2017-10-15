@@ -6,7 +6,7 @@ import { createBusListActions } from '../../src/actions/bus-list';
 
 const
   dispatch: any = sinon.stub(),
- { updateBusList, updateQuery } = createBusListActions(dispatch)
+  { updateBusList, updateQuery } = createBusListActions(dispatch)
  ;
 
 describe('bus list actions', () => {

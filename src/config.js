@@ -30,7 +30,9 @@ export const config = {
   },
   keys: {
     localViewParams: 'stored-coordinates',
-    busListSync: 'bus-list-sync,'
+    busListSync: 'bus-list-sync',
+    busSearch: 'bus-search',
   },
   syncPeriod: 1000 * 60 * 60 * 24,  // check bus list and routes every 24 hours
+  historyDisplayLimit: 5,
 };

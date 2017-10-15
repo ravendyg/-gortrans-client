@@ -28,3 +28,9 @@ export enum RouterState {
   SEARCH = '#search',
   SETTINGS = '#settings',
 }
+
+export declare type BusSearch = {
+  title: string;
+  marsh: string;
+};
+

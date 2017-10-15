@@ -19,10 +19,13 @@ import { createControlActions } from './actions/control';
 import { createConnectToApi } from './actions/connect-to-api';
 import { createLeafletActions } from './actions/leaflet';
 import { createBusListActions } from './actions/bus-list';
+import { createBusSearchActions } from './actions/bus-search';
+
 /** /actions */
 
 /** providers */
 import { createBusListProvider } from './providers/bus-list';
+import { createBusSearchProvider } from './providers/bus-search';
 /** /providers */
 
 require('./styles.scss');
@@ -35,10 +38,12 @@ const
   controlActions = createControlActions(Store.dispatch),
   leafletActions = createLeafletActions(Store.dispatch),
   busListActions = createBusListActions(Store.dispatch),
+  busSearchAction = createBusSearchActions(Store.dispatch),
   actions: IActions = {
     controlActions,
     leafletActions,
-    busListActions
+    busListActions,
+    busSearchAction,
   },
 
   initRouting = createRouter(window, Store, controlActions),
@@ -50,11 +55,14 @@ const
     actions
   },
   // providers
-  busListProvider = createBusListProvider(busListActions, storageService, config, Date)
+  busListProvider = createBusListProvider(busListActions, storageService, config, Date),
+  busSearchProvider = createBusSearchProvider(busSearchAction, storageService)
   ;
 
 storageService.watchViewOptions(Store);
+
 busListProvider.subscribe(Store);
+busSearchProvider.subscribe(Store);
 
 connectToApi();
 initRouting();

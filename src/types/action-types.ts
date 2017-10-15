@@ -1,4 +1,6 @@
-import { BusList } from './data-types';
+import { BusList, BusSearch } from './data-types';
+import { BusCodes } from './enums';
+import { IBusSearchState } from './state';
 
 export interface IPropsWithAction {
   actions: IActions;
@@ -9,6 +11,7 @@ export interface IActions {
   controlActions: IControlAction;
   leafletActions: ILeafletAction;
   busListActions: IBusListAction;
+  busSearchAction: IBusSearchAction;
 }
 
 
@@ -54,5 +57,16 @@ export interface IBusListAction {
 
 export enum BusListActions {
   UPDATE_LIST = 'UPDATE_LIST',
-  UPDATE_QUERY = 'UPDATE_QUERY'
+  UPDATE_QUERY = 'UPDATE_QUERY',
+}
+
+
+export interface IBusSearchAction {
+  updateHistory: (key: BusCodes, busSearch: BusSearch) => void;
+  updateAllHistory: (busSearch: IBusSearchState) => void;
+}
+
+export enum BusSearchActions {
+  ADD_TO_HISTORY = 'ADD_TO_HISTORY',
+  RESET_SEARCH_HISTORY = 'RESET_SEARCH_HISTORY,'
 }

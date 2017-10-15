@@ -1,7 +1,8 @@
 import { IConfig } from '../types';
-import { IStore, IReduxState, IMapState } from '../types/state';
+import { IStore, IReduxState, IMapState, IBusSearchState } from '../types/state';
 import { BusListSync } from '../types/data-types';
 import { IStorageService } from '../types/services';
+import { getDefaultBusListSync, getDefaultBusSearch, getDefaultMapState } from './defaults';
 
 /**
  * @throws Error('bad entry')
@@ -14,6 +15,19 @@ function verifyStorageEntry(entry: any): void {
 
 export function createStorageService(storage: Storage, config: IConfig): IStorageService {
 
+  function getAsync<T>(key: string, getDefault: () => T): Promise<T> {
+    let res: T;
+    try {
+      const resStr = storage.getItem(key) || '';
+      res = JSON.parse(resStr);
+      verifyStorageEntry(res);
+    } catch (err) {
+      res = getDefault();
+    }
+    return Promise.resolve(res);
+  }
+
+
   function getDefaultViewOptions(): IMapState {
     let res: IMapState;
     try {
@@ -21,15 +35,12 @@ export function createStorageService(storage: Storage, config: IConfig): IStorag
       res = JSON.parse(resStr);
       verifyStorageEntry(res);
     } catch (err) {
-      res = {
-        lat: config.defaultViewOptions.lat,
-        lng: config.defaultViewOptions.lng,
-        zoom: config.defaultViewOptions.zoom
-      };
+      res = getDefaultMapState(config);
     }
 
     return res;
   }
+
 
   function setDefaultViewOptions(viewOptions: IMapState) {
     storage.setItem(config.keys.localViewParams, JSON.stringify(viewOptions));
@@ -47,25 +58,22 @@ export function createStorageService(storage: Storage, config: IConfig): IStorag
     });
   }
 
+
   function getBusList(): Promise<BusListSync> {
-    // probably should use indexeddb, but all data including route lines is about 3-4 MB; will try to stay with localStorage
-    let busListSync: BusListSync;
-    try {
-      const busListSyncInfoStr = storage.getItem(config.keys.busListSync) || '';
-      busListSync = JSON.parse(busListSyncInfoStr);
-      verifyStorageEntry(busListSync);
-    } catch (err) {
-      busListSync = {
-        tsp: 0,
-        version: '',
-        list: []
-      };
-    }
-    return Promise.resolve(busListSync);
+    return getAsync<BusListSync>(config.keys.busListSync, getDefaultBusListSync);
   }
 
   function setBusList(busListSync: BusListSync) {
     storage.setItem(config.keys.busListSync, JSON.stringify(busListSync));
+  }
+
+
+  function getBusSearch(): Promise<IBusSearchState> {
+    return getAsync<IBusSearchState>(config.keys.busSearch, getDefaultBusSearch);
+  }
+
+  function setBusSearch(busSearch: IBusSearchState) {
+    storage.setItem(config.keys.busSearch, JSON.stringify(busSearch));
   }
 
   return {
@@ -74,5 +82,8 @@ export function createStorageService(storage: Storage, config: IConfig): IStorag
 
     getBusList,
     setBusList,
+
+    getBusSearch,
+    setBusSearch,
   };
 }
