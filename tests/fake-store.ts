@@ -11,10 +11,20 @@ export function storeFactory(_newState?: IReduxState) {
     },
     apiConnection: {
       socket: null,
-      error: null
+      error: null,
     },
     appState: {
-      routerState: RouterState.BLANK
+      routerState: RouterState.BLANK,
+    },
+    busList: {
+      query: '',
+      list: [],
+    },
+    translations: {
+      lang: 'ru',
+      text: {
+        searchInputPlaceholder: 'searchInputPlaceholder',
+      }
     }
   };
 

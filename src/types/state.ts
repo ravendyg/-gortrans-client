@@ -6,6 +6,8 @@ export interface IReduxState {
   apiConnection: IApiConnectionState;
   mapState: IMapState;
   appState: IAppState;
+  busList: IBusListState;
+  translations: ITranslationState;
 }
 
 export interface IStore<S> extends Store<S> {
@@ -35,4 +37,12 @@ export interface IMapState {
 export interface IBusListState {
   list: BusList [];
   query: string;
+}
+
+
+export interface ITranslationState {
+  lang: string;
+  text: {
+    [key: string]: string
+  };
 }
