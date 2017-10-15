@@ -13,6 +13,8 @@ function _componentWillMount(
     });
     const newState = mapState(store.getState());
     self.setState(newState);
+  } else {
+    (self as any)._unsubscribe = () => {/**/};
   }
 }
 
