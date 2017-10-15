@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { IWindowProps } from '../types';
 
+export const overlayClass = 'side_panel--overlay';
+
 interface ISidePanelState {
   transition: string;
   transform: string;
@@ -23,7 +25,8 @@ export class SidePanel extends React.PureComponent<ISidePanelProps, ISidePanelSt
       transition: ''
     };
 
-    this.handleClose = this.handleClose.bind(this);
+    this.close = this.close.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.handleKeyPressed = this.handleKeyPressed.bind(this);
   }
 
@@ -49,7 +52,7 @@ export class SidePanel extends React.PureComponent<ISidePanelProps, ISidePanelSt
     this.props.win.document.removeEventListener('keyup', this.handleKeyPressed);
   }
 
-  handleClose() {
+  close() {
     this.setState({
       transform: 'translate(-100%, 0)'
     });
@@ -58,17 +61,24 @@ export class SidePanel extends React.PureComponent<ISidePanelProps, ISidePanelSt
     }, this.timeout);
   }
 
+  handleClick(ev: React.MouseEvent<HTMLDivElement>) {
+    const target = ev.target as HTMLElement;
+    if (target.getAttribute('class') === overlayClass) {
+      this.close();
+    }
+  }
+
   handleKeyPressed(ev: KeyboardEvent) {
     if (ev.key === 'Escape') {
-      this.handleClose();
+      this.close();
     }
   }
 
   render() {
     return(
       <div
-        className="side_panel--overlay"
-        onClick={this.handleClose}
+        className={overlayClass}
+        onClick={this.handleClick}
       >
         <div
           className="side_panel--content-wrapper"

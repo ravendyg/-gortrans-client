@@ -6,7 +6,7 @@ import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-15';
 configure({ adapter: new Adapter() });
 
-import { SidePanel } from '../../src/components/side-panel';
+import { SidePanel, overlayClass } from '../../src/components/side-panel';
 import { createFakeWindow } from '../fake-window';
 
 const
@@ -64,15 +64,55 @@ describe('Side panel component', () => {
           <div className="test"></div>
         </SidePanel>
       ),
-      overlay: ShallowWrapper = comp.find('.side_panel--overlay')
+      overlay: ShallowWrapper = comp.find('.' + overlayClass),
+      event = {
+        target: {
+          getAttribute() {
+            return overlayClass;
+          }
+        }
+      }
       ;
 
-    overlay.simulate('click');
+    overlay.simulate('click', event);
 
     assert.equal(comp.state('transform'), 'translate(-100%, 0)');
     setTimeout(() => {
       try {
         sinon.assert.calledOnce(panelProps.closeMe);
+        done();
+      } catch (err) {
+        done(err);
+      }
+    }, 5);
+
+  });
+
+  it('ignores clicks on the content', done => {
+    panelProps.closeMe.resetHistory();
+
+    const
+      comp: ShallowWrapper = shallow(
+        <SidePanel {...panelProps}>
+          <div className="test"></div>
+        </SidePanel>
+      ),
+      overlay: ShallowWrapper = comp.find('.' + overlayClass),
+      event = {
+        target: {
+          getAttribute() {
+            return 'not overlay class';
+          }
+        }
+      }
+      ;
+
+    overlay.simulate('click', event);
+
+    assert.equal(comp.state('transform'), 'translate(-100%, 0)');
+    setTimeout(() => {
+      try {
+        sinon.assert.notCalled(panelProps.closeMe);
         done();
       } catch (err) {
         done(err);
