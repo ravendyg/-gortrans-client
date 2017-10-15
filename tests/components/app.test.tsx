@@ -17,14 +17,18 @@ import { App, mapState } from '../../src/components/app';
 const
   store = storeFactory(),
   mapProps: any = {},
-  actions: any = {},
-  win: any = {},
+  actions: any = {
+    controlActions: {
+      goToRoot: () => {/**/},
+    }
+  },
+  _win: any = {},
   app: ShallowWrapper = shallow(
     <App
       mapProps={mapProps}
       actions={actions}
       store={store}
-      win={win}
+      win={_win}
     />
   )
   ;
@@ -45,6 +49,12 @@ describe('<App>', () => {
     app.setState({ panelContent });
     assert.equal(app.find(SidePanel).length, 1);
     assert.equal(app.find(Controls).length, 0);
+    const {
+      closeMe, slideLength, win
+    } = app.find(SidePanel).props();
+    assert.equal(closeMe, actions.controlActions.goToRoot);
+    assert.equal(slideLength, '0.5s');
+    assert.equal(win, _win);
   });
 
   it('renders Controls and not SidePanel when appState.routerState === RouterState.BLANK', () => {

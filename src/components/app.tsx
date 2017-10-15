@@ -59,7 +59,7 @@ export class App extends Connected<IAppProps, IAppState> {
         ? (
           <SidePanel
             children={this.state.panelContent}
-            closeMe={() => {/**/}}
+            closeMe={this.props.actions.controlActions.goToRoot}
             slideLength={'0.5s'}
             win={this.props.win}
           />
