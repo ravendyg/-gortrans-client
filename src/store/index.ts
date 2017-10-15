@@ -4,6 +4,7 @@ import { apiConnection } from './connection';
 import { createMapState } from './map-state';
 import { busList } from './bus-list';
 import { appState } from './app-state';
+import { translation } from './translation';
 // interfaces
 import { IReduxState } from '../types/state';
 import { Store as IStore } from 'redux';
@@ -18,6 +19,7 @@ export function storeFactory(storageService: IStorageService, config: IConfig) {
       mapState: createMapState(defViewOptions, config),
       busList,
       appState,
+      translation,
     }),
     win: any = window,
     Store = createStore(

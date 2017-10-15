@@ -20,7 +20,7 @@ export function storeFactory(_newState?: IReduxState) {
       query: '',
       list: [],
     },
-    translations: {
+    translation: {
       lang: 'ru',
       text: {
         searchInputPlaceholder: 'searchInputPlaceholder',

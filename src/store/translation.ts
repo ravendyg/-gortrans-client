@@ -14,9 +14,9 @@ export function translation(
 ): any {
 
   switch (action.type) {
-
     default: {
       return state;
     }
   }
+
 }

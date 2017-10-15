@@ -21,10 +21,15 @@ export interface IAppProps extends IPropsWithAction, IWindowProps {
   store: IStore<IReduxState>;
 }
 
-function mapRouterStateToPanelState(routerState: RouterState): PanelContent {
+function mapRouterStateToPanelState(
+  routerState: RouterState, props: IAppProps
+): PanelContent {
   switch (routerState) {
     case RouterState.SEARCH: {
-      return <Search />;
+      return <Search
+        actions={props.actions}
+        store={props.store}
+      />;
     }
 
     case RouterState.SETTINGS: {
@@ -37,16 +42,20 @@ function mapRouterStateToPanelState(routerState: RouterState): PanelContent {
   }
 }
 
-export function mapState(newState: IReduxState): IAppState {
+export function mapState(
+  newState: IReduxState, props: IAppProps
+): IAppState {
   return {
-    panelContent: mapRouterStateToPanelState(newState.appState.routerState),
+    panelContent: mapRouterStateToPanelState(
+      newState.appState.routerState, props
+    ),
   };
 }
 
 export class App extends Connected<IAppProps, IAppState> {
 
   mapState(newState: IReduxState): IAppState {
-    return mapState(newState);
+    return mapState(newState, this.props);
   }
 
   render() {

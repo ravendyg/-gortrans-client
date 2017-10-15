@@ -7,7 +7,7 @@ export interface IReduxState {
   mapState: IMapState;
   appState: IAppState;
   busList: IBusListState;
-  translations: ITranslationState;
+  translation: ITranslationState;
 }
 
 export interface IStore<S> extends Store<S> {
