@@ -24,7 +24,6 @@ export function createBusSearchProvider(
     const busSearch = store.getState().busSearch;
 
     if (_busSearch !== busSearch) {
-      console.log('old');
       _busSearch = busSearch;
       storageService.setBusSearch(_busSearch);
     }

@@ -5,6 +5,7 @@ import { createMapState } from './map-state';
 import { busList } from './bus-list';
 import { appState } from './app-state';
 import { translation } from './translation';
+import { createBusSearchReducer } from './bus-search';
 // interfaces
 import { IReduxState } from '../types/state';
 import { Store as IStore } from 'redux';
@@ -20,6 +21,7 @@ export function storeFactory(storageService: IStorageService, config: IConfig) {
       busList,
       appState,
       translation,
+      busSearch: createBusSearchReducer(config),
     }),
     win: any = window,
     Store = createStore(
