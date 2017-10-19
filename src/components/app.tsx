@@ -7,7 +7,7 @@ import { IStore, IReduxState } from '../types/state';
 import { RouterState } from '../types/data-types';
 import { IWindowProps } from '../types';
 import { Settings } from './settings/settings';
-import { Search } from './search/search';
+// import { Search } from './';
 import { SidePanel } from './side-panel';
 
 export declare type PanelContent = JSX.Element | null;
@@ -26,10 +26,12 @@ function mapRouterStateToPanelState(
 ): PanelContent {
   switch (routerState) {
     case RouterState.SEARCH: {
-      return <Search
-        actions={props.actions}
-        store={props.store}
-      />;
+      console.log(props);
+      return <div></div>;
+      // return <Search
+      //   actions={props.actions}
+      //   store={props.store}
+      // />;
     }
 
     case RouterState.SETTINGS: {

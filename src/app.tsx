@@ -9,44 +9,31 @@ import { IActions } from './types/action-types';
 import { App } from './components/app';
 import { IMapWrapperProps } from './components/map-wrapper/map-wrapper';
 
+import { createConnectToApi } from './actions/connect-to-api';
+import { createActions } from './actions';
+
 /** services */
-import { createStorageService } from './services/storage';
+import { createViewStorageService } from './services/storage/map-view';
+import { createBusListStorageService } from './services/storage/bus-list';
 import { createRouter } from './services/router';
 /** /services */
 
-/** actions */
-import { createControlActions } from './actions/control';
-import { createConnectToApi } from './actions/connect-to-api';
-import { createLeafletActions } from './actions/leaflet';
-import { createBusListActions } from './actions/bus-list';
-import { createBusSearchActions } from './actions/bus-search';
-
-/** /actions */
-
 /** providers */
 import { createBusListProvider } from './providers/bus-list';
-import { createBusSearchProvider } from './providers/bus-search';
+
 /** /providers */
 
 require('./styles.scss');
 
 const
-  storageService = createStorageService(localStorage, config),
-  Store = storeFactory(storageService, config),
-  // actions
+  viewStorageService = createViewStorageService(localStorage, config),
+  busListStorageService = createBusListStorageService(localStorage, config),
+  Store = storeFactory(viewStorageService, config),
   connectToApi = createConnectToApi(Store.dispatch, localStorage, io, config),
-  controlActions = createControlActions(Store.dispatch),
-  leafletActions = createLeafletActions(Store.dispatch),
-  busListActions = createBusListActions(Store.dispatch),
-  busSearchAction = createBusSearchActions(Store.dispatch),
-  actions: IActions = {
-    controlActions,
-    leafletActions,
-    busListActions,
-    busSearchAction,
-  },
 
-  initRouting = createRouter(window, Store, controlActions),
+  actions: IActions = createActions({ dispatch: Store.dispatch }),
+
+  initRouting = createRouter(window, Store, actions.controlActions),
 
   mapProps: IMapWrapperProps = {
     L,
@@ -55,14 +42,12 @@ const
     actions
   },
   // providers
-  busListProvider = createBusListProvider(busListActions, storageService, config, Date),
-  busSearchProvider = createBusSearchProvider(busSearchAction, storageService)
+  busListProvider = createBusListProvider(actions.busListActions, busListStorageService, config, Date)
   ;
 
-storageService.watchViewOptions(Store);
+viewStorageService.watchViewOptions(Store);
 
 busListProvider.subscribe(Store);
-busSearchProvider.subscribe(Store);
 
 connectToApi();
 initRouting();

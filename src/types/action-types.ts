@@ -1,3 +1,4 @@
+import { IAction } from './index';
 import { BusList, BusSearch } from './data-types';
 import { BusCodes } from './enums';
 import { IBusSearchState } from './state';
@@ -7,11 +8,17 @@ export interface IPropsWithAction {
 }
 
 
+export interface IActionDeps {
+  dispatch: (action: IAction<any, any>) => void;
+}
+
+
 export interface IActions {
+  [actionsName: string]: any;
+  addActions: (name: string, actions: any) => void;
   controlActions: IControlAction;
   leafletActions: ILeafletAction;
   busListActions: IBusListAction;
-  busSearchAction: IBusSearchAction;
 }
 
 
@@ -61,6 +68,12 @@ export enum BusListActions {
 }
 
 
+
+/** bus search */
+export interface IActionsWithBusSeach extends IActions {
+  busSearchAction?: IBusSearchAction;
+}
+
 export interface IBusSearchAction {
   updateHistory: (key: BusCodes, busSearch: BusSearch) => void;
   updateAllHistory: (busSearch: IBusSearchState) => void;
@@ -70,3 +83,4 @@ export enum BusSearchActions {
   ADD_TO_HISTORY = 'ADD_TO_HISTORY',
   RESET_SEARCH_HISTORY = 'RESET_SEARCH_HISTORY,'
 }
+/** /bus search */

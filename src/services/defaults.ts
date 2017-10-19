@@ -1,4 +1,4 @@
-import { IMapState, IBusSearchState } from '../types/state';
+import { IMapState } from '../types/state';
 import { IConfig } from '../types';
 import { BusListSync } from '../types/data-types';
 
@@ -18,11 +18,3 @@ export function getDefaultBusListSync(): BusListSync {
   };
 }
 
-export function getDefaultBusSearch(): IBusSearchState {
-  return {
-    '0': [],
-    '1': [],
-    '2': [],
-    '7': [],
-  };
-}

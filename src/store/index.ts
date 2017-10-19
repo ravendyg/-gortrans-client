@@ -9,12 +9,12 @@ import { createBusSearchReducer } from './bus-search';
 // interfaces
 import { IReduxState } from '../types/state';
 import { Store as IStore } from 'redux';
-import { IStorageService } from '../types/services';
+import { IViewStorageService } from '../types/services';
 import { IConfig } from '../types';
 
-export function storeFactory(storageService: IStorageService, config: IConfig) {
+export function storeFactory(storageService: IViewStorageService, config: IConfig) {
   const
-    defViewOptions = storageService.getDefaultViewOptions(),
+    defViewOptions = storageService.getMapViewOptions(),
     app = combineReducers({
       apiConnection,
       mapState: createMapState(defViewOptions, config),

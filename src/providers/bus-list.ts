@@ -8,7 +8,7 @@ import { messages } from '../messages';
 
 export function createBusListProvider(
   actions: IBusListAction,
-  storageService: IStorageService,
+  storageService: IStorageService<BusListSync>,
   config: IConfig,
   date: DateConstructor
 ): IProvider {
@@ -16,7 +16,7 @@ export function createBusListProvider(
   let lastSyncInfo: BusListSync;
 
   const loaded = new Promise(resolve => {
-    storageService.getBusList()
+    storageService.getVal()
     .then((data: BusListSync) => {
       lastSyncInfo = data;
       resolve();
@@ -44,7 +44,7 @@ export function createBusListProvider(
       actions.updateBusList(msg.list);
     }
 
-    storageService.setBusList(lastSyncInfo);
+    storageService.setVal(lastSyncInfo);
   }
 
   function updateIfRequired(store: IStore<IReduxState>): void {
