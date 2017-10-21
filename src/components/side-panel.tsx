@@ -6,6 +6,7 @@ export const overlayClass = 'side_panel--overlay';
 interface ISidePanelState {
   transition: string;
   transform: string;
+  backgroundColor: string;
 }
 
 export interface ISidePanelProps extends IWindowProps {
@@ -20,10 +21,11 @@ export class SidePanel extends React.PureComponent<ISidePanelProps, ISidePanelSt
   constructor() {
     super();
 
-    this.state = {
-      transform: '',
-      transition: ''
-    };
+    // this.state = {
+    //   backgroundColor: 'rgba(0,0,0,0)',
+    //   transform: '',
+    //   transition: '',
+    // };
 
     this.close = this.close.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -33,15 +35,17 @@ export class SidePanel extends React.PureComponent<ISidePanelProps, ISidePanelSt
   componentWillMount() {
     this.timeout = Math.round(parseFloat(this.props.slideLength) * 1000);
     this.state = {
+      backgroundColor: 'rgba(0,0,0,0)',
       transition: this.props.slideLength + ' linear',
-      transform: 'translate(-100%, 0)'
+      transform: 'translate(-100%, 0)',
     };
   }
 
   componentDidMount() {
     setTimeout(() => {
       this.setState({
-        transform: 'translate(0, 0)'
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        transform: 'translate(0, 0)',
       });
     });
 
@@ -54,6 +58,7 @@ export class SidePanel extends React.PureComponent<ISidePanelProps, ISidePanelSt
 
   close() {
     this.setState({
+      backgroundColor: 'rgba(0,0,0,0)',
       transform: 'translate(-100%, 0)'
     });
     setTimeout(() => {
@@ -79,10 +84,17 @@ export class SidePanel extends React.PureComponent<ISidePanelProps, ISidePanelSt
       <div
         className={overlayClass}
         onClick={this.handleClick}
+        style={{
+          backgroundColor: this.state.backgroundColor,
+          transition: this.state.transition,
+        }}
       >
         <div
           className="side_panel--content-wrapper"
-          style={{...this.state}}
+          style={{
+            transform: this.state.transform,
+            transition: this.state.transition,
+          }}
         >
           { this.props.children }
         </div>

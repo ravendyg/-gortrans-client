@@ -72,10 +72,6 @@ html, body, #app, #wrapper, #mapid {
   }
 }
 
-.side_panel--content-wrapper.opened {
-  transform: translate(0, 0);
-}
-
 @media screen and (max-width: 400px) {
   .side_panel--content-wrapper {
     width: 100%;
