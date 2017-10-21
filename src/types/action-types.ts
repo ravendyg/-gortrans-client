@@ -67,10 +67,6 @@ export enum BusListActions {
 
 
 /** bus search */
-export interface IActionsWithBusSeach extends IActions {
-  busSearchAction?: IBusSearchAction;
-}
-
 export interface IBusSearchAction {
   updateHistory: (key: BusCodes, busSearch: BusSearch) => void;
   updateAllHistory: (busSearch: IBusSearchState) => void;

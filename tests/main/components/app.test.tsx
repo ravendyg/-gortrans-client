@@ -22,13 +22,14 @@ const
     }
   },
   _win: any = {},
+  props = {
+    mapProps,
+    actions,
+    store,
+    win: _win
+  },
   app: ShallowWrapper = shallow(
-    <App
-      mapProps={mapProps}
-      actions={actions}
-      store={store}
-      win={_win}
-    />
+    <App {...props} />
   )
   ;
 
@@ -44,7 +45,7 @@ describe('<App>', () => {
 
   it('renders SidePanel and not Controls when appState === RouterState.SEARCH', () => {
     store._setState({ appState: RouterState.SEARCH });
-    const { panelContent } = mapState(store.getState(), actions);
+    const { panelContent } = mapState(store.getState(), props);
     app.setState({ panelContent });
     assert.equal(app.find(SidePanel).length, 1);
     assert.equal(app.find(Controls).length, 0);
@@ -58,7 +59,7 @@ describe('<App>', () => {
 
   it('renders Controls and not SidePanel when appState === RouterState.BLANK', () => {
     store._setState({ appState: RouterState.BLANK });
-    const { panelContent } = mapState(store.getState(), actions);
+    const { panelContent } = mapState(store.getState(), props);
     app.setState({ panelContent });
     assert.equal(app.find(SidePanel).length, 0);
     assert.equal(app.find(Controls).length, 1);
@@ -66,7 +67,7 @@ describe('<App>', () => {
 
   it('renders SidePanel and not Controls when appState === RouterState.SETTINGS', () => {
     store._setState({ appState: RouterState.SEARCH });
-    const { panelContent } = mapState(store.getState(), actions);
+    const { panelContent } = mapState(store.getState(), props);
     app.setState({ panelContent });
     assert.equal(app.find(SidePanel).length, 1);
     assert.equal(app.find(Controls).length, 0);

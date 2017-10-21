@@ -1,12 +1,11 @@
 import * as React from 'react';
 
-import { IActionsWithBusSeach } from '../../../types/action-types';
 import { SearchInput } from './input';
 import { IStore, IReduxState } from '../../../types/state';
 
 interface ISearchState {}
 
-interface ISearchProps extends IActionsWithBusSeach {
+interface ISearchProps {
   store: IStore<IReduxState>;
 }
 
@@ -20,10 +19,13 @@ export class Search extends React.Component<ISearchProps, ISearchState> {
     return(
       <div className="search__wrapper" style={style}>
         <SearchInput
-          emit={this.props.actions.busListActions.updateQuery}
+          emit={() => { console.log('emit'); }}
           store={this.props.store}
         />
       </div>
     );
   }
 }
+
+
+// emit={this.props.actions.busListActions.updateQuery}

@@ -4,13 +4,10 @@ import { IPropsWithAction } from '../types/action-types';
 import { MapWrapperComponent, IMapWrapperProps } from './map-wrapper/map-wrapper';
 import { Controls } from './controls/controls';
 import { IStore, IReduxState } from '../types/state';
-import { RouterState } from '../types/data-types';
 import { IWindowProps } from '../types';
-import { Settings } from './settings/settings';
-// import { Search } from './';
-import { SidePanel } from './side-panel';
+import { mapRouterStateToPanelState, PanelContent } from '../services/panel-content';
 
-export declare type PanelContent = JSX.Element | null;
+import { SidePanel } from './side-panel';
 
 interface IAppState {
   panelContent: PanelContent;
@@ -21,35 +18,12 @@ export interface IAppProps extends IPropsWithAction, IWindowProps {
   store: IStore<IReduxState>;
 }
 
-function mapRouterStateToPanelState(
-  routerState: RouterState, props: IAppProps
-): PanelContent {
-  switch (routerState) {
-    case RouterState.SEARCH: {
-      console.log(props);
-      return <div></div>;
-      // return <Search
-      //   actions={props.actions}
-      //   store={props.store}
-      // />;
-    }
-
-    case RouterState.SETTINGS: {
-      return <Settings />;
-    }
-
-    default: {
-      return null;
-    }
-  }
-}
-
 export function mapState(
   newState: IReduxState, props: IAppProps
 ): IAppState {
   return {
     panelContent: mapRouterStateToPanelState(
-      newState.appState, props
+      newState.appState, props.store
     ),
   };
 }
