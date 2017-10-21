@@ -49,7 +49,7 @@ export function mapState(
 ): IAppState {
   return {
     panelContent: mapRouterStateToPanelState(
-      newState.appState.routerState, props
+      newState.appState, props
     ),
   };
 }

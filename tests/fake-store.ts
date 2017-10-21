@@ -13,9 +13,7 @@ export function storeFactory(_newState?: IReduxState) {
       socket: null,
       error: null,
     },
-    appState: {
-      routerState: RouterState.BLANK,
-    },
+    appState: RouterState.BLANK,
     busList: {
       query: '',
       list: [],

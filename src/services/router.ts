@@ -17,9 +17,9 @@ export function createRouter(win: Window, Store: IStore<IReduxState>, controlAct
     const url = ev.newURL || '';
 
     if (searchRegExp.test(url)) {
-      controlActions.showSearch();
+      controlActions.goTo(RouterState.SEARCH);
     } else if (settingsRegExp.test(url)) {
-      controlActions.showSettings();
+      controlActions.goTo(RouterState.SETTINGS);
     } else {
       controlActions.goToRoot();
     }
@@ -27,7 +27,7 @@ export function createRouter(win: Window, Store: IStore<IReduxState>, controlAct
 
   function onStoreChange() {
     const
-      routerState = Store.getState().appState.routerState,
+      routerState = Store.getState().appState,
       hash = win.location.hash
       ;
     if (routerState === RouterState.SEARCH && hash !== RouterState.SEARCH) {

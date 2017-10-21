@@ -5,7 +5,7 @@ export interface IReduxState {
   [x: string]: any;
   apiConnection: IApiConnectionState;
   mapState: IMapState;
-  appState: IAppState;
+  appState: RouterState;
   busList: IBusListState;
   translation: ITranslationState;
   busSearch: IBusSearchState;
@@ -20,11 +20,6 @@ export declare type ConnectionPayload = SocketIOClient.Socket | Error | null;
 export interface IApiConnectionState {
   socket: SocketIOClient.Socket | null;
   error: Error | null;
-}
-
-
-export interface IAppState {
-  routerState: RouterState;
 }
 
 

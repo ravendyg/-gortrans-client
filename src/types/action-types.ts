@@ -1,5 +1,5 @@
 import { IAction } from './index';
-import { BusList, BusSearch } from './data-types';
+import { BusList, BusSearch, RouterState } from './data-types';
 import { BusCodes } from './enums';
 import { IBusSearchState } from './state';
 
@@ -30,15 +30,12 @@ export enum ConnectionAction {
 
 
 export interface IControlAction {
+  goTo: (state: RouterState) => void;
   goToRoot: () => void;
-  showSearch: () => void;
-  showSettings: () => void;
 }
 
 export enum ControlActions {
-  GO_TO_ROOT = 'GO_TO_ROOT',
-  SHOW_SEARCH = 'SHOW_SEARCH',
-  SHOW_SETTINGS = 'SHOW_SETTINGS',
+  GO_TO = 'GO_TO',
 }
 
 

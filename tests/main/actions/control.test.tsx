@@ -3,6 +3,7 @@ import * as sinon from 'sinon';
 
 import { ControlActions } from '../../../src/types/action-types';
 import { createControlActions } from '../../../src/actions/control';
+import { RouterState } from '../../../src/types/data-types';
 
 const
   dispatch: any = sinon.stub(),
@@ -15,27 +16,19 @@ describe('control action', () => {
     dispatch.resetHistory();
   });
 
-  it('dispatch correct action on showSearch', () => {
-    controlActions.showSearch();
+  it('dispatch correct action on goTo', () => {
+    controlActions.goTo(RouterState.SEARCH);
     sinon.assert.calledWith(dispatch, sinon.match({
-      type: ControlActions.SHOW_SEARCH,
-      payload: null
-    }));
-  });
-
-  it('dispatch correct action on showSettings', () => {
-    controlActions.showSettings();
-    sinon.assert.calledWith(dispatch, sinon.match({
-      type: ControlActions.SHOW_SETTINGS,
-      payload: null
+      type: ControlActions.GO_TO,
+      payload: RouterState.SEARCH
     }));
   });
 
   it('dispatch correct action on goToRoot', () => {
     controlActions.goToRoot();
     sinon.assert.calledWith(dispatch, sinon.match({
-      type: ControlActions.GO_TO_ROOT,
-      payload: null
+      type: ControlActions.GO_TO,
+      payload: RouterState.BLANK
     }));
   });
 

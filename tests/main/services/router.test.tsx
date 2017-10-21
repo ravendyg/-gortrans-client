@@ -3,6 +3,7 @@ import { assert } from 'chai';
 import * as sinon from 'sinon';
 import { createRouter } from '../../../src/services/router';
 import { RouterState } from '../../../src/types/data-types';
+import { IControlAction } from '../../../src/types/action-types';
 
 const
   win: any = {
@@ -18,11 +19,12 @@ const
     subscribe: sinon.stub(),
     getState: () => ({ appState }),
   },
-  controlActions: any = {
-    showSearch: sinon.stub(),
-    showSettings: sinon.stub(),
-    goToRoot: sinon.stub(),
+  controlActions: IControlAction = {
+    goTo: () => {/**/},
+    goToRoot: () => {/**/},
   },
+  goToSpy = sinon.spy(controlActions, 'goTo'),
+  goToRootSpy = sinon.spy(controlActions, 'goToRoot'),
   initRouter = createRouter(win, store, controlActions)
   ;
 
@@ -40,9 +42,8 @@ describe('router service', () => {
   });
 
   beforeEach(() => {
-    controlActions.showSearch.resetHistory();
-    controlActions.showSettings.resetHistory();
-    controlActions.goToRoot.resetHistory();
+    goToSpy.reset();
+    goToRootSpy.reset();
   });
 
   it('resets the hash on init', () => {
@@ -56,27 +57,27 @@ describe('router service', () => {
 
   it(`displays search when hash changed manually to ${RouterState.SEARCH}`, () => {
     hashchange({newURL: `sdfsdf/${RouterState.SEARCH}`});
-    sinon.assert.calledOnce(controlActions.showSearch);
+    sinon.assert.calledWith(goToSpy, RouterState.SEARCH);
   });
 
   it(`displays settings when hash changed manually to ${RouterState.SETTINGS}`, () => {
     hashchange({newURL: `sdfsdf/${RouterState.SETTINGS}`});
-    sinon.assert.calledOnce(controlActions.showSettings);
+    sinon.assert.calledWith(goToSpy, RouterState.SETTINGS);
   });
 
   it(`displays blank when hash changed manually to an incorrect hash`, () => {
     hashchange({newURL: `sdfsdf/#fgdfg`});
-    sinon.assert.calledOnce(controlActions.goToRoot);
+    sinon.assert.calledOnce(goToRootSpy);
   });
 
   it(`displays blank when hash changed manually to ${RouterState.BLANK}`, () => {
     hashchange({newURL: `sdfsdf/${RouterState.BLANK}`});
-    sinon.assert.calledOnce(controlActions.goToRoot);
+    sinon.assert.calledOnce(goToRootSpy);
   });
 
   it(`displays blank when hash changed manually to ${RouterState.EMPTY}`, () => {
     hashchange({newURL: `sdfsdf/${RouterState.EMPTY}`});
-    sinon.assert.calledOnce(controlActions.goToRoot);
+    sinon.assert.calledOnce(goToRootSpy);
   });
 
 });

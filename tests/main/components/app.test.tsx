@@ -42,8 +42,8 @@ describe('<App>', () => {
     assert.equal(app.find(Controls).length, 1);
   });
 
-  it('renders SidePanel and not Controls when appState.routerState === RouterState.SEARCH', () => {
-    store._setState({appState: { routerState: RouterState.SEARCH } });
+  it('renders SidePanel and not Controls when appState === RouterState.SEARCH', () => {
+    store._setState({ appState: RouterState.SEARCH });
     const { panelContent } = mapState(store.getState(), actions);
     app.setState({ panelContent });
     assert.equal(app.find(SidePanel).length, 1);
@@ -56,16 +56,16 @@ describe('<App>', () => {
     assert.equal(win, _win);
   });
 
-  it('renders Controls and not SidePanel when appState.routerState === RouterState.BLANK', () => {
-    store._setState({appState: { routerState: RouterState.BLANK } });
+  it('renders Controls and not SidePanel when appState === RouterState.BLANK', () => {
+    store._setState({ appState: RouterState.BLANK });
     const { panelContent } = mapState(store.getState(), actions);
     app.setState({ panelContent });
     assert.equal(app.find(SidePanel).length, 0);
     assert.equal(app.find(Controls).length, 1);
   });
 
-  it('renders SidePanel and not Controls when appState.routerState === RouterState.SETTINGS', () => {
-    store._setState({appState: { routerState: RouterState.SEARCH } });
+  it('renders SidePanel and not Controls when appState === RouterState.SETTINGS', () => {
+    store._setState({ appState: RouterState.SEARCH });
     const { panelContent } = mapState(store.getState(), actions);
     app.setState({ panelContent });
     assert.equal(app.find(SidePanel).length, 1);

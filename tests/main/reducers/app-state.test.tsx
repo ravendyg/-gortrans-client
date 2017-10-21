@@ -2,45 +2,26 @@ import {  } from 'mocha';
 import { assert } from 'chai';
 
 import { ControlActions } from '../../../src/types/action-types';
-import { IAppState } from '../../../src/types/state';
 import { appState } from '../../../src/store/app-state';
 import { RouterState } from '../../../src/types/data-types';
 
 describe('appState reducer', () => {
 
-  it('shows search', () => {
+  it('sets a correct state', () => {
     const
-      state: IAppState = {
-        routerState: RouterState.BLANK
-      },
+      state = RouterState.BLANK,
       newState = appState(state, {
-        type: ControlActions.SHOW_SEARCH,
-        payload: null
+        type: ControlActions.GO_TO,
+        payload: RouterState.SEARCH
       })
       ;
 
-    assert.deepEqual(newState, { routerState: RouterState.SEARCH });
-  });
-
-  it('hides search', () => {
-    const
-      state: IAppState = {
-        routerState: RouterState.BLANK
-      },
-      newState = appState(state, {
-        type: ControlActions.GO_TO_ROOT,
-        payload: null
-      })
-      ;
-
-    assert.deepEqual(newState, { routerState: RouterState.BLANK });
+    assert.equal(newState, RouterState.SEARCH);
   });
 
   it('ignores unknown action', () => {
     const
-      state: IAppState = {
-        routerState: RouterState.BLANK
-      },
+      state = RouterState.BLANK,
       action: any = {
         type: 'type',
         payload: {}

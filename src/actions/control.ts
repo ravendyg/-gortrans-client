@@ -1,34 +1,28 @@
 import { IAction } from '../types';
 import { ControlActions, IControlAction } from '../types/action-types';
+import { RouterState } from '../types/data-types';
 
 export function createControlActions(
-  dispatch: (action: IAction<ControlActions, null>) => void
+  dispatch: (action: IAction<ControlActions, RouterState>) => void
 ): IControlAction {
 
   function goToRoot(): void {
     dispatch({
-      type: ControlActions.GO_TO_ROOT,
-      payload: null
+      type: ControlActions.GO_TO,
+      payload: RouterState.BLANK
     });
   }
 
-  function showSearch(): void {
-    dispatch({
-      type: ControlActions.SHOW_SEARCH,
-      payload: null
-    });
-  }
 
-  function showSettings(): void {
+  function goTo(newState: RouterState): void {
     dispatch({
-      type: ControlActions.SHOW_SETTINGS,
-      payload: null
+      type: ControlActions.GO_TO,
+      payload: newState
     });
   }
 
   return {
+    goTo,
     goToRoot,
-    showSearch,
-    showSettings,
   };
 }
