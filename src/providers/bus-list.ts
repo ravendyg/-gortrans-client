@@ -1,22 +1,22 @@
 import { IConfig } from '../types';
 import { IStore, IReduxState } from '../types/state';
 import { BusListSyncResponse, BusListSync } from '../types/data-types';
-import { IBusListProvider } from '../types/providers';
+import { IProvider } from '../types/providers';
 import { IBusListAction } from '../types/action-types';
 import { IStorageService } from '../types/services';
 import { messages } from '../messages';
 
 export function createBusListProvider(
   actions: IBusListAction,
-  storageService: IStorageService,
+  storageService: IStorageService<BusListSync>,
   config: IConfig,
   date: DateConstructor
-): IBusListProvider {
+): IProvider {
 
   let lastSyncInfo: BusListSync;
 
   const loaded = new Promise(resolve => {
-    storageService.getBusList()
+    storageService.getVal()
     .then((data: BusListSync) => {
       lastSyncInfo = data;
       resolve();
@@ -44,7 +44,7 @@ export function createBusListProvider(
       actions.updateBusList(msg.list);
     }
 
-    storageService.setBusList(lastSyncInfo);
+    storageService.setVal(lastSyncInfo);
   }
 
   function updateIfRequired(store: IStore<IReduxState>): void {

@@ -20,10 +20,16 @@ export interface IConfig {
   keys: {
     localViewParams: string;
     busListSync: string;
+    busSearch: string;
   };
   syncPeriod: number;
+  historyDisplayLimit: number;
 }
 
 export interface ICtor<T> {
   new(...args: any[]): T;
+}
+
+export interface IWindowProps {
+  win: Window;
 }

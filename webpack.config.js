@@ -9,10 +9,8 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
-    publicPath: '/build/',
-    library: 'app',
-    libraryTarget: 'umd',
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js'
   },
 
   module: {
@@ -98,9 +96,9 @@ module.exports = {
     timings: true,
     assets: true,
     chunks: true,
-    modules: true,
-    reasons: true,
-    children: true,
+    modules: false,
+    reasons: false,
+    children: false,
     source: true,
     errors: true,
     errorDetails: true,

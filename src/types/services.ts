@@ -1,10 +1,11 @@
-import { BusListSync } from './data-types';
 import { IMapState, IStore, IReduxState } from './state';
 
-export interface IStorageService {
-  getDefaultViewOptions: () => IMapState;
-  watchViewOptions: (store: IStore<IReduxState>) => void;
+export interface IStorageService<T> {
+  getVal: () => Promise<T>;
+  setVal: (val: T) => void;
+}
 
-  getBusList: () => Promise<BusListSync>;
-  setBusList: (info: BusListSync) => void;
+export interface IViewStorageService {
+  getMapViewOptions: () => IMapState;
+  watchViewOptions: (store: IStore<IReduxState>) => void;
 }

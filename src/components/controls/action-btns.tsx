@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { IPropsWithAction } from '../../types/action-types';
+import { RouterState } from '../../types/data-types';
 import { ActionBtn } from './action-btn';
 
 const
@@ -18,7 +19,7 @@ export class ActionBtns extends React.PureComponent<IActionBtnsProps, IActionBtn
     const btns = [{
         key: 'searchImg',
         srcImg: searchImg,
-        click: this.props.actions.controlActions.showSearch,
+        click: () => { this.props.actions.controlActions.goTo(RouterState.SEARCH); },
         offset: 1
       }, {
         key: 'plusImg',
@@ -33,7 +34,7 @@ export class ActionBtns extends React.PureComponent<IActionBtnsProps, IActionBtn
       }, {
         key: 'settingsImgs',
         srcImg: settingsImgs,
-        click: this.props.actions.controlActions.showSettings,
+        click: () => { this.props.actions.controlActions.goTo(RouterState.SETTINGS); },
         offset: 3
       }, ]
       ;

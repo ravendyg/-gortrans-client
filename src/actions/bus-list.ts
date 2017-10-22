@@ -2,6 +2,7 @@ import { BusList } from '../types/data-types';
 import { IAction } from '../types';
 import { IBusListState } from '../types/state';
 import { BusListActions, IBusListAction } from '../types/action-types';
+import { cleanQuery } from '../services/clean-bus-search-query';
 
 export function createBusListActions(
   dispatch: (action: IAction<BusListActions, IBusListState>) => void
@@ -17,7 +18,9 @@ export function createBusListActions(
     });
   }
 
-  function updateQuery(query: string) {
+  function updateQuery(rawQuery: string) {
+    const query = cleanQuery(rawQuery);
+
     dispatch({
       type: BusListActions.UPDATE_QUERY,
       payload: {

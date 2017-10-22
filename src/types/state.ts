@@ -1,11 +1,14 @@
-import { BusList, RouterState } from './data-types';
+import { BusList, RouterState, BusSearch } from './data-types';
 import { Store } from 'redux';
 
 export interface IReduxState {
   [x: string]: any;
   apiConnection: IApiConnectionState;
   mapState: IMapState;
-  appState: IAppState;
+  appState: RouterState;
+  busList: IBusListState;
+  translation: ITranslationState;
+  busSearch: IBusSearchState;
 }
 
 export interface IStore<S> extends Store<S> {
@@ -20,11 +23,6 @@ export interface IApiConnectionState {
 }
 
 
-export interface IAppState {
-  routerState: RouterState;
-}
-
-
 export interface IMapState {
   zoom: number;
   lat: string;
@@ -35,4 +33,17 @@ export interface IMapState {
 export interface IBusListState {
   list: BusList [];
   query: string;
+}
+
+
+export interface ITranslationState {
+  lang: string;
+  text: {
+    [key: string]: string
+  };
+}
+
+
+export interface IBusSearchState {
+  [key: string]: BusSearch [];
 }

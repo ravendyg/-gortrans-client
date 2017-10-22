@@ -1,9 +1,10 @@
 import { BusListActions } from '../types/action-types';
 import { IAction } from '../types';
 import { IBusListState } from '../types/state';
+import { BusCodesOrdered } from '../types/enums';
 
 const defaultBusList: IBusListState = {
-  list: ['0', '1', '2', '7'].map(type => ({ type, ways: [] })),
+  list: BusCodesOrdered.map(type => ({ type, ways: [] })),
   query: ''
 };
 

@@ -11,10 +11,24 @@ export function storeFactory(_newState?: IReduxState) {
     },
     apiConnection: {
       socket: null,
-      error: null
+      error: null,
     },
-    appState: {
-      routerState: RouterState.BLANK
+    appState: RouterState.BLANK,
+    busList: {
+      query: '',
+      list: [],
+    },
+    translation: {
+      lang: 'ru',
+      text: {
+        searchInputPlaceholder: 'searchInputPlaceholder',
+      }
+    },
+    busSearch: {
+      '0': [],
+      '1': [],
+      '2': [],
+      '7': [],
     }
   };
 
@@ -23,7 +37,7 @@ export function storeFactory(_newState?: IReduxState) {
   }
 
   function _setState(newState: IReduxState) {
-    state = Object.assign({}, state, newState);
+    Object.assign(state, newState);
   }
 
   const

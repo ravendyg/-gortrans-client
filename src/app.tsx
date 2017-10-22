@@ -6,42 +6,35 @@ import * as io from 'socket.io-client';
 import { storeFactory } from './store';
 import { config } from './config';
 import { IActions } from './types/action-types';
-import { MapWrapperComponent, IMapWrapperProps } from './components/map-wrapper/map-wrapper';
-import { Controls, IControlsProps } from './components/controls/controls';
+import { App } from './components/app';
+import { IMapWrapperProps } from './components/map-wrapper/map-wrapper';
+
+import { createConnectToApi } from './actions/connect-to-api';
+import { createActions } from './actions';
 
 /** services */
-import { createStorageService } from './services/storage';
+import { createViewStorageService } from './services/storage/map-view';
+import { createBusListStorageService } from './services/storage/bus-list';
 import { createRouter } from './services/router';
+import { mapRouterStateToPanelState } from './services/panel-content';
 /** /services */
-
-/** actions */
-import { createControlActions } from './actions/control';
-import { createConnectToApi } from './actions/connect-to-api';
-import { createLeafletActions } from './actions/leaflet';
-import { createBusListActions } from './actions/bus-list';
-/** /actions */
 
 /** providers */
 import { createBusListProvider } from './providers/bus-list';
+
 /** /providers */
 
 require('./styles.scss');
 
 const
-  storageService = createStorageService(localStorage, config),
-  Store = storeFactory(storageService, config),
-  // actions
+  viewStorageService = createViewStorageService(localStorage, config),
+  busListStorageService = createBusListStorageService(localStorage, config),
+  Store = storeFactory(viewStorageService, config),
   connectToApi = createConnectToApi(Store.dispatch, localStorage, io, config),
-  controlActions = createControlActions(Store.dispatch),
-  leafletActions = createLeafletActions(Store.dispatch),
-  busListActions = createBusListActions(Store.dispatch),
-  actions: IActions = {
-    controlActions,
-    leafletActions,
-    busListActions
-  },
 
-  initRouting = createRouter(window, Store, controlActions),
+  actions: IActions = createActions({ dispatch: Store.dispatch, mapRouterStateToPanelState }),
+
+  initRouting = createRouter(window, Store, actions.controlActions),
 
   mapProps: IMapWrapperProps = {
     L,
@@ -49,23 +42,23 @@ const
     config,
     actions
   },
-  controlProps: IControlsProps = {
-    actions
-  },
   // providers
-  busListProvider = createBusListProvider(busListActions, storageService, config, Date)
+  busListProvider = createBusListProvider(actions.busListActions, busListStorageService, config, Date)
   ;
 
-storageService.watchViewOptions(Store);
+viewStorageService.watchViewOptions(Store);
+
 busListProvider.subscribe(Store);
 
 connectToApi();
 initRouting();
 
 render(
-  <div id="wrapper">
-    <MapWrapperComponent {...mapProps} />
-    <Controls {...controlProps} />
-  </div>,
+  <App
+    actions={actions}
+    mapProps={mapProps}
+    store={Store}
+    win={window}
+  />,
   document.getElementById('app')
 );
