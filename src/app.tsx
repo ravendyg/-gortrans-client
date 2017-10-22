@@ -16,6 +16,7 @@ import { createActions } from './actions';
 import { createViewStorageService } from './services/storage/map-view';
 import { createBusListStorageService } from './services/storage/bus-list';
 import { createRouter } from './services/router';
+import { mapRouterStateToPanelState } from './services/panel-content';
 /** /services */
 
 /** providers */
@@ -31,7 +32,7 @@ const
   Store = storeFactory(viewStorageService, config),
   connectToApi = createConnectToApi(Store.dispatch, localStorage, io, config),
 
-  actions: IActions = createActions({ dispatch: Store.dispatch }),
+  actions: IActions = createActions({ dispatch: Store.dispatch, mapRouterStateToPanelState }),
 
   initRouting = createRouter(window, Store, actions.controlActions),
 

@@ -1,15 +1,18 @@
 import { IAction } from './index';
 import { BusList, BusSearch, RouterState } from './data-types';
 import { BusCodes } from './enums';
-import { IBusSearchState } from './state';
+import { IBusSearchState, IReduxState, IStore } from './state';
 
 export interface IPropsWithAction {
   actions: IActions;
 }
 
 
+declare type MapRouterStateToPanelState = (store: IStore<IReduxState>) => JSX.Element | null;
+
 export interface IActionDeps {
   dispatch: (action: IAction<any, any>) => void;
+  mapRouterStateToPanelState: MapRouterStateToPanelState;
 }
 
 
@@ -19,6 +22,7 @@ export interface IActions {
   controlActions: IControlAction;
   leafletActions: ILeafletAction;
   busListActions: IBusListAction;
+  mapRouterStateToPanelState: MapRouterStateToPanelState;
 }
 
 

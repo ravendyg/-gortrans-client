@@ -5,12 +5,11 @@ import { MapWrapperComponent, IMapWrapperProps } from './map-wrapper/map-wrapper
 import { Controls } from './controls/controls';
 import { IStore, IReduxState } from '../types/state';
 import { IWindowProps } from '../types';
-import { mapRouterStateToPanelState, PanelContent } from '../services/panel-content';
 
 import { SidePanel } from './side-panel';
 
 interface IAppState {
-  panelContent: PanelContent;
+  panelContent: JSX.Element | null;
 }
 
 export interface IAppProps extends IPropsWithAction, IWindowProps {
@@ -18,20 +17,12 @@ export interface IAppProps extends IPropsWithAction, IWindowProps {
   store: IStore<IReduxState>;
 }
 
-export function mapState(
-  newState: IReduxState, props: IAppProps
-): IAppState {
-  return {
-    panelContent: mapRouterStateToPanelState(
-      newState.appState, props.store
-    ),
-  };
-}
-
 export class App extends Connected<IAppProps, IAppState> {
 
-  mapState(newState: IReduxState): IAppState {
-    return mapState(newState, this.props);
+  mapState(): IAppState {
+    return {
+      panelContent: this.props.actions.mapRouterStateToPanelState(this.props.store)
+    };
   }
 
   render() {

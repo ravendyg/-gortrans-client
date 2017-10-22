@@ -288,6 +288,11 @@
       "from": "babel-plugin-check-es2015-constants@>=6.22.0 <7.0.0",
       "resolved": "https://registry.npmjs.org/babel-plugin-check-es2015-constants/-/babel-plugin-check-es2015-constants-6.22.0.tgz"
     },
+    "babel-plugin-syntax-dynamic-import": {
+      "version": "6.18.0",
+      "from": "babel-plugin-syntax-dynamic-import@latest",
+      "resolved": "https://registry.npmjs.org/babel-plugin-syntax-dynamic-import/-/babel-plugin-syntax-dynamic-import-6.18.0.tgz"
+    },
     "babel-plugin-syntax-flow": {
       "version": "6.18.0",
       "from": "babel-plugin-syntax-flow@>=6.18.0 <7.0.0",
@@ -3345,6 +3350,11 @@
           "resolved": "https://registry.npmjs.org/minimist/-/minimist-1.2.0.tgz"
         }
       }
+    },
+    "react-loadable": {
+      "version": "5.3.1",
+      "from": "react-loadable@latest",
+      "resolved": "https://registry.npmjs.org/react-loadable/-/react-loadable-5.3.1.tgz"
     },
     "read-all-stream": {
       "version": "3.1.0",
