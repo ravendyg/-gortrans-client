@@ -1,5 +1,5 @@
 import { IConfig } from '../types';
-import { IStore, IReduxState } from '../types/state';
+import { IStore } from '../types/state';
 import { BusListSyncResponse, BusListSync } from '../types/data-types';
 import { IProvider } from '../types/providers';
 import { IBusListAction } from '../types/action-types';
@@ -47,7 +47,7 @@ export function createBusListProvider(
     storageService.setVal(lastSyncInfo);
   }
 
-  function updateIfRequired(store: IStore<IReduxState>): void {
+  function updateIfRequired(store: IStore): void {
     const
       tmp = date.now(),
       connection = store.getState().apiConnection.socket,
@@ -60,7 +60,7 @@ export function createBusListProvider(
     }
   }
 
-  function subscribe(store: IStore<IReduxState>): Promise<void> {
+  function subscribe(store: IStore): Promise<void> {
     return loaded.then(() => {
       store.subscribe(() => {
         if (loaded) {

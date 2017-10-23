@@ -12,7 +12,7 @@ import { ConnectionAction } from '../../../src/types/action-types';
 import { Connected } from '../../../src/components/connected';
 
 interface IPops {
-  store: IStore<IReduxState>;
+  store: IStore;
 }
 interface IState {
   socket: SocketIOClient.Socket | null;

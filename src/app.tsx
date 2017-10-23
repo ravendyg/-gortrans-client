@@ -5,12 +5,13 @@ import * as io from 'socket.io-client';
 
 import { storeFactory } from './store';
 import { config } from './config';
-import { IActions } from './types/action-types';
+import { IMainAction } from './types/action-types';
 import { App } from './components/app';
 import { IMapWrapperProps } from './components/map-wrapper/map-wrapper';
 
 import { createConnectToApi } from './actions/connect-to-api';
 import { createActions } from './actions';
+import { createBusListActions } from './actions/bus-list';
 
 /** services */
 import { createViewStorageService } from './services/storage/map-view';
@@ -32,7 +33,8 @@ const
   Store = storeFactory(viewStorageService, config),
   connectToApi = createConnectToApi(Store.dispatch, localStorage, io, config),
 
-  actions: IActions = createActions({ dispatch: Store.dispatch, mapRouterStateToPanelState }),
+  actions: IMainAction = createActions(Store.dispatch),
+  busListActions = createBusListActions(Store.dispatch),
 
   initRouting = createRouter(window, Store, actions.controlActions),
 
@@ -43,7 +45,7 @@ const
     actions
   },
   // providers
-  busListProvider = createBusListProvider(actions.busListActions, busListStorageService, config, Date)
+  busListProvider = createBusListProvider(busListActions, busListStorageService, config, Date)
   ;
 
 viewStorageService.watchViewOptions(Store);
@@ -56,6 +58,7 @@ initRouting();
 render(
   <App
     actions={actions}
+    mapRouterStateToPanelState={mapRouterStateToPanelState}
     mapProps={mapProps}
     store={Store}
     win={window}

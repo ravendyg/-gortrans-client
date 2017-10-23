@@ -1,5 +1,5 @@
 import { IConfig } from '../../../types';
-import { IBusSearchState } from '../../../types/state';
+import { IBusSearchState } from '../types';
 import { IStorageService } from '../../../types/services';
 import { getDefaultBusSearch } from './defaults';
 import { getAsync } from '../../../services/storage';

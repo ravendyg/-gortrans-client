@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouterState } from '../types/data-types';
 import { Settings } from '../components/settings/settings';
-import { IStore, IReduxState } from '../types/state';
+import { IStore } from '../types/state';
 import Loadable from 'react-loadable';
 
 const SearchWrapper = Loadable({
@@ -13,7 +13,7 @@ const SearchWrapper = Loadable({
 
 // TODO: add memoisation
 
-export function mapRouterStateToPanelState(store: IStore<IReduxState>):  JSX.Element | null {
+export function mapRouterStateToPanelState(store: IStore):  JSX.Element | null {
 
   const routerState = store.getState().appState;
 

@@ -1,12 +1,13 @@
 import * as React from 'react';
 
 import { SearchInput } from './input';
-import { IStore, IReduxState } from '../../../types/state';
+import { IBusListAction } from '../../../types/action-types';
+import { IStoreProps } from '../../../types';
 
 interface ISearchState {}
 
-interface ISearchProps {
-  store: IStore<IReduxState>;
+interface ISearchProps extends IStoreProps {
+  busListAction: IBusListAction;
 }
 
 const style: { [name: string]: string } = {
@@ -19,13 +20,10 @@ export class Search extends React.Component<ISearchProps, ISearchState> {
     return(
       <div className="search__wrapper" style={style}>
         <SearchInput
-          emit={() => { console.log('emit'); }}
+          emit={this.props.busListAction.updateQuery}
           store={this.props.store}
         />
       </div>
     );
   }
 }
-
-
-// emit={this.props.actions.busListActions.updateQuery}

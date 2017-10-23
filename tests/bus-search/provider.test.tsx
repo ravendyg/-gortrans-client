@@ -1,10 +1,10 @@
 import {  } from 'mocha';
 import * as sinon from 'sinon';
 
-import { storeFactory } from '../../fake-store';
-import { createBusSearchProvider } from '../../../src/modules/bus-search/providers/bus-search';
-import { IBusSearchState } from '../../../src/types/state';
-import { BusCodes } from '../../../src/types/enums';
+import { storeFactory } from '../fake-store';
+import { createBusSearchProvider } from '../../src/modules/bus-search/provider';
+import { IBusSearchState } from '../../src/modules/bus-search/types';
+import { BusCodes } from '../../src/types/enums';
 
 const
   busSearch: IBusSearchState = {
@@ -23,7 +23,7 @@ const
   busSearchProvider = createBusSearchProvider(busSearchActions, storageService)
   ;
 
-describe('bus list provider', () => {
+describe('bus search provider', () => {
 
   beforeEach(() => {
     store._resetAllHistory();

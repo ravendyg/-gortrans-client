@@ -5,8 +5,8 @@ import { configure, shallow, ShallowWrapper } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-15';
 configure({ adapter: new Adapter() });
 
-import { storeFactory } from '../../../fake-store';
-import { SearchInput, inputClassName } from '../../../../src/modules/bus-search/components/input';
+import { storeFactory } from '../../fake-store';
+import { SearchInput, inputClassName } from '../../../src/modules/bus-search/components/input';
 
 const
   store = storeFactory(),

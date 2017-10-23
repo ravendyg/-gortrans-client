@@ -1,11 +1,31 @@
 import * as React from 'react';
-import { IStore, IReduxState } from '../../types/state';
+import { IStoreProps } from '../../types';
+import { createBusListActions } from '../../actions/bus-list';
 import { Search } from './components/search';
+import { config } from '../../config';
+import { createBusSearchReducer } from './store';
 
-export interface ISearchProps {
-  store: IStore<IReduxState>;
+interface ISearchState {}
+
+export interface ISearchProps extends IStoreProps {
 }
 
-export default function SearchWrapper({ store }: ISearchProps) {
-  return <Search store={store}/>;
+export default class SearchWrapper extends React.PureComponent<ISearchProps, ISearchState> {
+
+  render() {
+    const
+      store = this.props.store,
+      busListActions = createBusListActions(store.dispatch),
+      busSearch = createBusSearchReducer(config)
+      ;
+
+    store.injectAsyncReducer('busSearch', busSearch);
+
+    return(
+      <Search
+        store={store}
+        busListAction={busListActions}
+      />
+    );
+  }
 }

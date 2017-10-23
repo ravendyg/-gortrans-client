@@ -1,7 +1,7 @@
-import { IStore, IReduxState, IBusSearchState } from '../../../types/state';
-import { IProvider } from '../../../types/providers';
-import { IBusSearchAction } from '../../../types/action-types';
-import { IStorageService } from '../../../types/services';
+import { IStore } from '../../types/state';
+import { IBusSearchAction, IBusSearchState } from './types';
+import { IProvider } from '../../types/providers';
+import { IStorageService } from '../../types/services';
 
 export function createBusSearchProvider(
   actions: IBusSearchAction,
@@ -20,7 +20,7 @@ export function createBusSearchProvider(
     .catch(console.error);
   });
 
-  function updateIfRequired(store: IStore<IReduxState>): void {
+  function updateIfRequired(store: IStore): void {
     const busSearch = store.getState().busSearch;
 
     if (_busSearch !== busSearch) {
@@ -29,7 +29,7 @@ export function createBusSearchProvider(
     }
   }
 
-  function subscribe(store: IStore<IReduxState>): Promise<void> {
+  function subscribe(store: IStore): Promise<void> {
     return loaded.then(() => {
       store.subscribe(() => {
         updateIfRequired(store);

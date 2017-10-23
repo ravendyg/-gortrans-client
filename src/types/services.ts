@@ -1,4 +1,4 @@
-import { IMapState, IStore, IReduxState } from './state';
+import { IMapState, IStore } from './state';
 
 export interface IStorageService<T> {
   getVal: () => Promise<T>;
@@ -7,5 +7,5 @@ export interface IStorageService<T> {
 
 export interface IViewStorageService {
   getMapViewOptions: () => IMapState;
-  watchViewOptions: (store: IStore<IReduxState>) => void;
+  watchViewOptions: (store: IStore) => void;
 }

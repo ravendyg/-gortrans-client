@@ -1,5 +1,6 @@
 import { IMapState } from './state';
 import { BusListSync } from './data-types';
+import { IStore } from './state';
 
 export interface IAction<T, P> {
   type: T;
@@ -32,4 +33,8 @@ export interface ICtor<T> {
 
 export interface IWindowProps {
   win: Window;
+}
+
+export interface IStoreProps {
+  store: IStore;
 }

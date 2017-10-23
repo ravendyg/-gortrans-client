@@ -1,11 +1,11 @@
 import {  } from 'mocha';
 import * as sinon from 'sinon';
 
-import { BusSearchActions } from '../../../src/types/action-types';
-import { IBusSearchState } from '../../../src/types/state';
-import { createBusSearchActions } from '../../../src/modules/bus-search/actions/bus-search';
-import { BusSearch } from '../../../src/types/data-types';
-import { BusCodes } from '../../../src/types/enums';
+import { BusSearchActions } from '../../src/modules/bus-search/types';
+import { IBusSearchState } from '../../src/modules/bus-search/types';
+import { createBusSearchActions } from '../../src/modules/bus-search/actions';
+import { BusSearch } from '../../src/types/data-types';
+import { BusCodes } from '../../src/types/enums';
 
 const
   dispatch: any = sinon.stub(),
