@@ -10,6 +10,7 @@ export interface IAction<T, P> {
 export interface IConfig {
   apiVersion: string;
   apiUrl: string;
+  old: boolean;
   mapOptions: {
     minZoom: number;
     maxZoom: number;

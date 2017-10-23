@@ -1,7 +1,0 @@
-Object.assign
-Promise
-Function.bind
-Array.map
-Array.filter
-Array.find
-Array.reduce
