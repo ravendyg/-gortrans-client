@@ -1,4 +1,4 @@
-import { IStore, IReduxState } from '../types/state';
+import { IStore } from '../types/state';
 import { IControlAction } from '../types/action-types';
 import { RouterState } from '../types/data-types';
 
@@ -6,7 +6,7 @@ import { RouterState } from '../types/data-types';
  * routing
  * don't need a full blown router, can survive with a small hack
  */
-export function createRouter(win: Window, Store: IStore<IReduxState>, controlActions: IControlAction) {
+export function createRouter(win: Window, Store: IStore, controlActions: IControlAction) {
 
   const
     searchRegExp = new RegExp(RouterState.SEARCH + '$'),

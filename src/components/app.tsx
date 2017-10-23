@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { Connected } from './connected';
-import { IPropsWithAction } from '../types/action-types';
+import { IPropsWithAction, MapRouterStateToPanelState } from '../types/action-types';
 import { MapWrapperComponent, IMapWrapperProps } from './map-wrapper/map-wrapper';
 import { Controls } from './controls/controls';
-import { IStore, IReduxState } from '../types/state';
-import { IWindowProps } from '../types';
+import { IWindowProps, IStoreProps } from '../types';
 
 import { SidePanel } from './side-panel';
 
@@ -12,16 +11,16 @@ interface IAppState {
   panelContent: JSX.Element | null;
 }
 
-export interface IAppProps extends IPropsWithAction, IWindowProps {
+export interface IAppProps extends IPropsWithAction, IWindowProps, IStoreProps {
   mapProps: IMapWrapperProps;
-  store: IStore<IReduxState>;
+  mapRouterStateToPanelState: MapRouterStateToPanelState;
 }
 
 export class App extends Connected<IAppProps, IAppState> {
 
   mapState(): IAppState {
     return {
-      panelContent: this.props.actions.mapRouterStateToPanelState(this.props.store)
+      panelContent: this.props.mapRouterStateToPanelState(this.props.store)
     };
   }
 

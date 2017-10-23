@@ -1,5 +1,5 @@
 import { IConfig } from '../../types';
-import { IStore, IReduxState, IMapState } from '../../types/state';
+import { IStore, IMapState } from '../../types/state';
 import { IViewStorageService } from '../../types/services';
 import { getDefaultMapState } from '../defaults';
 import { verifyStorageEntry } from './index';
@@ -24,7 +24,7 @@ export function createViewStorageService(storage: Storage, config: IConfig): IVi
     }
 
     // TODO: extract to a provider?
-    function watchViewOptions(store: IStore<IReduxState>) {
+    function watchViewOptions(store: IStore) {
       let oldState: IMapState;
       store.subscribe(() => {
         const mapState = store.getState().mapState;

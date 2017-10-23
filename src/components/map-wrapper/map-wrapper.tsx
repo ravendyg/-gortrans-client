@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IConfig } from '../../types';
-import { IActions } from '../../types/action-types';
+import { IMainAction } from '../../types/action-types';
 import { IReduxState, IStore } from '../../types/state';
 import { MapComponent } from '../map/map';
 import { Connected } from '../connected';
@@ -13,8 +13,8 @@ interface IMapWrapperState {
 export interface IMapWrapperProps {
   L: any;
   config: IConfig;
-  store: IStore<IReduxState>;
-  actions: IActions;
+  store: IStore;
+  actions: IMainAction;
 }
 
 export class MapWrapperComponent extends Connected<IMapWrapperProps, IMapWrapperState> {

@@ -21,14 +21,15 @@ const
     controlActions: {
       goToRoot: () => {/**/},
     },
-    mapRouterStateToPanelState: sinon.stub().returns(null)
   },
+  mapRouterStateToPanelState = sinon.stub().returns(null),
   _win: any = {},
   props = {
     mapProps,
     actions,
     store,
-    win: _win
+    win: _win,
+    mapRouterStateToPanelState,
   },
   app: ShallowWrapper = shallow(
     <App {...props} />

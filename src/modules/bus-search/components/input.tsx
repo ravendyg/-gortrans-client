@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ConnectedNotPure } from '../../../components/connected';
-import { IStore, IReduxState } from '../../../types/state';
+import { IReduxState } from '../../../types/state';
+import { IStoreProps } from '../../../types';
 
 export const inputClassName = 'search__input--text';
 
@@ -9,9 +10,8 @@ interface ISearchInputState {
   placeholder: string;
 }
 
-interface ISearchInputProps {
+interface ISearchInputProps extends IStoreProps {
   emit: (newQuery: string) => void;
-  store: IStore<IReduxState>;
 }
 
 export class SearchInput extends ConnectedNotPure<ISearchInputProps, ISearchInputState> {

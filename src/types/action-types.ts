@@ -1,28 +1,17 @@
-import { IAction } from './index';
-import { BusList, BusSearch, RouterState } from './data-types';
-import { BusCodes } from './enums';
-import { IBusSearchState, IReduxState, IStore } from './state';
+import { BusList, RouterState } from './data-types';
+import { IStore } from './state';
 
 export interface IPropsWithAction {
-  actions: IActions;
+  actions: IMainAction;
 }
 
 
-declare type MapRouterStateToPanelState = (store: IStore<IReduxState>) => JSX.Element | null;
-
-export interface IActionDeps {
-  dispatch: (action: IAction<any, any>) => void;
-  mapRouterStateToPanelState: MapRouterStateToPanelState;
-}
+export declare type MapRouterStateToPanelState = (store: IStore) => JSX.Element | null;
 
 
-export interface IActions {
-  [actionsName: string]: any;
-  addActions: (name: string, actions: any) => void;
+export interface IMainAction {
   controlActions: IControlAction;
   leafletActions: ILeafletAction;
-  busListActions: IBusListAction;
-  mapRouterStateToPanelState: MapRouterStateToPanelState;
 }
 
 
@@ -71,13 +60,5 @@ export enum BusListActions {
 
 
 /** bus search */
-export interface IBusSearchAction {
-  updateHistory: (key: BusCodes, busSearch: BusSearch) => void;
-  updateAllHistory: (busSearch: IBusSearchState) => void;
-}
 
-export enum BusSearchActions {
-  ADD_TO_HISTORY = 'ADD_TO_HISTORY',
-  RESET_SEARCH_HISTORY = 'RESET_SEARCH_HISTORY,'
-}
 /** /bus search */
