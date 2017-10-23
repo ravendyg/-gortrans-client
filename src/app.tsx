@@ -27,41 +27,51 @@ import { createBusListProvider } from './providers/bus-list';
 
 require('./styles.scss');
 
-const
-  viewStorageService = createViewStorageService(localStorage, config),
-  busListStorageService = createBusListStorageService(localStorage, config),
-  Store = storeFactory(viewStorageService, config),
-  connectToApi = createConnectToApi(Store.dispatch, localStorage, io, config),
+function startApp() {
+  const
+    viewStorageService = createViewStorageService(localStorage, config),
+    busListStorageService = createBusListStorageService(localStorage, config),
+    Store = storeFactory(viewStorageService, config),
+    connectToApi = createConnectToApi(Store.dispatch, localStorage, io, config),
 
-  actions: IMainAction = createActions(Store.dispatch),
-  busListActions = createBusListActions(Store.dispatch),
+    actions: IMainAction = createActions(Store.dispatch),
+    busListActions = createBusListActions(Store.dispatch),
 
-  initRouting = createRouter(window, Store, actions.controlActions),
+    initRouting = createRouter(window, Store, actions.controlActions),
 
-  mapProps: IMapWrapperProps = {
-    L,
-    store: Store,
-    config,
-    actions
-  },
-  // providers
-  busListProvider = createBusListProvider(busListActions, busListStorageService, config, Date)
-  ;
+    mapProps: IMapWrapperProps = {
+      L,
+      store: Store,
+      config,
+      actions
+    },
+    // providers
+    busListProvider = createBusListProvider(busListActions, busListStorageService, config, Date)
+    ;
 
-viewStorageService.watchViewOptions(Store);
+  viewStorageService.watchViewOptions(Store);
 
-busListProvider.subscribe(Store);
+  busListProvider.subscribe(Store);
 
-connectToApi();
-initRouting();
+  connectToApi();
+  initRouting();
 
-render(
-  <App
-    actions={actions}
-    mapRouterStateToPanelState={mapRouterStateToPanelState}
-    mapProps={mapProps}
-    store={Store}
-    win={window}
-  />,
-  document.getElementById('app')
-);
+  render(
+    <App
+      actions={actions}
+      mapRouterStateToPanelState={mapRouterStateToPanelState}
+      mapProps={mapProps}
+      store={Store}
+      win={window}
+    />,
+    document.getElementById('app')
+  );
+}
+
+if (config.old) {
+  (require as any).ensure(['polyfills'], startApp);
+} else {
+  startApp();
+}
+
+

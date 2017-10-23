@@ -1,16 +1,44 @@
 const
   webpack = require('webpack'),
   path = require('path'),
-  config = require('/etc/project-config.d/config')
+  config = require('/etc/project-config.d/config'),
+  minify = process.argv.find(el => el === '-p'),
+  clientVersion = config.VERSIONS.CLIENT_VERSION || 1,
+  old = process.argv.find(el => el === '--env.old') ? '-old' : '',
+  plugins = [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'API_URL': JSON.stringify(config.URLS.API_URL),
+        'VERSION': JSON.stringify(clientVersion),
+        'OLD': !!old,
+      }
+    })
+  ],
+  bundleName = 'bundle' + (old ? '-old' : ''),
+  targets = {
+    targets: old ?
+        {
+            ie: '9'
+        } :
+        {
+            'chrome': 58
+        }
+    }
   ;
 
+if (minify) {
+  plugins.push(new BabiliPlugin());
+}
+
 module.exports = {
-  entry: './src/app.tsx',
+  entry: {
+    app: path.resolve(__dirname, 'src', 'app.tsx'),
+  },
 
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: '[name].bundle.js',
-    chunkFilename: '[name].bundle.js'
+    filename: `[name]-${clientVersion}${old}.bundle.js`,
+    chunkFilename: `[name]-${clientVersion}${old}.bundle.js`,
   },
 
   module: {
@@ -23,7 +51,9 @@ module.exports = {
         use: [{
           loader: 'babel-loader',
           options: {
-            presets: ['es2015', 'react']
+            presets: [
+              ['env', targets]
+            ]
           },
         }]
       }, {
@@ -35,8 +65,10 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: ['es2015', 'react']
-            },
+              presets: [
+                ['env', targets]
+              ]
+            }
           }, {
             loader: 'ts-loader'
           }
@@ -106,14 +138,7 @@ module.exports = {
     publicPath: true
   },
 
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'API_URL': JSON.stringify(config.URLS.API_URL),
-        'VERSION': JSON.stringify(config.VERSIONS.CLIENT_VERSION)
-      }
-    })
-  ],
+  plugins,
 
   externals: {
     'socket.io-client': 'io',

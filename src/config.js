@@ -3,6 +3,7 @@
 const
   apiVersion = process.env.VERSION || '',
   baseApiUrl = process.env.API_URL || '',
+  old = !!process.env.OLD,
   apiUrl = baseApiUrl,// + apiVersion + '/'
   southWest = L.latLng(30, 10),
   northEast = L.latLng(80, 200),
@@ -12,6 +13,7 @@ const
 export const config = {
   apiVersion,
   apiUrl,
+  old,
   mapOptions: {
     minZoom: 4,
     maxZoom: 18,
