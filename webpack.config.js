@@ -1,6 +1,7 @@
 const
   webpack = require('webpack'),
   path = require('path'),
+  BabiliPlugin = require('babili-webpack-plugin'),
   config = require('/etc/project-config.d/config'),
   minify = process.argv.find(el => el === '-p'),
   clientVersion = config.VERSIONS.CLIENT_VERSION || 1,
