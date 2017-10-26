@@ -1,4 +1,4 @@
-import { IBusSearchState } from '../types';
+import { IBusSearchState } from './types';
 
 export function getDefaultBusSearch(): IBusSearchState {
   return {
