@@ -4,15 +4,6 @@ const
   config = require('/etc/project-config.d/config'),
   clientVersion = config.VERSIONS.CLIENT_VERSION || 1,
   old = process.argv.find(el => el === '--env.old') ? '-old' : '',
-  plugins = [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'API_URL': JSON.stringify(config.URLS.API_URL),
-        'VERSION': JSON.stringify(clientVersion),
-        'OLD': !!old,
-      }
-    })
-  ],
   bundleName = 'bundle' + (old ? '-old' : ''),
   targets = {
     targets: old ?
@@ -133,7 +124,15 @@ module.exports = {
     publicPath: true
   },
 
-  plugins: [],
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'API_URL': JSON.stringify(config.URLS.API_URL),
+        'VERSION': JSON.stringify(clientVersion),
+        'OLD': !!old,
+      }
+    })
+  ],
 
   externals: {
     'socket.io-client': 'io',
