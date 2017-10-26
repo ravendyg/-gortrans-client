@@ -1,9 +1,7 @@
 const
   webpack = require('webpack'),
   path = require('path'),
-  BabiliPlugin = require('babili-webpack-plugin'),
   config = require('/etc/project-config.d/config'),
-  minify = process.argv.find(el => el === '-p'),
   clientVersion = config.VERSIONS.CLIENT_VERSION || 1,
   old = process.argv.find(el => el === '--env.old') ? '-old' : '',
   plugins = [
@@ -26,10 +24,6 @@ const
         }
     }
   ;
-
-if (minify) {
-  plugins.push(new BabiliPlugin());
-}
 
 module.exports = {
   entry: {
@@ -139,7 +133,7 @@ module.exports = {
     publicPath: true
   },
 
-  plugins,
+  plugins: [],
 
   externals: {
     'socket.io-client': 'io',
