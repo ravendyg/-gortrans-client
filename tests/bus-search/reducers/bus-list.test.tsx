@@ -2,11 +2,12 @@ import {  } from 'mocha';
 import { assert } from 'chai';
 
 import { BusListActions } from '../../../src/types/action-types';
-import { busList } from '../../../src/store/bus-list';
+import { createBusListReducer } from '../../../src/modules/bus-search/store/bus-list';
 
 describe('bus list reducer', () => {
 
   const
+  busList = createBusListReducer(),
     oldState: any = {
       list: [],
       query: ''

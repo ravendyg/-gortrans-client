@@ -1,13 +1,20 @@
 import { IConfig } from '../../../types';
 import { BusListSync } from '../../../types/data-types';
 import { IStorageService } from '../../../types/services';
-import { getDefaultBusListSync } from '../defaults';
 import { getAsync } from '../../../services/storage';
 
 export function createBusListStorageService(storage: Storage, config: IConfig): IStorageService<BusListSync> {
 
+  function getDefault(): BusListSync {
+    return {
+      list: [],
+      tsp: 0,
+      version: ''
+    };
+  }
+
   function getVal(): Promise<BusListSync> {
-    return getAsync<BusListSync>(storage, config.keys.busListSync, getDefaultBusListSync);
+    return getAsync<BusListSync>(storage, config.keys.busListSync, getDefault);
   }
 
   function setVal(busListSync: BusListSync) {

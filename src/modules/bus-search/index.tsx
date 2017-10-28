@@ -7,6 +7,7 @@ import { createBusListActions } from './actions/bus-list';
 import { createBusSearchActions } from './actions/bus-search';
 /** reducers */
 import { createBusSearchReducer } from './store/bus-search';
+import { createBusListReducer } from './store/bus-list';
 /** services */
 import { createBusListStorageService } from './services/bus-list-storage';
 import { createBusSeachStorageService } from './services/bus-search-storage';
@@ -29,6 +30,7 @@ export default class SearchWrapper extends React.PureComponent<ISearchProps, ISe
       busSearchActions = createBusSearchActions(store.dispatch),
       /** reducers */
       busSearch = createBusSearchReducer(config),
+      busList = createBusListReducer(),
       /** services */
       busListStorageService = createBusListStorageService(localStorage, config),
       busSearchService = createBusSeachStorageService(localStorage, config),
@@ -38,6 +40,8 @@ export default class SearchWrapper extends React.PureComponent<ISearchProps, ISe
       ;
 
     store.injectAsyncReducer('busSearch', busSearch);
+    store.injectAsyncReducer('busList', busList);
+
     busListProvider.subscribe(store);
     busSearchProvider.subscribe(store);
 
