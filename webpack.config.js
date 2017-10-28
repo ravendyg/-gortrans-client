@@ -7,13 +7,24 @@ const
   bundleName = 'bundle' + (old ? '-old' : ''),
   targets = {
     targets: old ?
-        {
-            ie: '9'
-        } :
-        {
-            'chrome': 58
-        }
-    }
+      {
+          ie: '9'
+      } :
+      {
+          'chrome': 58
+      }
+  },
+  include = [
+    path.resolve(__dirname, 'src')
+  ],
+  babelLoader = {
+    loader: 'babel-loader',
+    options: {
+      presets: [
+        ['env', targets]
+      ]
+    },
+  }
   ;
 
 module.exports = {
@@ -31,31 +42,15 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        include: [
-          path.resolve(__dirname, 'src')
-        ],
-        use: [{
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              ['env', targets]
-            ]
-          },
-        }]
-      }, {
+        include,
+        use: [babelLoader]
+      },
+      {
         test: /\.tsx?$/,
-        include: [
-          path.resolve(__dirname, 'src')
-        ],
+        include,
         use: [
+          babelLoader,
           {
-            loader: 'babel-loader',
-            options: {
-              presets: [
-                ['env', targets]
-              ]
-            }
-          }, {
             loader: 'ts-loader'
           }
         ]
@@ -65,7 +60,8 @@ module.exports = {
           { loader: 'url-loader' },
           { loader: 'img-loader' },
         ]
-      }, {
+      },
+      {
         test: /\.scss$/,
         use: [
           { loader: 'style-loader' },
