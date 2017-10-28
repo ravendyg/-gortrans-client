@@ -1,7 +1,7 @@
-import { BusSearch } from '../../types/data-types';
-import { IAction } from '../../types';
-import { IBusSearchState, BusSearchActions, IBusSearchAction } from './types';
-import { BusCodes } from '../../types/enums';
+import { BusSearch } from '../../../types/data-types';
+import { IAction } from '../../../types';
+import { IBusSearchState, BusSearchActions, IBusSearchAction } from '../types';
+import { BusCodes } from '../../../types/enums';
 
 export function createBusSearchActions(
   dispatch: (action: IAction<
