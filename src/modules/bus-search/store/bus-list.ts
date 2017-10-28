@@ -9,25 +9,27 @@ export function createBusListReducer() {
     action: IAction<BusListActions, IBusListState>
   ): IBusListState {
 
+    let newState = state;
+
     switch (action.type) {
 
       case BusListActions.UPDATE_LIST: {
-        return {
+        newState = {
           list: action.payload.list,
           query: state.query
         };
+        break;
       }
 
       case BusListActions.UPDATE_QUERY: {
-        return {
+        newState = {
           list: state.list,
           query: action.payload.query
         };
-      }
-
-      default: {
-        return state;
+        break;
       }
     }
+
+    return newState;
   };
 }

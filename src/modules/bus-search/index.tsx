@@ -12,7 +12,7 @@ import { createBusListReducer } from './store/bus-list';
 import { createBusListStorageService } from './services/bus-list-storage';
 import { createBusSeachStorageService } from './services/bus-search-storage';
 /** providers */
-import { createBusListProvider } from './providers/bus-list';
+import { loadBusList } from './providers/bus-list';
 import { createBusSearchProvider } from './providers/bus-search';
 
 interface ISearchState {}
@@ -35,14 +35,13 @@ export default class SearchWrapper extends React.PureComponent<ISearchProps, ISe
       busListStorageService = createBusListStorageService(localStorage, config),
       busSearchService = createBusSeachStorageService(localStorage, config),
       /** providers */
-      busListProvider = createBusListProvider(busListActions, busListStorageService, config, Date),
       busSearchProvider = createBusSearchProvider(busSearchActions, busSearchService)
       ;
 
     store.injectAsyncReducer('busSearch', busSearch);
     store.injectAsyncReducer('busList', busList);
 
-    busListProvider.subscribe(store);
+    loadBusList(busListActions, busListStorageService, store, config, Date);
     busSearchProvider.subscribe(store);
 
     return(

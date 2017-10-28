@@ -4,7 +4,7 @@ import { EventEmitter } from 'events';
 
 import { BusListSync } from '../../../src/types/data-types';
 import { storeFactory } from '../../fake-store';
-import { createBusListProvider } from '../../../src/modules/bus-search/providers/bus-list';
+import { loadBusList } from '../../../src/modules/bus-search/providers/bus-list';
 import { messages } from '../../../src/messages';
 
 const
@@ -39,10 +39,10 @@ const
   busListActions: any = {
     updateBusList: sinon.stub()
   },
-  busListProvider = createBusListProvider(busListActions, storageService, config, date)
+  _loadBusList = () => loadBusList(busListActions, storageService, store, config, date)
   ;
 
-describe('bus list provider', () => {
+describe.only('bus list provider', () => {
 
   beforeEach(() => {
     store._resetAllHistory();
@@ -52,7 +52,7 @@ describe('bus list provider', () => {
   });
 
   it('fetches last sync info', done => {
-    busListProvider.subscribe(store)
+    _loadBusList()
     .then(() => {
       sinon.assert.calledOnce(storageService.getVal);
       done();
@@ -60,17 +60,8 @@ describe('bus list provider', () => {
     .catch(done);
   });
 
-  it('calls Store.subscribe', done => {
-    busListProvider.subscribe(store)
-    .then(() => {
-      sinon.assert.calledOnce(store.subscribe);
-      done();
-    })
-    .catch(done);
-  });
-
   it('checks connection status on subscription', done => {
-    busListProvider.subscribe(store)
+    _loadBusList()
     .then(() => {
       sinon.assert.calledOnce(store.getState);
       done();
@@ -81,7 +72,7 @@ describe('bus list provider', () => {
   it('checks last sync tsp if connected and does nothing if is up to date', done => {
     const connection = new EventEmitter();
     apiConnection.socket = connection;
-    busListProvider.subscribe(store)
+    _loadBusList()
     .then(() => {
       sinon.assert.calledOnce(date.now);
       done();
@@ -99,7 +90,7 @@ describe('bus list provider', () => {
     apiConnection.socket = connection;
     date.now.returns(100);
 
-    busListProvider.subscribe(store)
+    _loadBusList()
     .then(() => {
       sinon.assert.calledWith(spyOn, messages.syncBusListResponse);
       sinon.assert.calledWith(spyEmit, messages.syncBusListRequest);
@@ -111,27 +102,28 @@ describe('bus list provider', () => {
   it('updates bus list sync info', done => {
     const
       connection = new EventEmitter(),
+      list: any [] = [],
       newData = {
-        tsp: 123, version: 'v', list: []
+        tsp: 123, version: 'v', list
       }
       ;
     apiConnection.socket = connection;
     date.now.returns(200);
 
-    busListProvider.subscribe(store)
+    _loadBusList()
     .then(() => {
       setTimeout(() => {
         connection.emit(messages.syncBusListResponse, newData);
 
         sinon.assert.calledWith(storageService.setVal, sinon.match(newData));
-        sinon.assert.calledWith(busListActions.updateBusList, sinon.match([]));
+        sinon.assert.calledWith(busListActions.updateBusList, list);
         done();
       }, 5);
     })
     .catch(done);
   });
 
-  it('updates ony tsp and does not dispatch', done => {
+  it('updates only tsp and does not dispatch', done => {
     const
       connection = new EventEmitter(),
       newData = {
@@ -141,7 +133,7 @@ describe('bus list provider', () => {
     apiConnection.socket = connection;
     date.now.returns(200);
 
-    busListProvider.subscribe(store)
+    _loadBusList()
     .then(() => {
       setTimeout(() => {
         connection.emit(messages.syncBusListResponse, newData);

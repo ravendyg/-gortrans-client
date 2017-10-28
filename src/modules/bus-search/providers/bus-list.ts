@@ -1,53 +1,24 @@
 import { IConfig } from '../../../types';
 import { IStore } from '../../../types/state';
 import { BusListSyncResponse, BusListSync } from '../../../types/data-types';
-import { IProvider } from '../../../types/providers';
 import { IBusListAction } from '../../../types/action-types';
 import { IStorageService } from '../../../types/services';
 import { messages } from '../../../messages';
 
-export function createBusListProvider(
+export function loadBusList(
   actions: IBusListAction,
   storageService: IStorageService<BusListSync>,
+  store: IStore,
   config: IConfig,
   date: DateConstructor
-): IProvider {
+): Promise<void> {
 
   let lastSyncInfo: BusListSync;
 
-  const loaded = new Promise(resolve => {
-    storageService.getVal()
-    .then((data: BusListSync) => {
-      lastSyncInfo = data;
-      resolve();
-      actions.updateBusList(data.list);
-    })
-    .catch((err: Error) => {
-      console.error(err);
-      lastSyncInfo = {
-        tsp: 0,
-        version: '',
-        list: []
-      };
-      resolve();
-      actions.updateBusList([]);
-    });
-  });
+  return storageService.getVal()
+  .then((data: BusListSync) => {
+    lastSyncInfo = data;
 
-  function updateBusListSyncInfo(msg: BusListSyncResponse) {
-    lastSyncInfo.tsp = msg.tsp;
-    if (msg.version ) {
-      lastSyncInfo.version = msg.version;
-    }
-    if (msg.list) {
-      lastSyncInfo.list = msg.list;
-      actions.updateBusList(msg.list);
-    }
-
-    storageService.setVal(lastSyncInfo);
-  }
-
-  function updateIfRequired(store: IStore): void {
     const
       tmp = date.now(),
       connection = store.getState().apiConnection.socket,
@@ -57,22 +28,26 @@ export function createBusListProvider(
     if (connection && syncOutdated) {
       connection.on(messages.syncBusListResponse, updateBusListSyncInfo);
       connection.emit(messages.syncBusListRequest, lastSyncInfo.version);
+    } else {
+      actions.updateBusList(data.list);
     }
-  }
+  })
+  .catch((err: Error) => {
+    console.error(err);
+    actions.updateBusList([]);
+  });
 
-  function subscribe(store: IStore): Promise<void> {
-    return loaded.then(() => {
-      store.subscribe(() => {
-        if (loaded) {
-          updateIfRequired(store);
-        }
-      });
-      updateIfRequired(store);
-    });
-  }
+  function updateBusListSyncInfo(msg: BusListSyncResponse) {
+    lastSyncInfo.tsp = msg.tsp;
+    if (msg.version) {
+      lastSyncInfo.version = msg.version;
+    }
+    if (msg.list) {
+      lastSyncInfo.list = msg.list;
+      actions.updateBusList(msg.list);
+    }
 
-  return {
-    subscribe
-  };
+    storageService.setVal(lastSyncInfo);
+  }
 
 }
