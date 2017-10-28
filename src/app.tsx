@@ -10,8 +10,9 @@ import { App } from './components/app';
 import { IMapWrapperProps } from './components/map-wrapper/map-wrapper';
 
 import { createConnectToApi } from './actions/connect-to-api';
-import { createActions } from './actions';
 import { createBusListActions } from './actions/bus-list';
+import { createControlActions } from './actions/control';
+import { createLeafletActions } from './actions/leaflet';
 
 /** services */
 import { createViewStorageService } from './services/storage/map-view';
@@ -34,7 +35,10 @@ function startApp() {
     Store = storeFactory(viewStorageService, config),
     connectToApi = createConnectToApi(Store.dispatch, localStorage, io, config),
 
-    actions: IMainAction = createActions(Store.dispatch),
+    actions: IMainAction = {
+      controlActions: createControlActions(Store.dispatch),
+      leafletActions: createLeafletActions(Store.dispatch),
+    },
     busListActions = createBusListActions(Store.dispatch),
 
     initRouting = createRouter(window, Store, actions.controlActions),
