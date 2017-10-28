@@ -1,13 +1,12 @@
-import { BusSearchActions } from './types';
-import { IAction, IConfig } from '../../types';
-import { IBusSearchState } from './types';
-import { BusSearch } from '../../types/data-types';
-import { BusCodes } from '../../types/enums';
+import { BusSearchActions } from '../types';
+import { IAction, IConfig } from '../../../types';
+import { IBusSearchState, BusSearchStateParticle } from '../types';
+import { getDefaultBusSearch } from '../defaults';
 
 export function createBusSearchReducer(config: IConfig) {
   return function busSearch(
-    state: IBusSearchState = {},
-    action: IAction<BusSearchActions, { key: BusCodes, busSearch: BusSearch } | IBusSearchState>
+    state: IBusSearchState = getDefaultBusSearch(),
+    action: IAction<BusSearchActions, BusSearchStateParticle | IBusSearchState>
   ): IBusSearchState {
 
     switch (action.type) {
@@ -18,8 +17,8 @@ export function createBusSearchReducer(config: IConfig) {
 
       case BusSearchActions.ADD_TO_HISTORY: {
         const
-          { key, busSearch } = action.payload as { key: BusCodes, busSearch: BusSearch },
-          newState: IBusSearchState = {},
+          { key, busSearch } = action.payload as BusSearchStateParticle,
+          newState: IBusSearchState = getDefaultBusSearch(),
           existing = state[key] || []
           ;
 

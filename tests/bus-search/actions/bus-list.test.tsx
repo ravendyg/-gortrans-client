@@ -2,7 +2,7 @@ import {  } from 'mocha';
 import * as sinon from 'sinon';
 
 import { BusListActions } from '../../../src/types/action-types';
-import { createBusListActions } from '../../../src/actions/bus-list';
+import { createBusListActions } from '../../../src/modules/bus-search/actions/bus-list';
 
 const
   dispatch: any = sinon.stub(),

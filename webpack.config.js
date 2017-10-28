@@ -1,35 +1,31 @@
 const
   webpack = require('webpack'),
   path = require('path'),
-  BabiliPlugin = require('babili-webpack-plugin'),
   config = require('/etc/project-config.d/config'),
-  minify = process.argv.find(el => el === '-p'),
   clientVersion = config.VERSIONS.CLIENT_VERSION || 1,
   old = process.argv.find(el => el === '--env.old') ? '-old' : '',
-  plugins = [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'API_URL': JSON.stringify(config.URLS.API_URL),
-        'VERSION': JSON.stringify(clientVersion),
-        'OLD': !!old,
-      }
-    })
-  ],
   bundleName = 'bundle' + (old ? '-old' : ''),
   targets = {
     targets: old ?
-        {
-            ie: '9'
-        } :
-        {
-            'chrome': 58
-        }
-    }
+      {
+          ie: '9'
+      } :
+      {
+          'chrome': 58
+      }
+  },
+  include = [
+    path.resolve(__dirname, 'src')
+  ],
+  babelLoader = {
+    loader: 'babel-loader',
+    options: {
+      presets: [
+        ['env', targets]
+      ]
+    },
+  }
   ;
-
-if (minify) {
-  plugins.push(new BabiliPlugin());
-}
 
 module.exports = {
   entry: {
@@ -46,31 +42,15 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        include: [
-          path.resolve(__dirname, 'src')
-        ],
-        use: [{
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              ['env', targets]
-            ]
-          },
-        }]
-      }, {
+        include,
+        use: [babelLoader]
+      },
+      {
         test: /\.tsx?$/,
-        include: [
-          path.resolve(__dirname, 'src')
-        ],
+        include,
         use: [
+          babelLoader,
           {
-            loader: 'babel-loader',
-            options: {
-              presets: [
-                ['env', targets]
-              ]
-            }
-          }, {
             loader: 'ts-loader'
           }
         ]
@@ -80,7 +60,8 @@ module.exports = {
           { loader: 'url-loader' },
           { loader: 'img-loader' },
         ]
-      }, {
+      },
+      {
         test: /\.scss$/,
         use: [
           { loader: 'style-loader' },
@@ -139,7 +120,15 @@ module.exports = {
     publicPath: true
   },
 
-  plugins,
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'API_URL': JSON.stringify(config.URLS.API_URL),
+        'VERSION': JSON.stringify(clientVersion),
+        'OLD': !!old,
+      }
+    })
+  ],
 
   externals: {
     'socket.io-client': 'io',

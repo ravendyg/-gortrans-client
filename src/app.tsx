@@ -10,32 +10,27 @@ import { App } from './components/app';
 import { IMapWrapperProps } from './components/map-wrapper/map-wrapper';
 
 import { createConnectToApi } from './actions/connect-to-api';
-import { createActions } from './actions';
-import { createBusListActions } from './actions/bus-list';
+import { createControlActions } from './actions/control';
+import { createLeafletActions } from './actions/leaflet';
 
 /** services */
 import { createViewStorageService } from './services/storage/map-view';
-import { createBusListStorageService } from './services/storage/bus-list';
 import { createRouter } from './services/router';
 import { mapRouterStateToPanelState } from './services/panel-content';
 /** /services */
-
-/** providers */
-import { createBusListProvider } from './providers/bus-list';
-
-/** /providers */
 
 require('./styles.scss');
 
 function startApp() {
   const
     viewStorageService = createViewStorageService(localStorage, config),
-    busListStorageService = createBusListStorageService(localStorage, config),
     Store = storeFactory(viewStorageService, config),
     connectToApi = createConnectToApi(Store.dispatch, localStorage, io, config),
 
-    actions: IMainAction = createActions(Store.dispatch),
-    busListActions = createBusListActions(Store.dispatch),
+    actions: IMainAction = {
+      controlActions: createControlActions(Store.dispatch),
+      leafletActions: createLeafletActions(Store.dispatch),
+    },
 
     initRouting = createRouter(window, Store, actions.controlActions),
 
@@ -44,14 +39,10 @@ function startApp() {
       store: Store,
       config,
       actions
-    },
-    // providers
-    busListProvider = createBusListProvider(busListActions, busListStorageService, config, Date)
+    }
     ;
 
   viewStorageService.watchViewOptions(Store);
-
-  busListProvider.subscribe(Store);
 
   connectToApi();
   initRouting();

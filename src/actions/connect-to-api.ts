@@ -10,9 +10,8 @@ export function createConnectToApi(
 ): () => void {
 
   return function connectToApi(): void {
-
     const
-      apiKey: string | null = syncStorage.getItem('apiKey') || null,
+      apiKey: string = syncStorage.getItem('apiKey') || '',
       socket: SocketIOClient.Socket = io.connect(
         config.apiUrl,
         {

@@ -2,7 +2,6 @@ import { combineReducers, createStore, Reducer } from 'redux';
 // reducers
 import { apiConnection } from './connection';
 import { createMapState } from './map-state';
-import { busList } from './bus-list';
 import { appState } from './app-state';
 import { translation } from './translation';
 import { IStore, IReduxState } from '../types/state';
@@ -27,7 +26,6 @@ export function storeFactory(storageService: IViewStorageService, config: IConfi
     return combineReducers(Object.assign({
       apiConnection,
       mapState: createMapState(defViewOptions, config),
-      busList,
       appState,
       translation,
     }, asyncReducers));

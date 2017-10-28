@@ -2,8 +2,10 @@ import { BusSearch } from '../../types/data-types';
 import { BusCodes } from '../../types/enums';
 
 export interface IBusSearchState {
-  [key: string]: BusSearch [];
+  [index: string/*BusCodes*/]: BusSearch [];
 }
+
+export declare type BusSearchStateParticle = { key: BusCodes, busSearch: BusSearch };
 
 export interface IBusSearchAction {
   updateHistory: (key: BusCodes, busSearch: BusSearch) => void;
