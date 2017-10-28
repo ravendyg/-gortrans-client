@@ -1,4 +1,5 @@
 import { IBusSearchState } from './types';
+import { BusListSync } from '../../types/data-types';
 
 export function getDefaultBusSearch(): IBusSearchState {
   return {
@@ -6,5 +7,13 @@ export function getDefaultBusSearch(): IBusSearchState {
     '1': [],
     '2': [],
     '7': [],
+  };
+}
+
+export function getDefaultBusListSync(): BusListSync {
+  return {
+    tsp: 0,
+    version: '',
+    list: []
   };
 }

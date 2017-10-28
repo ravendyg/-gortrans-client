@@ -1,9 +1,9 @@
 import {  } from 'mocha';
 import { assert } from 'chai';
 
-import { BusSearchActions } from '../../src/modules/bus-search/types';
-import { createBusSearchReducer } from '../../src/modules/bus-search/store';
-import { BusCodes } from '../../src/types/enums';
+import { BusSearchActions } from '../../../src/modules/bus-search/types';
+import { createBusSearchReducer } from '../../../src/modules/bus-search/store/bus-search';
+import { BusCodes } from '../../../src/types/enums';
 
 const busSearch = createBusSearchReducer({ historyDisplayLimit: 3 } as any);
 

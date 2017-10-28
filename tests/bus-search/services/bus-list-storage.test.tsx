@@ -1,7 +1,7 @@
 import {  } from 'mocha';
 import * as sinon from 'sinon';
 import { assert } from 'chai';
-import { createBusListStorageService } from '../../../../src/services/storage/bus-list';
+import { createBusListStorageService } from '../../../src/modules/bus-search/services/bus-list-storage';
 
 const
   config: any = {

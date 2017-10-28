@@ -1,8 +1,8 @@
-import { IConfig } from '../../types';
-import { BusListSync } from '../../types/data-types';
-import { IStorageService } from '../../types/services';
+import { IConfig } from '../../../types';
+import { BusListSync } from '../../../types/data-types';
+import { IStorageService } from '../../../types/services';
 import { getDefaultBusListSync } from '../defaults';
-import { getAsync } from './index';
+import { getAsync } from '../../../services/storage';
 
 export function createBusListStorageService(storage: Storage, config: IConfig): IStorageService<BusListSync> {
 

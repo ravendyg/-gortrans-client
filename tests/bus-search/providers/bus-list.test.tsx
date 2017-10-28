@@ -4,7 +4,7 @@ import { EventEmitter } from 'events';
 
 import { BusListSync } from '../../../src/types/data-types';
 import { storeFactory } from '../../fake-store';
-import { createBusListProvider } from '../../../src/providers/bus-list';
+import { createBusListProvider } from '../../../src/modules/bus-search/providers/bus-list';
 import { messages } from '../../../src/messages';
 
 const
