@@ -11,7 +11,11 @@ const
           ie: '9'
       } :
       {
-          'chrome': 58
+          chrome: 62,
+          firefox: 56,
+          edge: 16,
+          safari: 11,
+          opera: 48,
       }
   },
   include = [
