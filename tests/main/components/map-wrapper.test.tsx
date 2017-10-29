@@ -2,9 +2,7 @@ import * as React from 'react';
 import * as sinon from 'sinon';
 import {} from 'mocha';
 import { assert } from 'chai';
-import { configure, shallow, ShallowWrapper } from 'enzyme';
-import * as Adapter from 'enzyme-adapter-react-15';
-configure({ adapter: new Adapter() });
+import { shallow, ShallowWrapper } from 'enzyme';
 
 import { MapComponent } from '../../../src/components/map/map';
 import { MapWrapperComponent } from '../../../src/components/map-wrapper/map-wrapper';

@@ -1,5 +1,4 @@
-import { IBusSearchState } from './types';
-import { IBusListState } from '../../.../../types/state';
+import { IBusSearchState, IBusListState } from './types';
 
 export function getDefaultBusSearch(): IBusSearchState {
   return {
@@ -10,9 +9,14 @@ export function getDefaultBusSearch(): IBusSearchState {
   };
 }
 
+export function getDefaultSelectedTypeInList() {
+  return '0';
+}
+
 export function getDefaultBusList(): IBusListState {
   return {
     query: '',
-    list: []
+    list: [],
+    type: getDefaultSelectedTypeInList(),
   };
 }

@@ -1,25 +1,14 @@
 const
   webpack = require('webpack'),
   path = require('path'),
-  config = require('/etc/project-config.d/config'),
-  clientVersion = config.VERSIONS.CLIENT_VERSION || 1,
-  old = process.argv.find(el => el === '--env.old') ? '-old' : '',
-  bundleName = 'bundle' + (old ? '-old' : ''),
   targets = {
-    targets: old ?
-      {
-          ie: '9'
-      } :
-      {
-          chrome: 62,
-          firefox: 56,
-          edge: 16,
-          safari: 11,
-          opera: 48,
-      }
+    targets: {
+        'ie': 9,
+    }
   },
   include = [
-    path.resolve(__dirname, 'src')
+    path.resolve(__dirname, 'src'),
+    path.resolve(__dirname, 'tests'),
   ],
   babelLoader = {
     loader: 'babel-loader',
@@ -33,13 +22,12 @@ const
 
 module.exports = {
   entry: {
-    app: path.resolve(__dirname, 'src', 'app.tsx'),
+    app: path.resolve(__dirname, 'tests', 'index.ts'),
   },
 
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: `[name]-${clientVersion}${old}.bundle.js`,
-    chunkFilename: `[name]-${clientVersion}${old}.bundle.js`,
+    filename: `test.bundle.js`,
   },
 
   module: {
@@ -80,15 +68,10 @@ module.exports = {
   resolve: {
     modules: [
       'node_modules',
-      path.resolve(__dirname, 'src')
+      path.resolve(__dirname, 'src'),
     ],
-    alias: {
-      'react': 'preact-compat',
-      'react-dom': 'preact-compat',
-      'react-redux': 'preact-redux',
-    },
 
-    extensions: ['.js', '.ts', '.tsx', '.css'],
+    extensions: ['.js', '.ts', '.tsx'],
   },
 
   performance: {
@@ -128,16 +111,11 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        'API_URL': JSON.stringify(config.URLS.API_URL),
-        'VERSION': JSON.stringify(clientVersion),
-        'OLD': !!old,
+        'API_URL': JSON.stringify('config.URLS.API_URL'),
+        'VERSION': JSON.stringify(1),
+        'OLD': false,
       }
     })
   ],
-
-  externals: {
-    'socket.io-client': 'io',
-    'leaflet': 'L'
-  },
 
 }

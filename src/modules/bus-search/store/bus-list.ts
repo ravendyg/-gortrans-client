@@ -1,6 +1,5 @@
-import { BusListActions } from '../../../types/action-types';
+import { BusListActions, IBusListState } from '../types';
 import { IAction } from '../../../types';
-import { IBusListState } from '../../.../../../types/state';
 import { getDefaultBusList } from '../defaults';
 
 export function createBusListReducer() {
@@ -15,16 +14,24 @@ export function createBusListReducer() {
 
       case BusListActions.UPDATE_LIST: {
         newState = {
+          ...state,
           list: action.payload.list,
-          query: state.query
         };
         break;
       }
 
       case BusListActions.UPDATE_QUERY: {
         newState = {
-          list: state.list,
-          query: action.payload.query
+          ...state,
+          query: action.payload.query,
+        };
+        break;
+      }
+
+      case BusListActions.SELECT_TYPE: {
+        newState = {
+          ...state,
+          type: action.payload.type,
         };
         break;
       }

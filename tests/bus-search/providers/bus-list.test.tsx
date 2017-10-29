@@ -42,7 +42,7 @@ const
   _loadBusList = () => loadBusList(busListActions, storageService, store, config, date)
   ;
 
-describe.only('bus list provider', () => {
+describe('bus list provider', () => {
 
   beforeEach(() => {
     store._resetAllHistory();

@@ -1,9 +1,7 @@
 import * as React from 'react';
 import * as sinon from 'sinon';
 import {} from 'mocha';
-import { configure, shallow, ShallowWrapper } from 'enzyme';
-import * as Adapter from 'enzyme-adapter-react-15';
-configure({ adapter: new Adapter() });
+import { shallow, ShallowWrapper } from 'enzyme';
 
 import { storeFactory } from '../../fake-store';
 import { SearchInput, inputClassName } from '../../../src/modules/bus-search/components/input';

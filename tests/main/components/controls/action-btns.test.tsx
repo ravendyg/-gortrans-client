@@ -1,9 +1,7 @@
 import * as React from 'react';
 import {} from 'mocha';
 import { assert } from 'chai';
-import { configure, shallow, ShallowWrapper } from 'enzyme';
-import * as Adapter from 'enzyme-adapter-react-15';
-configure({ adapter: new Adapter() });
+import { shallow, ShallowWrapper } from 'enzyme';
 
 import { ActionBtns } from '../../../../src/components/controls/action-btns';
 import { ActionBtn } from '../../../../src/components/controls/action-btn';
