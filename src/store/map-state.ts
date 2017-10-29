@@ -1,6 +1,6 @@
-import { LeafletActions } from '../types/action-types';
-import { IAction, IConfig } from '../types';
-import { IMapState } from '../types/state';
+import { LeafletActions } from 'src/types/action-types';
+import { IAction, IConfig } from 'src/types';
+import { IMapState } from 'src/types/state';
 
 export function createMapState(defViewOptions: IMapState, config: IConfig) {
   return function mapState(

@@ -1,5 +1,5 @@
-import { IMapState } from '../types/state';
-import { IConfig } from '../types';
+import { IMapState } from 'src/types/state';
+import { IConfig } from 'src/types';
 
 export function getDefaultMapState(config: IConfig): IMapState {
   return {

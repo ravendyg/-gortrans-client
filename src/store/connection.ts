@@ -1,6 +1,6 @@
-import { ConnectionAction } from '../types/action-types';
-import { IAction } from '../types';
-import { IApiConnectionState, ConnectionPayload } from '../types/state';
+import { ConnectionAction } from 'src/types/action-types';
+import { IAction } from 'src/types';
+import { IApiConnectionState, ConnectionPayload } from 'src/types/state';
 
 export function apiConnection(
   state: IApiConnectionState = { socket: null, error: null },

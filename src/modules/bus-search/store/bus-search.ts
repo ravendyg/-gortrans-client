@@ -1,7 +1,7 @@
-import { BusSearchActions } from '../types';
-import { IAction, IConfig } from '../../../types';
-import { IBusSearchState, BusSearchStateParticle } from '../types';
-import { getDefaultBusSearch } from '../defaults';
+import { BusSearchActions } from 'src/modules/bus-search/types';
+import { IAction, IConfig } from 'src/types';
+import { IBusSearchState, BusSearchStateParticle } from 'src/modules/bus-search/types';
+import { getDefaultBusSearch } from 'src/modules/bus-search/defaults';
 
 export function createBusSearchReducer(config: IConfig) {
   return function busSearch(

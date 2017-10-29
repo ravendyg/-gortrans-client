@@ -1,5 +1,5 @@
-import { IBusSearchState, IBusListState } from './types';
-import { BusCodes } from '../../types/enums';
+import { IBusSearchState, IBusListState } from 'src/modules/bus-search/types';
+import { BusCodes } from 'src/types/enums';
 
 export function getDefaultBusSearch(): IBusSearchState {
   return {

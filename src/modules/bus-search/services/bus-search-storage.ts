@@ -1,8 +1,8 @@
-import { IConfig } from '../../../types';
-import { IBusSearchState } from '../types';
-import { IStorageService } from '../../../types/services';
-import { getDefaultBusSearch } from '../defaults';
-import { getAsync } from '../../../services/storage';
+import { IConfig } from 'src/types';
+import { IBusSearchState } from 'src/modules/bus-search/types';
+import { IStorageService } from 'src/types/services';
+import { getDefaultBusSearch } from 'src/modules/bus-search/defaults';
+import { getAsync } from 'src/services/storage';
 
 export function createBusSeachStorageService(storage: Storage, config: IConfig): IStorageService<IBusSearchState> {
 

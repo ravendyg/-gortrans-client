@@ -1,9 +1,9 @@
-import { IConfig } from '../../../types';
-import { IStore } from '../../../types/state';
-import { BusListSyncResponse, BusListSync } from '../../../types/data-types';
-import { IBusListAction } from '../types';
-import { IStorageService } from '../../../types/services';
-import { messages } from '../../../messages';
+import { IConfig } from 'src/types';
+import { IStore } from 'src/types/state';
+import { BusListSyncResponse, BusListSync } from 'src/types/data-types';
+import { IBusListAction } from 'src/modules/bus-search/types';
+import { IStorageService } from 'src/types/services';
+import { messages } from 'src/messages';
 
 export function loadBusList(
   actions: IBusListAction,

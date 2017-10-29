@@ -1,6 +1,6 @@
 import * as sinon from 'sinon';
-import { IReduxState } from '../src/types/state';
-import { RouterState } from '../src/types/data-types';
+import { IReduxState } from 'src/types/state';
+import { RouterState } from 'src/types/data-types';
 
 // TODO: clean this mess, use the store itself
 export function storeFactory(_newState?: IReduxState) {

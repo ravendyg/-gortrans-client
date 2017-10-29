@@ -3,23 +3,23 @@ import { render } from 'react-dom';
 import * as L from 'leaflet';
 import * as io from 'socket.io-client';
 
-import { storeFactory } from './store';
-import { config } from './config';
-import { IMainAction } from './types/action-types';
-import { App } from './components/app';
-import { IMapWrapperProps } from './components/map-wrapper/map-wrapper';
+import { storeFactory } from 'src/store';
+import { config } from 'src/config';
+import { IMainAction } from 'src/types/action-types';
+import { App } from 'src/components/app';
+import { IMapWrapperProps } from 'src/components/map-wrapper/map-wrapper';
 
-import { createConnectToApi } from './actions/connect-to-api';
-import { createControlActions } from './actions/control';
-import { createLeafletActions } from './actions/leaflet';
+import { createConnectToApi } from 'src/actions/connect-to-api';
+import { createControlActions } from 'src/actions/control';
+import { createLeafletActions } from 'src/actions/leaflet';
 
 /** services */
-import { createViewStorageService } from './services/storage/map-view';
-import { createRouter } from './services/router';
-import { mapRouterStateToPanelState } from './services/panel-content';
+import { createViewStorageService } from 'src/services/storage/map-view';
+import { createRouter } from 'src/services/router';
+import { mapRouterStateToPanelState } from 'src/services/panel-content';
 /** /services */
 
-require('./styles.scss');
+require('src/styles.scss');
 
 const
   viewStorageService = createViewStorageService(localStorage, config),

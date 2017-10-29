@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { SearchInput } from './input';
-import { TypeSelector } from './type-selector';
-import { IBusListAction, IBusSearchModuleStore } from '../types';
+import { SearchInput } from 'src/modules/bus-search/components/input';
+import { TypeSelector } from 'src/modules/bus-search/components/type-selector';
+import { IBusListAction, IBusSearchModuleStore } from 'src/modules/bus-search/types';
 
 interface ISearchState {}
 

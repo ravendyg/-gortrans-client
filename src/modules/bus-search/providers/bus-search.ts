@@ -1,7 +1,7 @@
-import { IStore } from '../../../types/state';
-import { IBusSearchAction, IBusSearchState } from './../types';
-import { IProvider } from '../../../types/providers';
-import { IStorageService } from '../../../types/services';
+import { IStore } from 'src/types/state';
+import { IBusSearchAction, IBusSearchState } from 'src/modules/bus-search/types';
+import { IProvider } from 'src/types/providers';
+import { IStorageService } from 'src/types/services';
 
 export function createBusSearchProvider(
   actions: IBusSearchAction,

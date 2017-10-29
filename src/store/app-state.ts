@@ -1,6 +1,6 @@
-import { ControlActions } from '../types/action-types';
-import { IAction } from '../types';
-import { RouterState } from '../types/data-types';
+import { ControlActions } from 'src/types/action-types';
+import { IAction } from 'src/types';
+import { RouterState } from 'src/types/data-types';
 
 export function appState(
   state: RouterState = RouterState.BLANK,

@@ -3,8 +3,8 @@ import * as sinon from 'sinon';
 import {} from 'mocha';
 import { shallow, ShallowWrapper } from 'enzyme';
 
-import { storeFactory } from '../../fake-store';
-import { SearchInput, inputClassName } from '../../../src/modules/bus-search/components/input';
+import { storeFactory } from 'tests/fake-store';
+import { SearchInput, inputClassName } from 'src/modules/bus-search/components/input';
 
 const
   store = storeFactory(),

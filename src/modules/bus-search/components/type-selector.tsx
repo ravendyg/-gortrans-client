@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Connected } from '../../../components/connected';
-import { IBusSearchModuleStateParticle, IBusSearchModuleStore } from '../types';
+import { Connected } from 'src/components/connected';
+import { IBusSearchModuleStateParticle, IBusSearchModuleStore } from 'src/modules/bus-search/types';
 
 interface ITypeSelectorState {}
 

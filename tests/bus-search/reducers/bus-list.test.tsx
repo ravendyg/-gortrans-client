@@ -1,10 +1,10 @@
 
 import { assert } from 'chai';
 
-import { BusListActions, IBusListState } from '../../../src/modules/bus-search/types';
-import { IAction } from '../../../src/types';
-import { createBusListReducer } from '../../../src/modules/bus-search/store/bus-list';
-import { BusCodes } from '../../../src/types/enums';
+import { BusListActions, IBusListState } from 'src/modules/bus-search/types';
+import { IAction } from 'src/types';
+import { createBusListReducer } from 'src/modules/bus-search/store/bus-list';
+import { BusCodes } from 'src/types/enums';
 
 describe('bus list reducer', () => {
 

@@ -1,7 +1,7 @@
 
 import * as sinon from 'sinon';
 import { assert } from 'chai';
-import { createBusListStorageService } from '../../../src/modules/bus-search/services/bus-list-storage';
+import { createBusListStorageService } from 'src/modules/bus-search/services/bus-list-storage';
 
 const
   config: any = {

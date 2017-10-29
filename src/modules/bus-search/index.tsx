@@ -1,20 +1,20 @@
 import * as React from 'react';
-import { IStoreProps } from '../../types';
-import { IBusSearchModuleStore } from './types';
-import { Search } from './components/search';
-import { config } from '../../config';
+import { IStoreProps } from 'src/types';
+import { IBusSearchModuleStore } from 'src/modules/bus-search/types';
+import { Search } from 'src/modules/bus-search/components/search';
+import { config } from 'src/config';
 /** actions */
-import { createBusListActions } from './actions/bus-list';
-import { createBusSearchActions } from './actions/bus-search';
+import { createBusListActions } from 'src/modules/bus-search/actions/bus-list';
+import { createBusSearchActions } from 'src/modules/bus-search/actions/bus-search';
 /** reducers */
-import { createBusSearchReducer } from './store/bus-search';
-import { createBusListReducer } from './store/bus-list';
+import { createBusSearchReducer } from 'src/modules/bus-search/store/bus-search';
+import { createBusListReducer } from 'src/modules/bus-search/store/bus-list';
 /** services */
-import { createBusListStorageService } from './services/bus-list-storage';
-import { createBusSeachStorageService } from './services/bus-search-storage';
+import { createBusListStorageService } from 'src/modules/bus-search/services/bus-list-storage';
+import { createBusSeachStorageService } from 'src/modules/bus-search/services/bus-search-storage';
 /** providers */
-import { loadBusList } from './providers/bus-list';
-import { createBusSearchProvider } from './providers/bus-search';
+import { loadBusList } from 'src/modules/bus-search/providers/bus-list';
+import { createBusSearchProvider } from 'src/modules/bus-search/providers/bus-search';
 
 interface ISearchState {}
 

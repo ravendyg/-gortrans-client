@@ -1,4 +1,4 @@
-import { IMapState, IStore } from './state';
+import { IMapState, IStore } from 'src/types/state';
 
 export interface IStorageService<T> {
   getVal: () => Promise<T>;

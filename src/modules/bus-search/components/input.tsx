@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { ConnectedNotPure } from '../../../components/connected';
-import { IReduxState } from '../../../types/state';
-import { IBusSearchModuleStore } from '../types';
+import { ConnectedNotPure } from 'src/components/connected';
+import { IBusSearchModuleStore, IBusSearchModuleStateParticle } from 'src/modules/bus-search/types';
 
 export const inputClassName = 'search__input--text';
 
@@ -15,7 +14,7 @@ interface ISearchInputProps {
   emit: (newQuery: string) => void;
 }
 
-export class SearchInput extends ConnectedNotPure<ISearchInputProps, ISearchInputState, IReduxState> {
+export class SearchInput extends ConnectedNotPure<ISearchInputProps, ISearchInputState, IBusSearchModuleStateParticle> {
 
   constructor() {
     super();
@@ -23,7 +22,7 @@ export class SearchInput extends ConnectedNotPure<ISearchInputProps, ISearchInpu
     this.handleChange = this.handleChange.bind(this);
   }
 
-  mapState(newState: IReduxState): ISearchInputState {
+  mapState(newState: IBusSearchModuleStateParticle): ISearchInputState {
     return {
       query: newState.busList.query,
       placeholder: newState.translation.text.searchInputPlaceholder

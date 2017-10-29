@@ -1,5 +1,5 @@
-import { RouterState } from './data-types';
 import { Store } from 'redux';
+import { RouterState } from 'src/types/data-types';
 
 export interface IReduxState {
   [x: string]: any;

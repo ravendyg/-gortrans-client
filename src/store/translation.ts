@@ -1,5 +1,5 @@
-import { IAction } from '../types';
-import { ITranslationState } from '../types/state';
+import { IAction } from 'src/types';
+import { ITranslationState } from 'src/types/state';
 
 const defaultVal: ITranslationState = {
   lang: 'ru',

@@ -1,6 +1,6 @@
-import { BusListActions, IBusListState } from '../types';
-import { IAction } from '../../../types';
-import { getDefaultBusList } from '../defaults';
+import { BusListActions, IBusListState } from 'src/modules/bus-search/types';
+import { IAction } from 'src/types';
+import { getDefaultBusList } from 'src/modules/bus-search/defaults';
 
 export function createBusListReducer() {
   return function busList(

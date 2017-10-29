@@ -1,6 +1,6 @@
-import { IMapState } from './state';
-import { BusListSync } from './data-types';
-import { IStore } from './state';
+import { IMapState } from 'src/types/state';
+import { BusListSync } from 'src/types/data-types';
+import { IStore } from 'src/types/state';
 
 export interface IAction<T, P> {
   type: T;

@@ -16,8 +16,14 @@
     "noImplicitThis": true,
     "allowUnusedLabels": false,
     "removeComments": true,
-    "strict": true
+    "strict": true,
+    "baseUrl": ".",
+    "rootDir": "."
   },
+  "include": [
+    "src",
+    "tests"
+  ],
   "exclude": [
     "node_modules",
     "build"

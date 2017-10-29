@@ -1,6 +1,7 @@
 import { Store } from 'redux';
-import { BusList, BusSearch } from '../../types/data-types';
-import { BusCodes } from '../../types/enums';
+import { BusList, BusSearch } from 'src/types/data-types';
+import { BusCodes } from 'src/types/enums';
+import { ITranslationState } from 'src/types/state';
 
 export interface IBusSearchState {
   [index: string/*BusCodes*/]: BusSearch [];
@@ -40,6 +41,7 @@ export interface IBusListState {
 export interface IBusSearchModuleStateParticle {
   busList: IBusListState;
   busSearch: IBusSearchState;
+  translation: ITranslationState;
 }
 
 export interface IBusSearchModuleStore extends Store<IBusSearchModuleStateParticle> {}

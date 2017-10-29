@@ -1,7 +1,7 @@
-import { BusList } from '../../../types/data-types';
-import { IAction } from '../../../types';
-import { BusListActions, IBusListAction, IBusListState } from '../types';
-import { cleanQuery } from '../../../services/clean-bus-search-query';
+import { BusList } from 'src/types/data-types';
+import { IAction } from 'src/types';
+import { BusListActions, IBusListAction, IBusListState } from 'src/modules/bus-search/types';
+import { cleanQuery } from 'src/services/clean-bus-search-query';
 
 export function createBusListActions(
   dispatch: (action: IAction<BusListActions, IBusListState>) => void

@@ -1,5 +1,5 @@
-import { RouterState } from './data-types';
-import { IStore } from './state';
+import { RouterState } from 'src/types/data-types';
+import { IStore } from 'src/types/state';
 
 export interface IPropsWithAction {
   actions: IMainAction;

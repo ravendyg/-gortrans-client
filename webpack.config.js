@@ -80,7 +80,7 @@ module.exports = {
   resolve: {
     modules: [
       'node_modules',
-      path.resolve(__dirname, 'src')
+      path.resolve(__dirname),
     ],
     alias: {
       'react': 'preact-compat',

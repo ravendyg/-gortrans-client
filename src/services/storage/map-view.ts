@@ -1,8 +1,8 @@
-import { IConfig } from '../../types';
-import { IStore, IMapState } from '../../types/state';
-import { IViewStorageService } from '../../types/services';
-import { getDefaultMapState } from '../defaults';
-import { verifyStorageEntry } from './index';
+import { IConfig } from 'src/types';
+import { IStore, IMapState } from 'src/types/state';
+import { IViewStorageService } from 'src/types/services';
+import { getDefaultMapState } from 'src/services/defaults';
+import { verifyStorageEntry } from 'src/services/storage';
 
 export function createViewStorageService(storage: Storage, config: IConfig): IViewStorageService {
 
