@@ -1,7 +1,7 @@
 import {  } from 'mocha';
 import * as sinon from 'sinon';
 
-import { BusListActions } from '../../../src/types/action-types';
+import { BusListActions } from '../../../src/modules/bus-search/types';
 import { createBusListActions } from '../../../src/modules/bus-search/actions/bus-list';
 
 const

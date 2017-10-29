@@ -1,7 +1,7 @@
 import { IConfig } from '../../../types';
 import { IStore } from '../../../types/state';
 import { BusListSyncResponse, BusListSync } from '../../../types/data-types';
-import { IBusListAction } from '../../../types/action-types';
+import { IBusListAction } from '../types';
 import { IStorageService } from '../../../types/services';
 import { messages } from '../../../messages';
 

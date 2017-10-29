@@ -1,4 +1,4 @@
-import { BusListActions } from '../../../types/action-types';
+import { BusListActions } from '../types';
 import { IAction } from '../../../types';
 import { IBusListState } from '../../.../../../types/state';
 import { getDefaultBusList } from '../defaults';

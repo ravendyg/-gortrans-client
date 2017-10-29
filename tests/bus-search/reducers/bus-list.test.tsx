@@ -1,7 +1,7 @@
 import {  } from 'mocha';
 import { assert } from 'chai';
 
-import { BusListActions } from '../../../src/types/action-types';
+import { BusListActions } from '../../../src/modules/bus-search/types';
 import { createBusListReducer } from '../../../src/modules/bus-search/store/bus-list';
 
 describe('bus list reducer', () => {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { SearchInput } from './input';
-import { IBusListAction } from '../../../types/action-types';
+import { IBusListAction } from '../types';
 import { IStoreProps } from '../../../types';
 
 interface ISearchState {}

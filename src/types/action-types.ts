@@ -1,4 +1,4 @@
-import { BusList, RouterState } from './data-types';
+import { RouterState } from './data-types';
 import { IStore } from './state';
 
 export interface IPropsWithAction {
@@ -45,20 +45,3 @@ export enum LeafletActions {
   MOVE_END = 'MOVE_END',
   ZOOM_END = 'ZOOM_END',
 }
-
-
-export interface IBusListAction {
-  updateBusList: (list: BusList []) => void;
-  updateQuery: (query: string) => void;
-}
-
-export enum BusListActions {
-  UPDATE_LIST = 'UPDATE_LIST',
-  UPDATE_QUERY = 'UPDATE_QUERY',
-}
-
-
-
-/** bus search */
-
-/** /bus search */
