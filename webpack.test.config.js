@@ -1,11 +1,8 @@
 const
   webpack = require('webpack'),
   path = require('path'),
-  config = require('/etc/project-config.d/config'),
-  clientVersion = config.VERSIONS.CLIENT_VERSION || 1,
   targets = {
     targets: {
-        // 'chrome': 20
         'ie': 9,
     }
   },
@@ -114,8 +111,8 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        'API_URL': JSON.stringify(config.URLS.API_URL),
-        'VERSION': JSON.stringify(clientVersion),
+        'API_URL': JSON.stringify('config.URLS.API_URL'),
+        'VERSION': JSON.stringify(1),
         'OLD': false,
       }
     })
