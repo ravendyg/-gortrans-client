@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { IStoreProps } from '../../types';
+import { IBusSearchModuleStore } from './types';
 import { Search } from './components/search';
 import { config } from '../../config';
 /** actions */
@@ -41,12 +42,15 @@ export default class SearchWrapper extends React.PureComponent<ISearchProps, ISe
     store.injectAsyncReducer('busSearch', busSearch);
     store.injectAsyncReducer('busList', busList);
 
+    // dirty hack to get only local part
+    const localStore: IBusSearchModuleStore = store as any;
+
     loadBusList(busListActions, busListStorageService, store, config, Date);
     busSearchProvider.subscribe(store);
 
     return(
       <Search
-        store={store}
+        store={localStore}
         busListAction={busListActions}
       />
     );

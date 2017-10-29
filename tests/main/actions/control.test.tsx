@@ -1,4 +1,4 @@
-import {  } from 'mocha';
+
 import * as sinon from 'sinon';
 
 import { ControlActions } from '../../../src/types/action-types';

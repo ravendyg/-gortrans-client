@@ -1,3 +1,4 @@
+import { Store } from 'redux';
 import { BusList, BusSearch } from '../../types/data-types';
 import { BusCodes } from '../../types/enums';
 
@@ -34,3 +35,10 @@ export interface IBusListState {
   query: string;
   type: string;
 }
+
+export interface IBusSearchModuleStateParticle {
+  busList: IBusListState;
+  busSearch: IBusSearchState;
+}
+
+export interface IBusSearchModuleStore extends Store<IBusSearchModuleStateParticle> {}

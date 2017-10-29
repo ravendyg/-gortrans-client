@@ -1,4 +1,4 @@
-import {  } from 'mocha';
+
 import { assert } from 'chai';
 
 import { ConnectionAction } from '../../../src/types/action-types';

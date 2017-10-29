@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ConnectedNotPure } from '../../../components/connected';
 import { IReduxState } from '../../../types/state';
-import { IStoreProps } from '../../../types';
+import { IBusSearchModuleStore } from '../types';
 
 export const inputClassName = 'search__input--text';
 
@@ -10,7 +10,8 @@ interface ISearchInputState {
   placeholder: string;
 }
 
-interface ISearchInputProps extends IStoreProps {
+interface ISearchInputProps {
+  store: IBusSearchModuleStore;
   emit: (newQuery: string) => void;
 }
 

@@ -1,4 +1,4 @@
-import {  } from 'mocha';
+
 import { assert } from 'chai';
 import { cleanQuery } from '../../../src/services/clean-bus-search-query';
 

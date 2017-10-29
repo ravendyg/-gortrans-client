@@ -1,4 +1,4 @@
-import {  } from 'mocha';
+
 import { assert } from 'chai';
 
 import { BusSearchActions } from '../../../src/modules/bus-search/types';

@@ -1,12 +1,12 @@
 import * as React from 'react';
 
 import { SearchInput } from './input';
-import { IBusListAction } from '../types';
-import { IStoreProps } from '../../../types';
+import { IBusListAction, IBusSearchModuleStore } from '../types';
 
 interface ISearchState {}
 
-interface ISearchProps extends IStoreProps {
+interface ISearchProps {
+  store: IBusSearchModuleStore;
   busListAction: IBusListAction;
 }
 

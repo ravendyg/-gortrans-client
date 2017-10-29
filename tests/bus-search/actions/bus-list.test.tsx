@@ -1,4 +1,3 @@
-// import {  } from 'mocha';
 import * as sinon from 'sinon';
 
 import { BusListActions } from '../../../src/modules/bus-search/types';

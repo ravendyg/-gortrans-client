@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {  } from 'mocha';
+
 import * as sinon from 'sinon';
 import { assert } from 'chai';
 import { mount } from 'enzyme';

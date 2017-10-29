@@ -1,4 +1,4 @@
-import {  } from 'mocha';
+
 import * as sinon from 'sinon';
 import { EventEmitter } from 'events';
 
