@@ -1,6 +1,5 @@
-import { BusListActions } from '../types';
+import { BusListActions, IBusListState } from '../types';
 import { IAction } from '../../../types';
-import { IBusListState } from '../../.../../../types/state';
 import { getDefaultBusList } from '../defaults';
 
 export function createBusListReducer() {

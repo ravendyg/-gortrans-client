@@ -1,5 +1,4 @@
-import { IBusSearchState } from './types';
-import { IBusListState } from '../../.../../types/state';
+import { IBusSearchState, IBusListState } from './types';
 
 export function getDefaultBusSearch(): IBusSearchState {
   return {

@@ -17,6 +17,7 @@ export enum BusSearchActions {
   RESET_SEARCH_HISTORY = 'RESET_SEARCH_HISTORY,'
 }
 
+
 export interface IBusListAction {
   updateBusList: (list: BusList []) => void;
   updateQuery: (query: string) => void;
@@ -25,4 +26,9 @@ export interface IBusListAction {
 export enum BusListActions {
   UPDATE_LIST = 'UPDATE_LIST',
   UPDATE_QUERY = 'UPDATE_QUERY',
+}
+
+export interface IBusListState {
+  list: BusList [];
+  query: string;
 }

@@ -1,4 +1,4 @@
-import { BusList, RouterState } from './data-types';
+import { RouterState } from './data-types';
 import { Store } from 'redux';
 
 export interface IReduxState {
@@ -6,7 +6,6 @@ export interface IReduxState {
   apiConnection: IApiConnectionState;
   mapState: IMapState;
   appState: RouterState;
-  busList: IBusListState;
   translation: ITranslationState;
 }
 
@@ -21,19 +20,11 @@ export interface IApiConnectionState {
   error: Error | null;
 }
 
-
 export interface IMapState {
   zoom: number;
   lat: string;
   lng: string;
 }
-
-
-export interface IBusListState {
-  list: BusList [];
-  query: string;
-}
-
 
 export interface ITranslationState {
   lang: string;
