@@ -2,9 +2,7 @@ import * as React from 'react';
 import {  } from 'mocha';
 import * as sinon from 'sinon';
 import { assert } from 'chai';
-import { configure, mount } from 'enzyme';
-import * as Adapter from 'enzyme-adapter-react-15';
-configure({ adapter: new Adapter() });
+import { mount } from 'enzyme';
 
 import { combineReducers, createStore } from 'redux';
 import { IReduxState, IStore } from '../../../src/types/state';

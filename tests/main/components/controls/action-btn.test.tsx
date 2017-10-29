@@ -2,9 +2,7 @@ import * as React from 'react';
 import {} from 'mocha';
 import { assert } from 'chai';
 import * as sinon from 'sinon';
-import { configure, shallow, ShallowWrapper } from 'enzyme';
-import * as Adapter from 'enzyme-adapter-react-15';
-configure({ adapter: new Adapter() });
+import { shallow, ShallowWrapper } from 'enzyme';
 
 import { ActionBtn } from '../../../../src/components/controls/action-btn';
 

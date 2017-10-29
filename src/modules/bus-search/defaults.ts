@@ -9,9 +9,14 @@ export function getDefaultBusSearch(): IBusSearchState {
   };
 }
 
+export function getDefaultSelectedTypeInList() {
+  return '0';
+}
+
 export function getDefaultBusList(): IBusListState {
   return {
     query: '',
-    list: []
+    list: [],
+    type: getDefaultSelectedTypeInList(),
   };
 }

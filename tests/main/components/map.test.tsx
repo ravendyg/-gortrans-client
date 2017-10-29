@@ -1,9 +1,7 @@
 import * as React from 'react';
 import {} from 'mocha';
 import * as sinon from 'sinon';
-import { configure, mount } from 'enzyme';
-import * as Adapter from 'enzyme-adapter-react-15';
-configure({ adapter: new Adapter() });
+import { mount } from 'enzyme';
 
 import { MapComponent } from '../../../src/components/map/map';
 

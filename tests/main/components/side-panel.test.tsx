@@ -2,9 +2,7 @@ import * as React from 'react';
 import {} from 'mocha';
 import * as sinon from 'sinon';
 import { assert } from 'chai';
-import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
-import * as Adapter from 'enzyme-adapter-react-15';
-configure({ adapter: new Adapter() });
+import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
 
 import { SidePanel, overlayClass } from '../../../src/components/side-panel';
 import { createFakeWindow } from '../../fake-window';

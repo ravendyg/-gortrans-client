@@ -14,16 +14,24 @@ export function createBusListReducer() {
 
       case BusListActions.UPDATE_LIST: {
         newState = {
+          ...state,
           list: action.payload.list,
-          query: state.query
         };
         break;
       }
 
       case BusListActions.UPDATE_QUERY: {
         newState = {
-          list: state.list,
-          query: action.payload.query
+          ...state,
+          query: action.payload.query,
+        };
+        break;
+      }
+
+      case BusListActions.SELECT_TYPE: {
+        newState = {
+          ...state,
+          type: action.payload.type,
         };
         break;
       }

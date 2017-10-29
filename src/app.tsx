@@ -21,48 +21,38 @@ import { mapRouterStateToPanelState } from './services/panel-content';
 
 require('./styles.scss');
 
-function startApp() {
-  const
-    viewStorageService = createViewStorageService(localStorage, config),
-    Store = storeFactory(viewStorageService, config),
-    connectToApi = createConnectToApi(Store.dispatch, localStorage, io, config),
+const
+  viewStorageService = createViewStorageService(localStorage, config),
+  Store = storeFactory(viewStorageService, config),
+  connectToApi = createConnectToApi(Store.dispatch, localStorage, io, config),
 
-    actions: IMainAction = {
-      controlActions: createControlActions(Store.dispatch),
-      leafletActions: createLeafletActions(Store.dispatch),
-    },
+  actions: IMainAction = {
+    controlActions: createControlActions(Store.dispatch),
+    leafletActions: createLeafletActions(Store.dispatch),
+  },
 
-    initRouting = createRouter(window, Store, actions.controlActions),
+  initRouting = createRouter(window, Store, actions.controlActions),
 
-    mapProps: IMapWrapperProps = {
-      L,
-      store: Store,
-      config,
-      actions
-    }
-    ;
+  mapProps: IMapWrapperProps = {
+    L,
+    store: Store,
+    config,
+    actions
+  }
+  ;
 
-  viewStorageService.watchViewOptions(Store);
+viewStorageService.watchViewOptions(Store);
 
-  connectToApi();
-  initRouting();
+connectToApi();
+initRouting();
 
-  render(
-    <App
-      actions={actions}
-      mapRouterStateToPanelState={mapRouterStateToPanelState}
-      mapProps={mapProps}
-      store={Store}
-      win={window}
-    />,
-    document.getElementById('app')
-  );
-}
-
-if (config.old) {
-  (require as any).ensure(['polyfills'], startApp);
-} else {
-  startApp();
-}
-
-
+render(
+  <App
+    actions={actions}
+    mapRouterStateToPanelState={mapRouterStateToPanelState}
+    mapProps={mapProps}
+    store={Store}
+    win={window}
+  />,
+  document.getElementById('app')
+);

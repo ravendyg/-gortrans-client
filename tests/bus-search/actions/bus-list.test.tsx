@@ -1,4 +1,4 @@
-import {  } from 'mocha';
+// import {  } from 'mocha';
 import * as sinon from 'sinon';
 
 import { BusListActions } from '../../../src/modules/bus-search/types';
@@ -13,12 +13,11 @@ describe('bus list actions', () => {
 
   it('dispatches UPDATE_LIST', () => {
     dispatch.resetHistory();
-    const list: any = [];
-    updateBusList(list);
+    updateBusList([]);
     sinon.assert.calledWith(dispatch, sinon.match({
       type: BusListActions.UPDATE_LIST,
       payload: {
-        list,
+        list: [],
         query: ''
       }
     }));

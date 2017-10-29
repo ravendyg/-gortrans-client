@@ -26,9 +26,11 @@ export interface IBusListAction {
 export enum BusListActions {
   UPDATE_LIST = 'UPDATE_LIST',
   UPDATE_QUERY = 'UPDATE_QUERY',
+  SELECT_TYPE = 'SELECT_TYPE',
 }
 
 export interface IBusListState {
   list: BusList [];
   query: string;
+  type: string;
 }

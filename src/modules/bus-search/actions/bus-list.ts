@@ -12,7 +12,8 @@ export function createBusListActions(
       type: BusListActions.UPDATE_LIST,
       payload: {
         list,
-        query: ''
+        query: '',
+        type: '0',
       }
     });
   }
@@ -24,7 +25,8 @@ export function createBusListActions(
       type: BusListActions.UPDATE_QUERY,
       payload: {
         list: [],
-        query
+        query,
+        type: '0',
       }
     });
   }
