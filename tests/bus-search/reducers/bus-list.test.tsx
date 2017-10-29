@@ -4,6 +4,7 @@ import { assert } from 'chai';
 import { BusListActions, IBusListState } from '../../../src/modules/bus-search/types';
 import { IAction } from '../../../src/types';
 import { createBusListReducer } from '../../../src/modules/bus-search/store/bus-list';
+import { BusCodes } from '../../../src/types/enums';
 
 describe('bus list reducer', () => {
 
@@ -16,7 +17,7 @@ describe('bus list reducer', () => {
     },
     list: any = [],
     query = '10',
-    type = '7'
+    type = BusCodes.SHUTTLE
     ;
 
   it('updates bus list only on UPDATE_LIST', () => {

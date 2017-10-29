@@ -22,6 +22,7 @@ export enum BusSearchActions {
 export interface IBusListAction {
   updateBusList: (list: BusList []) => void;
   updateQuery: (query: string) => void;
+  updateType: (type: string) => void;
 }
 
 export enum BusListActions {

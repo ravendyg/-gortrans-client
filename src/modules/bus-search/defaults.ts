@@ -1,16 +1,17 @@
 import { IBusSearchState, IBusListState } from './types';
+import { BusCodes } from '../../types/enums';
 
 export function getDefaultBusSearch(): IBusSearchState {
   return {
-    '0': [],
-    '1': [],
-    '2': [],
-    '7': [],
+    [BusCodes.BUS]: [],
+    [BusCodes.TRAM]: [],
+    [BusCodes.TROLLEY]: [],
+    [BusCodes.SHUTTLE]: [],
   };
 }
 
 export function getDefaultSelectedTypeInList() {
-  return '0';
+  return BusCodes.BUS;
 }
 
 export function getDefaultBusList(): IBusListState {

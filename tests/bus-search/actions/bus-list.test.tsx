@@ -2,10 +2,11 @@ import * as sinon from 'sinon';
 
 import { BusListActions } from '../../../src/modules/bus-search/types';
 import { createBusListActions } from '../../../src/modules/bus-search/actions/bus-list';
+import { BusCodes } from '../../../src/types/enums';
 
 const
   dispatch: any = sinon.stub(),
-  { updateBusList, updateQuery } = createBusListActions(dispatch)
+  { updateBusList, updateQuery, updateType } = createBusListActions(dispatch)
  ;
 
 describe('bus list actions', () => {
@@ -31,6 +32,20 @@ describe('bus list actions', () => {
       payload: {
         list: [],
         query: '10'
+      }
+    }));
+  });
+
+  it('dispatches SELECT_TYPE', () => {
+    dispatch.resetHistory();
+    const type = BusCodes.SHUTTLE;
+    updateType(type);
+    sinon.assert.calledWith(dispatch, sinon.match({
+      type: BusListActions.SELECT_TYPE,
+      payload: {
+        list: [],
+        query: '',
+        type: BusCodes.SHUTTLE,
       }
     }));
   });

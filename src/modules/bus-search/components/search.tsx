@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { SearchInput } from './input';
+import { TypeSelector } from './type-selector';
 import { IBusListAction, IBusSearchModuleStore } from '../types';
 
 interface ISearchState {}
@@ -18,9 +19,12 @@ const style: { [name: string]: string } = {
 export class Search extends React.Component<ISearchProps, ISearchState> {
   render() {
     return(
-      <div className="search__wrapper" style={style}>
+      <div className="search__wrapper" style={style} data-test-id="bus-search">
         <SearchInput
           emit={this.props.busListAction.updateQuery}
+          store={this.props.store}
+        />
+        <TypeSelector
           store={this.props.store}
         />
       </div>

@@ -31,8 +31,20 @@ export function createBusListActions(
     });
   }
 
+  function updateType(type: string) {
+    dispatch({
+      type: BusListActions.SELECT_TYPE,
+      payload: {
+        list: [],
+        query: '',
+        type,
+      }
+    });
+  }
+
   return {
     updateBusList,
-    updateQuery
+    updateQuery,
+    updateType,
   };
 }

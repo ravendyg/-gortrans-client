@@ -39,7 +39,7 @@ export class SearchInput extends ConnectedNotPure<ISearchInputProps, ISearchInpu
 
   render() {
     return(
-      <div className="search__input">
+      <div className="search__input" data-test-id="bus-search-input">
         <input
           type="text"
           className={inputClassName}
