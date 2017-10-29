@@ -4,6 +4,7 @@ import { IPropsWithAction, MapRouterStateToPanelState } from '../types/action-ty
 import { MapWrapperComponent, IMapWrapperProps } from './map-wrapper/map-wrapper';
 import { Controls } from './controls/controls';
 import { IWindowProps, IStoreProps } from '../types';
+import { IReduxState } from '../types/state';
 
 import { SidePanel } from './side-panel';
 
@@ -16,7 +17,7 @@ export interface IAppProps extends IPropsWithAction, IWindowProps, IStoreProps {
   mapRouterStateToPanelState: MapRouterStateToPanelState;
 }
 
-export class App extends Connected<IAppProps, IAppState> {
+export class App extends Connected<IAppProps, IAppState, IReduxState> {
 
   mapState(): IAppState {
     return {

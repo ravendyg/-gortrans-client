@@ -14,7 +14,7 @@ interface ISearchInputProps extends IStoreProps {
   emit: (newQuery: string) => void;
 }
 
-export class SearchInput extends ConnectedNotPure<ISearchInputProps, ISearchInputState> {
+export class SearchInput extends ConnectedNotPure<ISearchInputProps, ISearchInputState, IReduxState> {
 
   constructor() {
     super();

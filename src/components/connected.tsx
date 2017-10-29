@@ -1,15 +1,14 @@
 import * as React from 'react';
 import { Store as IStore } from 'redux';
-import { IReduxState } from '../types/state';
 
 // is there a better way to create two similar classes extending different ones?
 
-function _componentWillMount(
-  self: React.Component, store: IStore<IReduxState>, mapState: (newState: IReduxState) => any
+function _componentWillMount<T>(
+  self: React.Component, store: IStore<T>, mapState: (newState: T) => any
 ) {
   if (store) {
     (self as any)._unsubscribe = store.subscribe(() => {
-      _subscribeCb(self, store, mapState);
+      _subscribeCb<T>(self, store, mapState);
     });
     const newState = mapState(store.getState());
     self.setState(newState);
@@ -18,9 +17,9 @@ function _componentWillMount(
   }
 }
 
-function _subscribeCb(self: React.Component, store: IStore<IReduxState>, mapState: (newState: IReduxState) => any) {
+function _subscribeCb<T>(self: React.Component, store: IStore<T>, mapState: (newState: T) => any) {
   const
-    globalState: IReduxState = store.getState(),
+    globalState: T = store.getState(),
     st = mapState(globalState)
   ;
 
@@ -32,10 +31,10 @@ function _subscribeCb(self: React.Component, store: IStore<IReduxState>, mapStat
  * in `componentWillUnmount` call super.componentWillUnmount()
  * in `componentWillMount` call super.componentWillMount()
  */
-export abstract class Connected<IProps, IState> extends React.PureComponent<IProps, IState> {
+export abstract class Connected<IProps, IState, IStoreState> extends React.PureComponent<IProps, IState> {
 
   private _unsubscribe: () => void;
-  private _store: IStore<IReduxState>;
+  private _store: IStore<IStoreState>;
 
   constructor() {
     super();
@@ -55,7 +54,7 @@ export abstract class Connected<IProps, IState> extends React.PureComponent<IPro
     _subscribeCb(this, this._store, this.mapState);
   }
 
-  abstract mapState(newState: IReduxState): IState;
+  abstract mapState(newState: IStoreState): IState;
 
 }
 
@@ -64,10 +63,10 @@ export abstract class Connected<IProps, IState> extends React.PureComponent<IPro
  * in `componentWillUnmount` call super.componentWillUnmount()
  * in `componentWillMount` call super.componentWillMount()
  */
-export abstract class ConnectedNotPure<IProps, IState> extends React.Component<IProps, IState> {
+export abstract class ConnectedNotPure<IProps, IState, IStoreState> extends React.Component<IProps, IState> {
 
   private _unsubscribe: () => void;
-  private _store: IStore<IReduxState>;
+  private _store: IStore<IStoreState>;
 
   constructor() {
     super();
@@ -87,7 +86,7 @@ export abstract class ConnectedNotPure<IProps, IState> extends React.Component<I
     _subscribeCb(this, this._store, this.mapState);
   }
 
-  abstract mapState(newState: IReduxState): IState;
+  abstract mapState(newState: IStoreState): IState;
 
 }
 

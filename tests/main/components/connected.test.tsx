@@ -44,7 +44,7 @@ Store.subscribe = (cb: any) => {
   });
 };
 
-class Component extends Connected<IPops, IState> {
+class Component extends Connected<IPops, IState, IReduxState> {
 
   mapState(newStore: IReduxState): IState {
     changeStub(newStore.apiConnection);
