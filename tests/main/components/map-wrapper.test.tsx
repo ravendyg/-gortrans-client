@@ -42,8 +42,8 @@ describe('<MapWrapper>', () => {
       },
       store
     },
-    comp: ShallowWrapper = shallow(<MapWrapperComponent {...props} />),
-    map: ShallowWrapper = comp.find(MapComponent)
+    comp: ShallowWrapper<any, any> = shallow(<MapWrapperComponent {...props} />),
+    map: ShallowWrapper<any, any> = comp.find(MapComponent)
     ;
 
   it('instantiates a leaflet map', () => {

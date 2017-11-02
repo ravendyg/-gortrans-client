@@ -4,7 +4,7 @@ import { assert } from 'chai';
 import { ConnectionAction } from '../../../src/types/action-types';
 import { apiConnection } from '../../../src/store/connection';
 
-function createDefaultState(socket?: any) {
+function createDefaultState(socket?: SocketIOClient.Socket) {
   return { socket: socket || null, error: null };
 }
 
@@ -13,20 +13,20 @@ describe('apiConnection reducer', () => {
   it('returns socket on CONNECTED', () => {
     const
       state = createDefaultState(),
-      payload: any = 'socket',
+      socket = {} as SocketIOClient.Socket,
       newState = apiConnection(state, {
         type: ConnectionAction.CONNECTED,
-        payload
+        payload: socket
       })
       ;
 
-    assert.deepEqual(newState, { socket: payload, error: null });
+    assert.deepEqual(newState, { socket, error: null });
   });
 
   it('returns error on ERROR', () => {
     const
       state = createDefaultState(),
-      payload: any = 'socket',
+      payload = new Error(''),
       newState = apiConnection(state, {
         type: ConnectionAction.ERROR,
         payload
@@ -38,7 +38,8 @@ describe('apiConnection reducer', () => {
 
   it('returns null on CONNECTING', () => {
     const
-      state = createDefaultState('not null'),
+      socket = {} as SocketIOClient.Socket,
+      state = createDefaultState(socket),
       newState = apiConnection(state, {
         type: ConnectionAction.CONNECTING,
         payload: null
@@ -51,7 +52,7 @@ describe('apiConnection reducer', () => {
   it('ignores unknown action', () => {
     const
       state = createDefaultState(),
-      payload: any = 'socket',
+      payload = {} as SocketIOClient.Socket,
       action: any = {
         type: 'type',
         payload

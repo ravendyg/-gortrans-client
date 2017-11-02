@@ -31,14 +31,12 @@ const
 describe('router service', () => {
 
   let
-    hashchange: (ev: any) => void,
-    dispatch: () => void
+    hashchange: (ev: any) => void
     ;
 
   before(() => {
     initRouter();
     hashchange = win.addEventListener.getCall(0).args[1];
-    dispatch = store.subscribe.getCall(0).args[0];
   });
 
   beforeEach(() => {

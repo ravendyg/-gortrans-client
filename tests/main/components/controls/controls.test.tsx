@@ -24,7 +24,7 @@ describe('<Controls>', () => {
     ;
 
   it('renders action btns', () => {
-    const btns: ShallowWrapper = comp.find(ActionBtns);
+    const btns: ShallowWrapper<any, any> = comp.find(ActionBtns);
     assert.equal(btns.length, 1);
     assert.equal(btns.prop('actions'), actions);
   });
