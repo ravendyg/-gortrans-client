@@ -42,7 +42,7 @@ export default class SearchWrapper extends React.PureComponent<ISearchProps, ISe
     store.injectAsyncReducer('busSearch', busSearch);
     store.injectAsyncReducer('busList', busList);
 
-    // dirty hack to get only local part
+    // dirty hack to get local store
     const localStore: IBusSearchModuleStore = store as any;
 
     loadBusList(busListActions, busListStorageService, store, config, Date);
