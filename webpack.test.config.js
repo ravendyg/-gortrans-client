@@ -3,7 +3,7 @@ const
   path = require('path'),
   targets = {
     targets: {
-        'ie': 9,
+      'ie': 11,
     }
   },
   include = [

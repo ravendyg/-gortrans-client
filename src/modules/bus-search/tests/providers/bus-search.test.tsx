@@ -8,8 +8,11 @@ import { BusCodes } from 'src/types/enums';
 
 const
   busSearch: IBusSearchState = {
-    [BusCodes.BUS]: [],
-    [BusCodes.SHUTTLE]: [],
+    activeTab: BusCodes.BUS,
+    lists: {
+      [BusCodes.BUS]: [],
+      [BusCodes.SHUTTLE]: [],
+    },
   },
   store = storeFactory({ busSearch } as any),
   storageService: any = {
