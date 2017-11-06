@@ -6,7 +6,7 @@ import { BusCodes } from 'src/types/enums';
 export function createBusSearchActions(
   dispatch: (action: IAction<
     BusSearchActions,
-    { key: BusCodes, busSearch: BusSearch } | IBusSearchState
+    { key: BusCodes, busSearch: BusSearch } | IBusSearchState | BusCodes
   >) => void
 ): IBusSearchAction {
 
@@ -26,8 +26,16 @@ export function createBusSearchActions(
     });
   }
 
+  function changeTab(busCode: BusCodes) {
+    dispatch({
+      type: BusSearchActions.CHANGE_TAB,
+      payload: busCode,
+    });
+  }
+
   return {
     updateHistory,
-    updateAllHistory
+    updateAllHistory,
+    changeTab
   };
 }

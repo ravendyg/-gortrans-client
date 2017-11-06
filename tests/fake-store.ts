@@ -1,6 +1,7 @@
 import * as sinon from 'sinon';
 import { IReduxState } from 'src/types/state';
 import { RouterState } from 'src/types/data-types';
+import { getTranslation } from 'src/services/translations';
 
 // TODO: clean this mess, use the store itself
 export function storeFactory(_newState?: IReduxState) {
@@ -21,9 +22,7 @@ export function storeFactory(_newState?: IReduxState) {
     },
     translation: {
       lang: 'ru',
-      text: {
-        searchInputPlaceholder: 'searchInputPlaceholder',
-      }
+      translation: getTranslation('ru')
     }
   };
 

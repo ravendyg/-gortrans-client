@@ -26,10 +26,8 @@ export interface IMapState {
   lng: string;
 }
 
+
 export interface ITranslationState {
   lang: string;
-  text: {
-    [key: string]: string
-  };
+  translation: (key: string) => string;
 }
-

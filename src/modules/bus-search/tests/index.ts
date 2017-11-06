@@ -8,6 +8,6 @@ require('./providers/bus-list.test');
 require('./providers/bus-search.test');
 
 require('./reducers/bus-list.test');
-require('./reducers/bus-search.tes');
+require('./reducers/bus-search.test');
 
 require('./services/bus-list-storage.test');

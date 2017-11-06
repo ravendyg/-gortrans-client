@@ -12,9 +12,12 @@ import { createBusListReducer } from 'src/modules/bus-search/store/bus-list';
 /** services */
 import { createBusListStorageService } from 'src/modules/bus-search/services/bus-list-storage';
 import { createBusSeachStorageService } from 'src/modules/bus-search/services/bus-search-storage';
+import { getBusIcon } from 'src/services/bus-icon-mapper';
 /** providers */
 import { loadBusList } from 'src/modules/bus-search/providers/bus-list';
 import { createBusSearchProvider } from 'src/modules/bus-search/providers/bus-search';
+
+require('./styles.scss');
 
 interface ISearchState {}
 
@@ -52,6 +55,7 @@ export default class SearchWrapper extends React.PureComponent<ISearchProps, ISe
       <Search
         store={localStore}
         busListAction={busListActions}
+        getBusIcon={getBusIcon}
       />
     );
   }

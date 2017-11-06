@@ -25,7 +25,7 @@ export class SearchInput extends ConnectedNotPure<ISearchInputProps, ISearchInpu
   mapState(newState: IBusSearchModuleStateParticle): ISearchInputState {
     return {
       query: newState.busList.query,
-      placeholder: newState.translation.text.searchInputPlaceholder
+      placeholder: newState.translation.translation('searchInputPlaceholder')
     };
   }
 

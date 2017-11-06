@@ -3,12 +3,15 @@ import { combineReducers, createStore, Reducer } from 'redux';
 import { apiConnection } from 'src/store/connection';
 import { createMapState } from 'src/store/map-state';
 import { appState } from 'src/store/app-state';
-import { translation } from 'src/store/translation';
+import { createTranslation } from 'src/store/translation';
 import { IStore, IReduxState } from 'src/types/state';
 import { IViewStorageService } from 'src/types/services';
 import { IConfig } from 'src/types';
 
-export function storeFactory(storageService: IViewStorageService, config: IConfig): IStore {
+export function storeFactory(
+  storageService: IViewStorageService, config: IConfig,
+  getTranslation: (lang: string) => (key: string) => string,
+): IStore {
   const
     defViewOptions = storageService.getMapViewOptions(),
     asyncReducers: any = {},
@@ -27,7 +30,7 @@ export function storeFactory(storageService: IViewStorageService, config: IConfi
       apiConnection,
       mapState: createMapState(defViewOptions, config),
       appState,
-      translation,
+      translation: createTranslation(getTranslation),
     }, asyncReducers));
   }
 
@@ -37,7 +40,6 @@ export function storeFactory(storageService: IViewStorageService, config: IConfi
       Store.replaceReducer(createReducer());
     }
   }
-
 
   return Store;
 }

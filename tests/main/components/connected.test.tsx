@@ -46,7 +46,7 @@ Store.subscribe = (cb: any) => {
 
 class Component extends Connected<IPops, IState, IReduxState> {
 
-  mapState(newStore: IReduxState): IState {
+  mapState(newStore: IReduxState): IState | null {
     changeStub(newStore.apiConnection);
     return { socket: newStore.apiConnection.socket };
   }

@@ -45,3 +45,11 @@ export enum LeafletActions {
   MOVE_END = 'MOVE_END',
   ZOOM_END = 'ZOOM_END',
 }
+
+export interface ITranslationActions {
+  setLang: (lang: string) => void;
+}
+
+export enum TranslationActions {
+  SET_LANGUAGE = 'SET_LANGUAGE',
+}

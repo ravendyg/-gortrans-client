@@ -3,10 +3,13 @@ import { BusCodes } from 'src/types/enums';
 
 export function getDefaultBusSearch(): IBusSearchState {
   return {
-    [BusCodes.BUS]: [],
-    [BusCodes.TRAM]: [],
-    [BusCodes.TROLLEY]: [],
-    [BusCodes.SHUTTLE]: [],
+    activeTab: BusCodes.BUS,
+    lists: {
+      [BusCodes.BUS]: [],
+      [BusCodes.TRAM]: [],
+      [BusCodes.TROLLEY]: [],
+      [BusCodes.SHUTTLE]: [],
+    },
   };
 }
 

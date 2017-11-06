@@ -4,14 +4,16 @@ import { Store as IStore } from 'redux';
 // is there a better way to create two similar classes extending different ones?
 
 function _componentWillMount<T>(
-  self: React.Component, store: IStore<T>, mapState: (newState: T) => any
+  self: React.Component, store: IStore<T>, mapState: (newState: T) => any | null
 ) {
   if (store) {
     (self as any)._unsubscribe = store.subscribe(() => {
       _subscribeCb<T>(self, store, mapState);
     });
     const newState = mapState(store.getState());
-    self.setState(newState);
+    if (newState) {
+      self.setState(newState);
+    }
   } else {
     (self as any)._unsubscribe = () => {/**/};
   }
@@ -54,7 +56,7 @@ export abstract class Connected<IProps, IState, IStoreState> extends React.PureC
     _subscribeCb(this, this._store, this.mapState);
   }
 
-  abstract mapState(newState: IStoreState): IState;
+  abstract mapState(newState: IStoreState): IState | null;
 
 }
 
@@ -86,7 +88,7 @@ export abstract class ConnectedNotPure<IProps, IState, IStoreState> extends Reac
     _subscribeCb(this, this._store, this.mapState);
   }
 
-  abstract mapState(newState: IStoreState): IState;
+  abstract mapState(newState: IStoreState): IState | null;
 
 }
 

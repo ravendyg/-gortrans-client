@@ -1,0 +1,42 @@
+.search {
+  &__input {
+    text-align: center;
+    padding: 5px;
+    &--text {
+      font-size: 1.5rem;
+      text-align: center;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid green;
+      &:focus {
+        border-bottom: 3px solid blueviolet;
+        outline: none;
+      }
+    }
+  }
+
+  &__type-selector {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 10px 0 20px 0;
+    &--btn {
+      flex-grow: 1;
+      cursor: pointer;
+      img {
+        height: 3rem;
+      }
+      .bar {
+        background-color: transparent;
+        height: 5px;
+        width: 100%;
+      }
+    }
+    &--btn.active {
+      cursor: default;
+      .bar {
+        background-color: green;
+      }
+    }
+  }
+}

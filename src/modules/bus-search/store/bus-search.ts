@@ -2,11 +2,12 @@ import { BusSearchActions } from 'src/modules/bus-search/types';
 import { IAction, IConfig } from 'src/types';
 import { IBusSearchState, BusSearchStateParticle } from 'src/modules/bus-search/types';
 import { getDefaultBusSearch } from 'src/modules/bus-search/defaults';
+import { BusCodes } from 'src/types/enums';
 
 export function createBusSearchReducer(config: IConfig) {
   return function busSearch(
     state: IBusSearchState = getDefaultBusSearch(),
-    action: IAction<BusSearchActions, BusSearchStateParticle | IBusSearchState>
+    action: IAction<BusSearchActions, BusSearchStateParticle | IBusSearchState | BusCodes>
   ): IBusSearchState {
 
     switch (action.type) {
@@ -19,7 +20,7 @@ export function createBusSearchReducer(config: IConfig) {
         const
           { key, busSearch } = action.payload as BusSearchStateParticle,
           newState: IBusSearchState = getDefaultBusSearch(),
-          existing = state[key] || []
+          existing = state.lists[key] || []
           ;
 
         let updated = existing.filter(el => el !== busSearch);
@@ -28,12 +29,19 @@ export function createBusSearchReducer(config: IConfig) {
 
         for (let _key of Object.keys(state)) {
           if (_key !== key) {
-            newState[_key] = state[_key];
+            newState.lists[_key] = state.lists[_key];
           }
         }
 
-        newState[key] = updated;
+        newState.lists[key] = updated;
 
+        return newState;
+      }
+
+      case BusSearchActions.CHANGE_TAB: {
+        const newState: IBusSearchState = getDefaultBusSearch();
+        newState.lists = state.lists;
+        newState.activeTab = action.payload as BusCodes;
         return newState;
       }
 

@@ -4,7 +4,10 @@ import { BusCodes } from 'src/types/enums';
 import { IReduxState } from 'src/types/state';
 
 export interface IBusSearchState {
-  [index: string/*BusCodes*/]: BusSearch [];
+  lists: {
+    [index: string/*BusCodes*/]: BusSearch []
+  };
+  activeTab: BusCodes;
 }
 
 export declare type BusSearchStateParticle = { key: BusCodes, busSearch: BusSearch };
@@ -12,11 +15,13 @@ export declare type BusSearchStateParticle = { key: BusCodes, busSearch: BusSear
 export interface IBusSearchAction {
   updateHistory: (key: BusCodes, busSearch: BusSearch) => void;
   updateAllHistory: (busSearch: IBusSearchState) => void;
+  changeTab: (busCode: BusCodes) => void;
 }
 
 export enum BusSearchActions {
   ADD_TO_HISTORY = 'ADD_TO_HISTORY',
-  RESET_SEARCH_HISTORY = 'RESET_SEARCH_HISTORY,'
+  RESET_SEARCH_HISTORY = 'RESET_SEARCH_HISTORY',
+  CHANGE_TAB = 'CHANGE_TAB',
 }
 
 
