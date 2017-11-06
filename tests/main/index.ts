@@ -15,7 +15,7 @@ require('./components/controls/controls.test');
 require('./reducers/app-state.test');
 require('./reducers/connection.test');
 require('./reducers/map-state.test');
-require('./reducers/translation.test');
+require('./reducers/lang.test');
 
 require('./services/clean-bus-search-query.test');
 require('./services/router.test');

@@ -6,7 +6,7 @@ export interface IReduxState {
   apiConnection: IApiConnectionState;
   mapState: IMapState;
   appState: RouterState;
-  translation: ITranslationState;
+  lang: string;
 }
 
 export interface IStore extends Store<IReduxState> {
@@ -24,10 +24,4 @@ export interface IMapState {
   zoom: number;
   lat: string;
   lng: string;
-}
-
-
-export interface ITranslationState {
-  lang: string;
-  translation: (key: string) => string;
 }

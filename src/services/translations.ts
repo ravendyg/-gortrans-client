@@ -1,13 +1,11 @@
 export const availableTranslations = ['ru', 'en'];
 
-export function getTranslation(lang: string) {
-  return function (key: string) {
-    const holder = values[key];
-    return holder ? holder[lang] || '' : '';
-  };
+export function getTranslation(lang: string, key: string) {
+  const holder = values[key];
+  return holder ? holder[lang] || '' : '';
 }
 
-const values: { [index: string]: { [index: string]: string } } = {
+export const values: { [index: string]: { [index: string]: string } } = {
   searchInputPlaceholder: {
     ru: 'Номер маршрута',
     en: 'Route number',

@@ -5,14 +5,14 @@ describe('translation service', () => {
 
   it('returns text if available', () => {
     assert.equal(
-      getTranslation('ru')('searchInputPlaceholder'),
+      getTranslation('ru', 'searchInputPlaceholder'),
       'Номер маршрута'
     );
   });
 
   it('returns an empty string if not available', () => {
     assert.equal(
-      getTranslation('ru')('smth'),
+      getTranslation('ru', 'smth'),
       ''
     );
   });

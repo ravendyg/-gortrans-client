@@ -17,14 +17,13 @@ import { createLeafletActions } from 'src/actions/leaflet';
 import { createViewStorageService } from 'src/services/storage/map-view';
 import { createRouter } from 'src/services/router';
 import { mapRouterStateToPanelState } from 'src/services/panel-content';
-import { getTranslation } from 'src/services/translations';
 /** /services */
 
 require('src/styles.scss');
 
 const
   viewStorageService = createViewStorageService(localStorage, config),
-  Store = storeFactory(viewStorageService, config, getTranslation),
+  Store = storeFactory(viewStorageService, config),
   connectToApi = createConnectToApi(Store.dispatch, localStorage, io, config),
 
   actions: IMainAction = {

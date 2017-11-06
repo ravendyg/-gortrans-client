@@ -3,14 +3,13 @@ import { combineReducers, createStore, Reducer } from 'redux';
 import { apiConnection } from 'src/store/connection';
 import { createMapState } from 'src/store/map-state';
 import { appState } from 'src/store/app-state';
-import { createTranslation } from 'src/store/translation';
+import { lang } from 'src/store/lang';
 import { IStore, IReduxState } from 'src/types/state';
 import { IViewStorageService } from 'src/types/services';
 import { IConfig } from 'src/types';
 
 export function storeFactory(
   storageService: IViewStorageService, config: IConfig,
-  getTranslation: (lang: string) => (key: string) => string,
 ): IStore {
   const
     defViewOptions = storageService.getMapViewOptions(),
@@ -30,7 +29,7 @@ export function storeFactory(
       apiConnection,
       mapState: createMapState(defViewOptions, config),
       appState,
-      translation: createTranslation(getTranslation),
+      lang,
     }, asyncReducers));
   }
 

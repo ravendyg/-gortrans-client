@@ -4,6 +4,7 @@ import { IBusSearchModuleStateParticle, IBusSearchModuleStore, IBusSearchState }
 import { TypeBtn } from './type-btn';
 import { stringComparator } from 'src/services/comparators';
 import { BusCodes } from 'src/types/enums';
+import { getTranslation } from 'src/services/translations';
 
 interface ITypeSelectorState extends IBusSearchState {}
 
@@ -31,7 +32,7 @@ export class TypeSelector extends Connected<ITypeSelectorProps, ITypeSelectorSta
       {getBusIcon, store, updateType} = this.props,
       codes = Object.keys(this.state.lists).sort(stringComparator),
       {activeTab} = this.state,
-      textProvider = store.getState().translation.translation
+      lang = store.getState().lang
       ;
     return(
       <div
@@ -45,7 +46,7 @@ export class TypeSelector extends Connected<ITypeSelectorProps, ITypeSelectorSta
             image={getBusIcon(busCode)}
             emit={() => updateType(busCode)}
             active={activeTab === busCode}
-            title={textProvider(`vehicle-name-${busCode}`)}
+            title={getTranslation(lang, `vehicle-name-${busCode}`)}
           />;
           }
         )}

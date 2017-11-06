@@ -8,6 +8,7 @@ import { createFakeStore } from 'src/modules/bus-search/tests/fake-store';
 import { TypeSelector, ITypeSelectorProps, selector } from 'src/modules/bus-search/components/type-selector';
 import { TypeBtn } from 'src/modules/bus-search/components/type-btn';
 import { BusCodes } from 'src/types/enums';
+import { values } from 'src/services/translations';
 
 const
   store: Store<IBusSearchModuleStateParticle> = createFakeStore(),
@@ -36,6 +37,7 @@ describe('<TypeSelector>', () => {
     assert.equal(tramBtn.key(), BusCodes.TRAM);
     assert.equal(busBtn.prop('active'), true);
     assert.equal(tramBtn.prop('active'), false);
+    assert.equal(tramBtn.prop('title'), values['vehicle-name-2'].ru);
     assert.equal(tramBtn.prop('image'), BusCodes.TRAM);
   });
 
