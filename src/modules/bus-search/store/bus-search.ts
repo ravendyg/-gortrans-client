@@ -18,13 +18,13 @@ export function createBusSearchReducer(config: IConfig) {
 
       case BusSearchActions.ADD_TO_HISTORY: {
         const
-          { key, busSearch } = action.payload as BusSearchStateParticle,
+          { key, way } = action.payload as BusSearchStateParticle,
           newState: IBusSearchState = getDefaultBusSearch(),
           existing = state.lists[key] || []
           ;
 
-        let updated = existing.filter(el => el !== busSearch);
-        updated = [busSearch].concat(updated);
+        let updated = existing.filter(el => el !== way);
+        updated = [way].concat(updated);
         updated = updated.slice(0, config.historyDisplayLimit);
 
         for (let _key of Object.keys(state)) {

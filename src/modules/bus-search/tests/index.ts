@@ -2,6 +2,7 @@ require('./actions/bus-list.test');
 require('./actions/bus-search.test');
 
 require('./components/input.test');
+require('./components/search.test');
 require('./components/type-selector.test');
 require('./components/type-btn.test');
 

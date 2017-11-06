@@ -20,7 +20,6 @@ export class TypeSelector extends Connected<ITypeSelectorProps, ITypeSelectorSta
   private _oldState: IBusSearchState;
 
   mapState(newState: IBusSearchModuleStateParticle) {
-    console.log(newState);
     return newState.busSearch !== this._oldState ?
       newState.busSearch :
       null

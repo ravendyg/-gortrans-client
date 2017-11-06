@@ -48,20 +48,6 @@ describe('bus list reducer', () => {
     assert.equal(newState.type, oldState.type);
   });
 
-  it('updates type only on SELECT_TYPE', () => {
-    const
-      action: IAction<BusListActions, IBusListState> = {
-        type: BusListActions.SELECT_TYPE,
-        payload: { list, query, type }
-      },
-      newState = busList(oldState, action)
-      ;
-
-    assert.equal(newState.list, oldState.list);
-    assert.equal(newState.query, oldState.query);
-    assert.equal(newState.type, type);
-  });
-
   it('ignores incorrect type', () => {
     const
       action: IAction<BusListActions, IBusListState> = {

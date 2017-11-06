@@ -28,13 +28,6 @@ export function createBusListReducer() {
         break;
       }
 
-      case BusListActions.SELECT_TYPE: {
-        newState = {
-          ...state,
-          type: action.payload.type,
-        };
-        break;
-      }
     }
 
     return newState;

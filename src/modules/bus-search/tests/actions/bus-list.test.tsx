@@ -2,11 +2,10 @@ import * as sinon from 'sinon';
 
 import { BusListActions } from 'src/modules/bus-search/types';
 import { createBusListActions } from 'src/modules/bus-search/actions/bus-list';
-import { BusCodes } from 'src/types/enums';
 
 const
   dispatch: any = sinon.stub(),
-  { updateBusList, updateQuery, updateType } = createBusListActions(dispatch)
+  { updateBusList, updateQuery } = createBusListActions(dispatch)
  ;
 
 describe('bus list actions', () => {

@@ -2,12 +2,18 @@ import * as React from 'react';
 
 import { SearchInput } from 'src/modules/bus-search/components/input';
 import { TypeSelector } from 'src/modules/bus-search/components/type-selector';
-import { IBusListAction, IBusSearchAction, IBusSearchModuleStore } from 'src/modules/bus-search/types';
+import { IBusListAction, IBusSearchAction, IBusSearchModuleStore, IBusSearchModuleStateParticle } from 'src/modules/bus-search/types';
 import { BusCodes } from 'src/types/enums';
+import { Connected } from 'src/components/connected';
+import { Way } from 'src/types/data-types';
+import { filterBusList } from 'src/modules/bus-search/services/filter-bus-list';
+import { mapBusCodeToIndex } from 'src/services/map-bus-code-to-index';
 
-interface ISearchState {}
+interface ISearchState {
+  ways: Way [];
+}
 
-interface ISearchProps {
+export interface ISearchProps {
   store: IBusSearchModuleStore;
   busListAction: IBusListAction;
   busSearchActions: IBusSearchAction;
@@ -19,16 +25,31 @@ const style: { [name: string]: string } = {
   width: '100%'
 };
 
-export class Search extends React.Component<ISearchProps, ISearchState> {
+export const selector = 'bus-search';
+
+export class Search extends Connected<ISearchProps, ISearchState, IBusSearchModuleStateParticle> {
+
+  mapState(newState: IBusSearchModuleStateParticle): ISearchState {
+    const ways = newState.busList.query ?
+      filterBusList(
+        newState.busList.list[mapBusCodeToIndex(newState.busSearch.activeTab)].ways,
+        newState.busList.query
+      ) :
+      newState.busSearch.lists[newState.busSearch.activeTab]
+    ;
+
+    return { ways };
+  }
+
   render() {
-    const {store, getBusIcon, busListAction: {updateQuery}, busSearchActions: {changeTab}} = this.props;
+    const {store, getBusIcon, busListAction: {updateQuery}, busSearchActions: {updateType}} = this.props;
 
     return(
-      <div className="search__wrapper" style={style} data-test-id="bus-search">
+      <div className="search__wrapper" style={style} data-test-id={selector}>
         <TypeSelector
           store={store}
           getBusIcon={getBusIcon}
-          updateType={changeTab}
+          updateType={updateType}
         />
         <SearchInput
           emit={updateQuery}

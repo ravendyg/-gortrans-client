@@ -48,6 +48,7 @@ export default class SearchWrapper extends React.PureComponent<ISearchProps, ISe
     // dirty hack to get local store
     const localStore: IBusSearchModuleStore = store as any;
 
+    // TODO: move bus list back to main, to make it load before any search
     loadBusList(busListActions, busListStorageService, store, config, Date);
     busSearchProvider.subscribe(store);
 

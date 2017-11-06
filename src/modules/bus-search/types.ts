@@ -1,21 +1,21 @@
 import { Store } from 'redux';
-import { BusList, BusSearch } from 'src/types/data-types';
+import { BusList, Way } from 'src/types/data-types';
 import { BusCodes } from 'src/types/enums';
 import { IReduxState } from 'src/types/state';
 
 export interface IBusSearchState {
   lists: {
-    [index: string/*BusCodes*/]: BusSearch []
+    [index: string/*BusCodes*/]: Way []
   };
   activeTab: BusCodes;
 }
 
-export declare type BusSearchStateParticle = { key: BusCodes, busSearch: BusSearch };
+export declare type BusSearchStateParticle = { key: BusCodes, way: Way };
 
 export interface IBusSearchAction {
-  updateHistory: (key: BusCodes, busSearch: BusSearch) => void;
+  updateHistory: (key: BusCodes, way: Way) => void;
   updateAllHistory: (busSearch: IBusSearchState) => void;
-  changeTab: (busCode: BusCodes) => void;
+  updateType: (busCode: BusCodes) => void;
 }
 
 export enum BusSearchActions {
@@ -38,6 +38,7 @@ export enum BusListActions {
 export interface IBusListState {
   list: BusList [];
   query: string;
+  // TODO: flatten the state. IBusListState.type and IBusSearchState.activeTab is a duplicate
   type: string;
 }
 

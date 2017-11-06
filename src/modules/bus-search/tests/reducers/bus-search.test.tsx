@@ -31,29 +31,29 @@ describe('bus search reducer', () => {
   it('adds bus search to correct bin on UPDATE_QUERY', () => {
     const
       oldState = getDefaultBusSearch(),
-      _busSearch: any = {},
+      _way: any = {},
       action: IAction<BusSearchActions, BusSearchStateParticle> = {
         type: BusSearchActions.ADD_TO_HISTORY,
-        payload: { key: BusCodes.TRAM, busSearch: _busSearch }
+        payload: { key: BusCodes.TRAM, way: _way }
       },
       newState = busSearch(oldState, action)
       ;
 
-    assert.deepEqual(newState.lists[BusCodes.TRAM], [_busSearch]);
+    assert.deepEqual(newState.lists[BusCodes.TRAM], [_way]);
   });
 
   it('adds bus search to correct bin to the head of the list removing existing entry', () => {
     const
       oldState = getDefaultBusSearch(),
-      _busSearch: any = { _busSearch: '_busSearch' },
-      _busSearch2: any = { _busSearch2: '_busSearch2' },
+      _way: any = { _way: '_way' },
+      _way2: any = { _way2: '_way2' },
       action: IAction<BusSearchActions, BusSearchStateParticle> = {
         type: BusSearchActions.ADD_TO_HISTORY,
-        payload: { key: BusCodes.TRAM, busSearch: _busSearch }
+        payload: { key: BusCodes.TRAM, way: _way }
       },
       action2: IAction<BusSearchActions, BusSearchStateParticle> = {
         type: BusSearchActions.ADD_TO_HISTORY,
-        payload: { key: BusCodes.TRAM, busSearch: _busSearch2 }
+        payload: { key: BusCodes.TRAM, way: _way2 }
       }
       ;
     let
@@ -62,31 +62,31 @@ describe('bus search reducer', () => {
     newState = busSearch(newState, action2);
     newState = busSearch(newState, action);
 
-    assert.deepEqual(newState.lists[BusCodes.TRAM], [_busSearch, _busSearch2]);
+    assert.deepEqual(newState.lists[BusCodes.TRAM], [_way, _way2]);
   });
 
   it('removes old history from the tail if the size exceeds the limit', () => {
     const
       oldState = getDefaultBusSearch(),
-      _busSearch: any = { _busSearch: '_busSearch' },
-      _busSearch2: any = { _busSearch2: '_busSearch2' },
-      _busSearch3: any = { _busSearch3: '_busSearch3' },
-      _busSearch4: any = { _busSearch4: '_busSearch4' },
+      _way: any = { _way: '_way' },
+      _way2: any = { _way2: '_way2' },
+      _way3: any = { _way3: '_way3' },
+      _way4: any = { _way4: '_way4' },
       action: IAction<BusSearchActions, BusSearchStateParticle> = {
         type: BusSearchActions.ADD_TO_HISTORY,
-        payload: { key: BusCodes.TRAM, busSearch: _busSearch }
+        payload: { key: BusCodes.TRAM, way: _way }
       },
       action2: IAction<BusSearchActions, BusSearchStateParticle> = {
         type: BusSearchActions.ADD_TO_HISTORY,
-        payload: { key: BusCodes.TRAM, busSearch: _busSearch2 }
+        payload: { key: BusCodes.TRAM, way: _way2 }
       },
       action3: IAction<BusSearchActions, BusSearchStateParticle> = {
         type: BusSearchActions.ADD_TO_HISTORY,
-        payload: { key: BusCodes.TRAM, busSearch: _busSearch3 }
+        payload: { key: BusCodes.TRAM, way: _way3 }
       },
       action4: IAction<BusSearchActions, BusSearchStateParticle> = {
         type: BusSearchActions.ADD_TO_HISTORY,
-        payload: { key: BusCodes.TRAM, busSearch: _busSearch4 }
+        payload: { key: BusCodes.TRAM, way: _way4 }
       }
       ;
     let
@@ -96,7 +96,7 @@ describe('bus search reducer', () => {
     newState = busSearch(newState, action3);
     newState = busSearch(newState, action4);
 
-    assert.deepEqual(newState.lists[BusCodes.TRAM], [_busSearch4, _busSearch3, _busSearch2]);
+    assert.deepEqual(newState.lists[BusCodes.TRAM], [_way4, _way3, _way2]);
   });
 
   it('updates active tab', () => {
