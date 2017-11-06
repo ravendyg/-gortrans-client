@@ -29,7 +29,15 @@ describe('<TypeBtn/>', () => {
     assert.isTrue(/active/.test(comp.prop('className')));
   });
 
-  it('emits on click', () => {
+  it('ignores clicks on an active', () => {
+    const emit = (props.emit as sinon.SinonStub);
+    emit.resetHistory();
+    comp.simulate('click');
+    sinon.assert.notCalled(emit);
+  });
+
+  it('emits on click on an inactive', () => {
+    comp.setProps(Object.assign({}, props, {active: false}));
     const emit = (props.emit as sinon.SinonStub);
     emit.resetHistory();
     comp.simulate('click');

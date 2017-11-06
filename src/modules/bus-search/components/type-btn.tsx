@@ -14,16 +14,21 @@ export const selector = 'search-type-btn';
 export class TypeBtn extends React.PureComponent<ITypeBtnProps, ITypeBtnState> {
   render() {
     const
-      klass = 'search__type-selector--btn' + (this.props.active ? ' active' : ''),
-      {image, title, emit} = this.props
+      {image, title, emit, active} = this.props,
+      className = 'search__type-selector--btn' + (active ? ' active' : '')
       ;
+    let
+      rootProps: any = {
+        className,
+        'data-test-id': selector
+      }
+      ;
+    if (!active) {
+      rootProps.onClick = emit;
+    }
 
     return(
-      <div
-        className={klass}
-        data-test-id={selector}
-        onClick={emit}
-      >
+      <div {...rootProps}>
         <div className={'title'}>
           {title}
         </div>
