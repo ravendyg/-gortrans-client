@@ -1,4 +1,14 @@
+$oddColor: #9E9E9E;
+$hoverColor: #616161;
+
 .search {
+  &__wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
   &__input {
     text-align: center;
     padding: 5px;
@@ -37,6 +47,41 @@
       .bar {
         background-color: green;
       }
+    }
+  }
+
+  &__items {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height: 4rem;
+    &--number {
+      width: 4rem;
+      text-align: center;
+    }
+    &--se {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-around;
+      div {
+        padding: 5px;
+      }
+    }
+    &:nth-child(2n-1) {
+      background-color: $oddColor;
+    }
+    &:hover {
+      background-color: $hoverColor;
+      cursor: pointer;
     }
   }
 }

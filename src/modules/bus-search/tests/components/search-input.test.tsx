@@ -6,7 +6,7 @@ import { shallow, ShallowWrapper } from 'enzyme';
 // import { storeFactory } from 'tests/fake-store';
 import { Store } from 'redux';
 import { createFakeStore } from 'src/modules/bus-search/tests/fake-store';
-import { SearchInput, inputClassName } from 'src/modules/bus-search/components/input';
+import { SearchInput, inputClassName } from 'src/modules/bus-search/components/search-input';
 import { values } from 'src/services/translations';
 
 const

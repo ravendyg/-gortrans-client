@@ -6,6 +6,7 @@ import { assert } from 'chai';
 import { selector, ITypeBtnProps, TypeBtn } from 'src/modules/bus-search/components/type-btn';
 
 const
+  _selector = `[data-test-id="${selector}"]`,
   props: ITypeBtnProps = {
     active: false,
     emit: sinon.stub() as any,
@@ -18,15 +19,14 @@ const
 describe('<TypeBtn/>', () => {
 
   it('renders an inactive component', () => {
-    assert.equal(comp.find('.' + selector).length, 1);
-    assert.equal(comp.prop('className'), selector);
+    assert.equal(comp.find(_selector).length, 1);
     assert.equal(comp.find('img').at(0).prop('src'), 'image');
     assert.equal(comp.find('.title').at(0).children().text(), 'title');
   });
 
   it('makes it active', () => {
     comp.setProps(Object.assign({}, props, {active: true}));
-    assert.equal(comp.prop('className'), selector + ' active');
+    assert.isTrue(/active/.test(comp.prop('className')));
   });
 
   it('emits on click', () => {

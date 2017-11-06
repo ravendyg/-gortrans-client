@@ -9,18 +9,19 @@ export interface ITypeBtnProps {
   title: string;
 }
 
-export const selector = 'search__type-selector--btn';
+export const selector = 'search-type-btn';
 
 export class TypeBtn extends React.PureComponent<ITypeBtnProps, ITypeBtnState> {
   render() {
     const
-      klass = selector + (this.props.active ? ' active' : ''),
+      klass = 'search__type-selector--btn' + (this.props.active ? ' active' : ''),
       {image, title, emit} = this.props
       ;
 
     return(
       <div
         className={klass}
+        data-test-id={selector}
         onClick={emit}
       >
         <div className={'title'}>
