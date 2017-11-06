@@ -36,18 +36,4 @@ describe('bus list actions', () => {
     }));
   });
 
-  it('dispatches SELECT_TYPE', () => {
-    dispatch.resetHistory();
-    const type = BusCodes.SHUTTLE;
-    updateType(type);
-    sinon.assert.calledWith(dispatch, sinon.match({
-      type: BusListActions.SELECT_TYPE,
-      payload: {
-        list: [],
-        query: '',
-        type: BusCodes.SHUTTLE,
-      }
-    }));
-  });
-
 });

@@ -55,6 +55,7 @@ export default class SearchWrapper extends React.PureComponent<ISearchProps, ISe
       <Search
         store={localStore}
         busListAction={busListActions}
+        busSearchActions={busSearchActions}
         getBusIcon={getBusIcon}
       />
     );

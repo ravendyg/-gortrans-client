@@ -28,13 +28,11 @@ export enum BusSearchActions {
 export interface IBusListAction {
   updateBusList: (list: BusList []) => void;
   updateQuery: (query: string) => void;
-  updateType: (type: string) => void;
 }
 
 export enum BusListActions {
   UPDATE_LIST = 'UPDATE_LIST',
   UPDATE_QUERY = 'UPDATE_QUERY',
-  SELECT_TYPE = 'SELECT_TYPE',
 }
 
 export interface IBusListState {

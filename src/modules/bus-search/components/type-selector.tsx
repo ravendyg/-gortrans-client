@@ -10,6 +10,7 @@ interface ITypeSelectorState extends IBusSearchState {}
 export interface ITypeSelectorProps {
   store: IBusSearchModuleStore;
   getBusIcon: (busCode: BusCodes) => string;
+  updateType: (busCode: BusCodes) => void;
 }
 
 export const selector = 'search-type-selector';
@@ -28,7 +29,7 @@ export class TypeSelector extends Connected<ITypeSelectorProps, ITypeSelectorSta
 
   render() {
     const
-      {getBusIcon, store} = this.props,
+      {getBusIcon, store, updateType} = this.props,
       codes = Object.keys(this.state.lists).sort(stringComparator),
       {activeTab} = this.state,
       textProvider = store.getState().translation.translation
@@ -38,14 +39,16 @@ export class TypeSelector extends Connected<ITypeSelectorProps, ITypeSelectorSta
         className="search__type-selector"
         data-test-id={selector}
       >
-        {codes.map(busCode =>
-          <TypeBtn
+        {codes.map(code => {
+          const busCode = code as BusCodes;
+          return <TypeBtn
             key={busCode}
-            image={getBusIcon(busCode as BusCodes)}
-            emit={() => {/**/}}
+            image={getBusIcon(busCode)}
+            emit={() => updateType(busCode)}
             active={activeTab === busCode}
             title={textProvider(`vehicle-name-${busCode}`)}
-          />
+          />;
+          }
         )}
       </div>
     );

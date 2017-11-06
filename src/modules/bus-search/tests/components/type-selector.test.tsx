@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
 import { assert } from 'chai';
+import * as sinon from 'sinon';
 import { createStore, combineReducers, Reducer, Store } from 'redux';
 import { IBusSearchModuleStateParticle } from 'src/modules/bus-search/types';
 import { createBusListReducer } from 'src/modules/bus-search/store/bus-list';
@@ -23,6 +24,7 @@ const
   props: ITypeSelectorProps = {
     store,
     getBusIcon: (code: string) => code,
+    updateType: sinon.stub() as any,
   },
   comp: ShallowWrapper<ITypeSelectorProps, any> = shallow(<TypeSelector {...props} />)
   ;

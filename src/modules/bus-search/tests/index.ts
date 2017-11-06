@@ -3,6 +3,7 @@ require('./actions/bus-search.test');
 
 require('./components/input.test');
 require('./components/type-selector.test');
+require('./components/type-btn.test');
 
 require('./providers/bus-list.test');
 require('./providers/bus-search.test');
