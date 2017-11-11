@@ -1,12 +1,11 @@
 
 import { assert } from 'chai';
 
-import { IAction } from 'src/types';
 import { BusSearchActions } from 'src/modules/bus-search/types';
 import { createBusSearchReducer } from 'src/modules/bus-search/store/bus-search';
 import { BusCodes } from 'src/types/enums';
 import { getDefaultBusSearch } from 'src/modules/bus-search/defaults';
-import { BusSearchStateParticle, IBusSearchState } from 'src/modules/bus-search/types';
+import { UpdateAllHistory, UpdateHistory, UpdateType } from 'src/modules/bus-search/actions/bus-search';
 
 const busSearch = createBusSearchReducer({ historyDisplayLimit: 3 } as any);
 
@@ -15,7 +14,7 @@ describe('bus search reducer', () => {
   it('replaces the search history on RESET_SEARCH_HISTORY', () => {
     const
       oldState = getDefaultBusSearch(),
-      action: IAction<BusSearchActions, IBusSearchState> = {
+      action: UpdateAllHistory = {
         type: BusSearchActions.RESET_SEARCH_HISTORY,
         payload: {
           activeTab: BusCodes.BUS,
@@ -32,7 +31,7 @@ describe('bus search reducer', () => {
     const
       oldState = getDefaultBusSearch(),
       _way: any = {},
-      action: IAction<BusSearchActions, BusSearchStateParticle> = {
+      action: UpdateHistory = {
         type: BusSearchActions.ADD_TO_HISTORY,
         payload: { key: BusCodes.TRAM, way: _way }
       },
@@ -47,11 +46,11 @@ describe('bus search reducer', () => {
       oldState = getDefaultBusSearch(),
       _way: any = { _way: '_way' },
       _way2: any = { _way2: '_way2' },
-      action: IAction<BusSearchActions, BusSearchStateParticle> = {
+      action: UpdateHistory = {
         type: BusSearchActions.ADD_TO_HISTORY,
         payload: { key: BusCodes.TRAM, way: _way }
       },
-      action2: IAction<BusSearchActions, BusSearchStateParticle> = {
+      action2: UpdateHistory = {
         type: BusSearchActions.ADD_TO_HISTORY,
         payload: { key: BusCodes.TRAM, way: _way2 }
       }
@@ -72,19 +71,19 @@ describe('bus search reducer', () => {
       _way2: any = { _way2: '_way2' },
       _way3: any = { _way3: '_way3' },
       _way4: any = { _way4: '_way4' },
-      action: IAction<BusSearchActions, BusSearchStateParticle> = {
+      action: UpdateHistory = {
         type: BusSearchActions.ADD_TO_HISTORY,
         payload: { key: BusCodes.TRAM, way: _way }
       },
-      action2: IAction<BusSearchActions, BusSearchStateParticle> = {
+      action2: UpdateHistory = {
         type: BusSearchActions.ADD_TO_HISTORY,
         payload: { key: BusCodes.TRAM, way: _way2 }
       },
-      action3: IAction<BusSearchActions, BusSearchStateParticle> = {
+      action3: UpdateHistory = {
         type: BusSearchActions.ADD_TO_HISTORY,
         payload: { key: BusCodes.TRAM, way: _way3 }
       },
-      action4: IAction<BusSearchActions, BusSearchStateParticle> = {
+      action4: UpdateHistory = {
         type: BusSearchActions.ADD_TO_HISTORY,
         payload: { key: BusCodes.TRAM, way: _way4 }
       }
@@ -102,7 +101,7 @@ describe('bus search reducer', () => {
   it('updates active tab', () => {
     const
       oldState = getDefaultBusSearch(),
-      action: IAction<BusSearchActions, BusCodes> = {
+      action: UpdateType = {
         type: BusSearchActions.CHANGE_TAB,
         payload: BusCodes.TRAM,
       },

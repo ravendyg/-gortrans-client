@@ -1,30 +1,34 @@
 import { BusSearchActions } from 'src/modules/bus-search/types';
-import { IAction, IConfig } from 'src/types';
-import { IBusSearchState, BusSearchStateParticle } from 'src/modules/bus-search/types';
+import { IConfig } from 'src/types';
+import { IBusSearchState } from 'src/modules/bus-search/types';
 import { getDefaultBusSearch } from 'src/modules/bus-search/defaults';
 import { BusCodes } from 'src/types/enums';
 import { assertNever } from 'src/services/assertNever';
+import { BusSearchActionTypes } from 'src/modules/bus-search/actions/bus-search';
 
 export function createBusSearchReducer(config: IConfig) {
   return function busSearch(
     state: IBusSearchState = getDefaultBusSearch(),
-    action: IAction<BusSearchActions, BusSearchStateParticle | IBusSearchState | BusCodes>
+    action: BusSearchActionTypes,
   ): IBusSearchState {
+
+    let newState = state;
 
     switch (action.type) {
 
       case BusSearchActions.RESET_SEARCH_HISTORY: {
-        return action.payload as IBusSearchState;
+        newState = action.payload;
+        break;
       }
 
       case BusSearchActions.ADD_TO_HISTORY: {
         const
-          { key, way } = action.payload as BusSearchStateParticle,
-          newState: IBusSearchState = getDefaultBusSearch(),
+          { key, way } = action.payload,
           existing = state.lists[key] || []
           ;
-
         let updated = existing.filter(el => el !== way);
+
+        newState = getDefaultBusSearch();
         updated = [way].concat(updated);
         updated = updated.slice(0, config.historyDisplayLimit);
 
@@ -35,21 +39,21 @@ export function createBusSearchReducer(config: IConfig) {
         }
 
         newState.lists[key] = updated;
-
-        return newState;
+        break;
       }
 
       case BusSearchActions.CHANGE_TAB: {
-        const newState: IBusSearchState = getDefaultBusSearch();
+        newState = getDefaultBusSearch();
         newState.lists = state.lists;
         newState.activeTab = action.payload as BusCodes;
-        return newState;
+        break;
       }
 
       default: {
-        assertNever(action.type);
-        return state;
+        assertNever(action);
       }
     }
+
+    return newState;
   };
 }

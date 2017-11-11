@@ -2,9 +2,8 @@
 import { assert } from 'chai';
 
 import { BusListActions, IBusListState } from 'src/modules/bus-search/types';
-import { IAction } from 'src/types';
 import { createBusListReducer } from 'src/modules/bus-search/store/bus-list';
-import { BusCodes } from 'src/types/enums';
+import { BusListActionType } from 'src/modules/bus-search/actions/bus-list';
 
 describe('bus list reducer', () => {
 
@@ -13,53 +12,35 @@ describe('bus list reducer', () => {
     oldState: IBusListState = {
       list: [],
       query: '',
-      type: '0',
     },
     list: any = [],
-    query = '10',
-    type = BusCodes.SHUTTLE
+    query = '10'
     ;
 
   it('updates bus list only on UPDATE_LIST', () => {
     const
-      action: IAction<BusListActions, IBusListState> = {
+      action: BusListActionType = {
         type: BusListActions.UPDATE_LIST,
-        payload: { list, query, type }
+        payload: { list, query }
       },
       newState = busList(oldState, action)
       ;
 
     assert.equal(newState.list, list);
     assert.equal(newState.query, oldState.query);
-    assert.equal(newState.type, oldState.type);
   });
 
   it('updates query only on UPDATE_QUERY', () => {
     const
-      action: IAction<BusListActions, IBusListState> = {
+      action: BusListActionType = {
         type: BusListActions.UPDATE_QUERY,
-        payload: { list, query, type }
+        payload: { list, query }
       },
       newState = busList(oldState, action)
       ;
 
     assert.equal(newState.list, oldState.list);
     assert.equal(newState.query, query);
-    assert.equal(newState.type, oldState.type);
-  });
-
-  it('ignores incorrect type', () => {
-    const
-      action: IAction<BusListActions, IBusListState> = {
-        type: 'BusListActions.UPDATE_LIST' as any,
-        payload: { list, query, type: '15' }
-      },
-      newState = busList(oldState, action)
-      ;
-
-    assert.equal(newState.list, oldState.list);
-    assert.equal(newState.query, oldState.query);
-    assert.equal(newState.type, oldState.type);
   });
 
   it('ignores other actions', () => {

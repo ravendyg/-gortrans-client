@@ -1,9 +1,28 @@
-import { IAction, IConfig } from '../types';
+import { IConfig } from '../types';
 import { messages } from '../messages';
 import { ConnectionAction } from '../types/action-types';
 
+export type ConnectingActionType = {
+  type: ConnectionAction.CONNECTING;
+};
+
+export type ConnectedActionType = {
+  type: ConnectionAction.CONNECTED;
+  payload: SocketIOClient.Socket;
+};
+
+export type ErrorActionType = {
+  type: ConnectionAction.ERROR;
+  payload: Error;
+};
+
+export type ConnectApiActionTypes = ConnectingActionType
+  | ConnectedActionType
+  | ErrorActionType
+  ;
+
 export function createConnectToApi(
-  dispatch: (action: IAction<ConnectionAction, SocketIOClient.Socket | Error | null>) => void,
+  dispatch: (action: ConnectApiActionTypes) => void,
   syncStorage: Storage,
   io: SocketIOClientStatic,
   config: IConfig

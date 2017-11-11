@@ -21,6 +21,5 @@ export function getDefaultBusList(): IBusListState {
   return {
     query: '',
     list: [],
-    type: getDefaultSelectedTypeInList(),
   };
 }

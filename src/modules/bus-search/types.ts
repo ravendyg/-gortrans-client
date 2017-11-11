@@ -10,8 +10,6 @@ export interface IBusSearchState {
   activeTab: BusCodes;
 }
 
-export declare type BusSearchStateParticle = { key: BusCodes, way: Way };
-
 export interface IBusSearchAction {
   updateHistory: (key: BusCodes, way: Way) => void;
   updateAllHistory: (busSearch: IBusSearchState) => void;
@@ -38,8 +36,6 @@ export enum BusListActions {
 export interface IBusListState {
   list: BusList [];
   query: string;
-  // TODO: flatten the state. IBusListState.type and IBusSearchState.activeTab is a duplicate
-  type: string;
 }
 
 export interface IBusSearchModuleStateParticle extends IReduxState {

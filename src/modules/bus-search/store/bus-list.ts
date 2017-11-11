@@ -1,12 +1,12 @@
 import { BusListActions, IBusListState } from 'src/modules/bus-search/types';
-import { IAction } from 'src/types';
 import { getDefaultBusList } from 'src/modules/bus-search/defaults';
 import { assertNever } from 'src/services/assertNever';
+import { BusListActionType } from 'src/modules/bus-search/actions/bus-list';
 
 export function createBusListReducer() {
   return function busList(
     state: IBusListState = getDefaultBusList(),
-    action: IAction<BusListActions, IBusListState>
+    action: BusListActionType,
   ): IBusListState {
 
     let newState = state;
