@@ -1,6 +1,7 @@
 import { ConnectionAction } from 'src/types/action-types';
 import { IAction } from 'src/types';
 import { IApiConnectionState, ConnectionPayload } from 'src/types/state';
+import { assertNever } from 'src/services/assertNever';
 
 export function apiConnection(
   state: IApiConnectionState = { socket: null, error: null },
@@ -31,7 +32,9 @@ export function apiConnection(
     }
 
     default: {
+      assertNever(action.type);
       return state;
     }
   }
 }
+

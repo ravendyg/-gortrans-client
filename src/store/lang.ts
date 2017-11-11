@@ -1,5 +1,6 @@
 import { IAction } from 'src/types';
 import { TranslationActions } from 'src/types/action-types';
+import { assertNever } from 'src/services/assertNever';
 
 // TODO: remember the value
 export function lang(
@@ -13,6 +14,7 @@ export function lang(
     }
 
     default: {
+      assertNever(action.type);
       return state;
     }
   }

@@ -1,6 +1,7 @@
 import { ControlActions } from 'src/types/action-types';
 import { IAction } from 'src/types';
 import { RouterState } from 'src/types/data-types';
+import { assertNever } from 'src/services/assertNever';
 
 export function appState(
   state: RouterState = RouterState.BLANK,
@@ -13,6 +14,7 @@ export function appState(
     }
 
     default: {
+      assertNever(action.type);
       return state;
     }
   }

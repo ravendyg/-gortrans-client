@@ -1,6 +1,7 @@
 import { BusListActions, IBusListState } from 'src/modules/bus-search/types';
 import { IAction } from 'src/types';
 import { getDefaultBusList } from 'src/modules/bus-search/defaults';
+import { assertNever } from 'src/services/assertNever';
 
 export function createBusListReducer() {
   return function busList(
@@ -26,6 +27,10 @@ export function createBusListReducer() {
           query: action.payload.query,
         };
         break;
+      }
+
+      default: {
+        assertNever(action.type);
       }
 
     }

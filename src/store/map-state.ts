@@ -1,6 +1,7 @@
 import { LeafletActions } from 'src/types/action-types';
 import { IAction, IConfig } from 'src/types';
 import { IMapState } from 'src/types/state';
+import { assertNever } from 'src/services/assertNever';
 
 export function createMapState(defViewOptions: IMapState, config: IConfig) {
   return function mapState(
@@ -37,6 +38,7 @@ export function createMapState(defViewOptions: IMapState, config: IConfig) {
       }
 
       default: {
+        assertNever(action.type);
         return state;
       }
     }

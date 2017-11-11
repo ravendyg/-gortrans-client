@@ -3,6 +3,7 @@ import { IAction, IConfig } from 'src/types';
 import { IBusSearchState, BusSearchStateParticle } from 'src/modules/bus-search/types';
 import { getDefaultBusSearch } from 'src/modules/bus-search/defaults';
 import { BusCodes } from 'src/types/enums';
+import { assertNever } from 'src/services/assertNever';
 
 export function createBusSearchReducer(config: IConfig) {
   return function busSearch(
@@ -46,6 +47,7 @@ export function createBusSearchReducer(config: IConfig) {
       }
 
       default: {
+        assertNever(action.type);
         return state;
       }
     }
