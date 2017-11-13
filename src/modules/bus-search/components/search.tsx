@@ -27,18 +27,21 @@ export const selector = 'bus-search';
 export class Search extends Connected<ISearchProps, ISearchState, IBusSearchModuleStateParticle> {
 
   mapState(newState: IBusSearchModuleStateParticle): ISearchState {
-    const ways = newState.busList.query ?
-      filterBusList(
-        newState.busList.list[mapBusCodeToIndex(newState.busSearch.activeTab)].ways,
-        newState.busList.query
-      ) :
-      newState.busSearch.lists[newState.busSearch.activeTab]
-    ;
+    const { busList, busSearch } = newState;
 
-    return {
-      type: newState.busSearch.activeTab,
-      ways,
-    };
+    const
+      list = busList.list[mapBusCodeToIndex(newState.busSearch.activeTab)],
+      ways = busList.query
+        ? filterBusList(list.ways, busList.query)
+        : busSearch.lists[busSearch.activeTab]
+      ,
+      updatedState = {
+        type: busSearch.activeTab,
+        ways,
+      }
+      ;
+
+    return updatedState;
   }
 
   emit = (type: BusCodes, marsh: string) => {
