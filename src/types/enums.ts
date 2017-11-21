@@ -1,4 +1,4 @@
-export enum BusCodes {
+export const enum BusCodes {
   BUS = '0',
   TROLLEY = '1',
   TRAM = '2',

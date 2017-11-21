@@ -33,7 +33,7 @@ describe('<TypeSelector>', () => {
       busBtn = btns.at(0),
       tramBtn = btns.at(2)
       ;
-    assert.equal(btns.length, Object.keys(BusCodes).length);
+    assert.equal(btns.length, 4);
     assert.equal(tramBtn.key(), BusCodes.TRAM);
     assert.equal(busBtn.prop('active'), true);
     assert.equal(tramBtn.prop('active'), false);

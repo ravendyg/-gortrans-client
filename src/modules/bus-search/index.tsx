@@ -3,6 +3,7 @@ import { IStoreProps } from 'src/types';
 import { IBusSearchModuleStore } from 'src/modules/bus-search/types';
 import { Search } from 'src/modules/bus-search/components/search';
 import { config } from 'src/config';
+import { IBusListAction, IBusSearchAction } from 'src/modules/bus-search/types';
 /** actions */
 import { createBusListActions } from 'src/modules/bus-search/actions/bus-list';
 import { createBusSearchActions } from 'src/modules/bus-search/actions/bus-search';
@@ -26,31 +27,51 @@ export interface ISearchProps extends IStoreProps {
 
 export default class SearchWrapper extends React.PureComponent<ISearchProps, ISearchState> {
 
-  render() {
+  private busListActions: IBusListAction;
+  private busSearchActions: IBusSearchAction;
+
+  private _unsubscribe = () => {/**/};
+
+  componentWillMount() {
     const
-      store = this.props.store,
-      /** actions */
-      busListActions = createBusListActions(store.dispatch),
-      busSearchActions = createBusSearchActions(store.dispatch),
+      { store } = this.props,
       /** reducers */
       busSearch = createBusSearchReducer(config),
       busList = createBusListReducer(),
       /** services */
       busListStorageService = createBusListStorageService(localStorage, config),
-      busSearchService = createBusSeachStorageService(localStorage, config),
-      /** providers */
-      busSearchProvider = createBusSearchProvider(busSearchActions, busSearchService)
+      busSearchService = createBusSeachStorageService(localStorage, config)
       ;
+
+    this.busListActions = createBusListActions(store.dispatch);
+    this.busSearchActions = createBusSearchActions(store.dispatch);
+    const busSearchProvider = createBusSearchProvider(this.busSearchActions, busSearchService);
 
     store.injectAsyncReducer('busSearch', busSearch);
     store.injectAsyncReducer('busList', busList);
 
-    // dirty hack to get local store
-    const localStore: IBusSearchModuleStore = store as any;
-
     // TODO: move bus list back to main, to make it load before any search
-    loadBusList(busListActions, busListStorageService, store, config, Date);
-    busSearchProvider.subscribe(store);
+    loadBusList(this.busListActions, busListStorageService, store, config, Date);
+
+    const promisedUnsubscribe = busSearchProvider.subscribe(store);
+    if (promisedUnsubscribe) {
+      promisedUnsubscribe.then((unsub) => {
+        this._unsubscribe = unsub;
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
+
+  render() {
+    // dirty hack to get local store
+    const
+      { store } = this.props,
+      { busListActions, busSearchActions } = this,
+      localStore: IBusSearchModuleStore = store as any
+      ;
 
     return(
       <Search

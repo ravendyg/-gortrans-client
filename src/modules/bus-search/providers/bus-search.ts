@@ -29,12 +29,12 @@ export function createBusSearchProvider(
     }
   }
 
-  function subscribe(store: IStore): Promise<void> {
+  function subscribe(store: IStore): Promise<() => void> {
     return loaded.then(() => {
-      store.subscribe(() => {
+      updateIfRequired(store);
+      return store.subscribe(() => {
         updateIfRequired(store);
       });
-      updateIfRequired(store);
     });
   }
 

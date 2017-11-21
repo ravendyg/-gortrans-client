@@ -15,7 +15,7 @@ export interface IMainAction {
 }
 
 
-export enum ConnectionAction {
+export const enum ConnectionAction {
   CONNECTING = 'CONNECTING',
   CONNECTED = 'CONNECTED',
   ERROR = 'ERROR'
@@ -27,7 +27,7 @@ export interface IControlAction {
   goToRoot: () => void;
 }
 
-export enum ControlActions {
+export const enum ControlActions {
   GO_TO = 'GO_TO',
 }
 
@@ -39,7 +39,7 @@ export interface ILeafletAction {
   zoomend: (ev: L.LeafletEvent) => void;
 }
 
-export enum LeafletActions {
+export const enum LeafletActions {
   ZOOM_IN = 'ZOOM_IN',
   ZOOM_OUT = 'ZOOM_OUT',
   MOVE_END = 'MOVE_END',
@@ -50,6 +50,6 @@ export interface ITranslationActions {
   setLang: (lang: string) => void;
 }
 
-export enum TranslationActions {
+export const enum TranslationActions {
   SET_LANGUAGE = 'SET_LANGUAGE',
 }

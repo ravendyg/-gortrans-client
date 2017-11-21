@@ -16,7 +16,7 @@ export interface IBusSearchAction {
   updateType: (busCode: BusCodes) => void;
 }
 
-export enum BusSearchActions {
+export const enum BusSearchActions {
   ADD_TO_HISTORY = 'ADD_TO_HISTORY',
   RESET_SEARCH_HISTORY = 'RESET_SEARCH_HISTORY',
   CHANGE_TAB = 'CHANGE_TAB',
@@ -28,7 +28,7 @@ export interface IBusListAction {
   updateQuery: (query: string) => void;
 }
 
-export enum BusListActions {
+export const enum BusListActions {
   UPDATE_LIST = 'UPDATE_LIST',
   UPDATE_QUERY = 'UPDATE_QUERY',
 }

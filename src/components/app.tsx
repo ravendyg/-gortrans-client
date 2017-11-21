@@ -27,17 +27,18 @@ export class App extends Connected<IAppProps, IAppState, IReduxState> {
 
   render() {
     const
+      { actions, mapProps, win } = this.props,
       controls = !this.state.panelContent
-        ? <Controls actions={this.props.actions} />
+        ? <Controls actions={actions} />
         : null
         ,
       sidePanel = this.state.panelContent
         ? (
           <SidePanel
             children={this.state.panelContent}
-            closeMe={this.props.actions.controlActions.goToRoot}
+            closeMe={actions.controlActions.goToRoot}
             slideLength={'0.5s'}
-            win={this.props.win}
+            win={win}
           />
         )
         : null
@@ -45,7 +46,7 @@ export class App extends Connected<IAppProps, IAppState, IReduxState> {
 
     return(
       <div id="wrapper">
-        <MapWrapperComponent {...this.props.mapProps} />
+        <MapWrapperComponent {...mapProps} />
         {controls}
         {sidePanel}
       </div>

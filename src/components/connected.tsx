@@ -6,16 +6,26 @@ import { Store as IStore } from 'redux';
 function _componentWillMount<T>(
   self: React.Component, store: IStore<T>, mapState: (newState: T) => any | null
 ) {
+  const component = self as any;
   if (store) {
-    (self as any)._unsubscribe = store.subscribe(() => {
-      _subscribeCb<T>(self, store, mapState);
+    let mounted = true;
+    const unsub = store.subscribe(() => {
+      if (mounted) {
+        _subscribeCb<T>(self, store, mapState);
+      }
     });
+    component._unsubscribe = () => {
+      // workaround for the cases when a component unmounted during a dispatch loop
+      mounted = false;
+      unsub();
+    };
     const newState = mapState(store.getState());
     if (newState) {
       self.setState(newState);
     }
+    (component._unsubscribe as any).n = self.constructor.name;
   } else {
-    (self as any)._unsubscribe = () => {/**/};
+    component._unsubscribe = () => {/**/};
   }
 }
 
@@ -36,11 +46,11 @@ function _subscribeCb<T>(self: React.Component, store: IStore<T>, mapState: (new
 export abstract class Connected<IProps, IState, IStoreState> extends React.PureComponent<IProps, IState> {
 
   private _unsubscribe: () => void;
-  private _store: IStore<IStoreState>;
+  public mounted: boolean;
 
   constructor() {
     super();
-    this.subscribeCb = this.subscribeCb.bind(this);
+    // can't use an arrow function to keep this method abstract and not get a function/property error
     this.mapState = this.mapState.bind(this);
   }
 
@@ -52,12 +62,7 @@ export abstract class Connected<IProps, IState, IStoreState> extends React.PureC
     this._unsubscribe();
   }
 
-  private subscribeCb(): void {
-    _subscribeCb(this, this._store, this.mapState);
-  }
-
   abstract mapState(newState: IStoreState): IState | null;
-
 }
 
 /**
@@ -68,11 +73,10 @@ export abstract class Connected<IProps, IState, IStoreState> extends React.PureC
 export abstract class ConnectedNotPure<IProps, IState, IStoreState> extends React.Component<IProps, IState> {
 
   private _unsubscribe: () => void;
-  private _store: IStore<IStoreState>;
 
   constructor() {
     super();
-    this.subscribeCb = this.subscribeCb.bind(this);
+    // can't use an arrow function to keep this method abstract and not get a function/property error
     this.mapState = this.mapState.bind(this);
   }
 
@@ -84,11 +88,6 @@ export abstract class ConnectedNotPure<IProps, IState, IStoreState> extends Reac
     this._unsubscribe();
   }
 
-  private subscribeCb(): void {
-    _subscribeCb(this, this._store, this.mapState);
-  }
-
   abstract mapState(newState: IStoreState): IState | null;
-
 }
 
