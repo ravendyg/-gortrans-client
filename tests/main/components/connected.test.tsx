@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {  } from 'mocha';
+
 import * as sinon from 'sinon';
 import { assert } from 'chai';
 import { mount } from 'enzyme';
@@ -44,9 +44,9 @@ Store.subscribe = (cb: any) => {
   });
 };
 
-class Component extends Connected<IPops, IState> {
+class Component extends Connected<IPops, IState, IReduxState> {
 
-  mapState(newStore: IReduxState): IState {
+  mapState(newStore: IReduxState): IState | null {
     changeStub(newStore.apiConnection);
     return { socket: newStore.apiConnection.socket };
   }

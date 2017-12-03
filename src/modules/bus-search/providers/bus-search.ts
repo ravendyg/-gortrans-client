@@ -1,7 +1,7 @@
-import { IStore } from '../../../types/state';
-import { IBusSearchAction, IBusSearchState } from './../types';
-import { IProvider } from '../../../types/providers';
-import { IStorageService } from '../../../types/services';
+import { IStore } from 'src/types/state';
+import { IBusSearchAction, IBusSearchState } from 'src/modules/bus-search/types';
+import { IProvider } from 'src/types/providers';
+import { IStorageService } from 'src/types/services';
 
 export function createBusSearchProvider(
   actions: IBusSearchAction,
@@ -29,12 +29,12 @@ export function createBusSearchProvider(
     }
   }
 
-  function subscribe(store: IStore): Promise<void> {
+  function subscribe(store: IStore): Promise<() => void> {
     return loaded.then(() => {
-      store.subscribe(() => {
+      updateIfRequired(store);
+      return store.subscribe(() => {
         updateIfRequired(store);
       });
-      updateIfRequired(store);
     });
   }
 

@@ -8,14 +8,15 @@ const
   targets = {
     targets: old ?
       {
-          ie: '9'
+        // css will fail on ie < 11 - no point to support them
+        ie: '11'
       } :
       {
-          chrome: 62,
-          firefox: 56,
-          edge: 16,
-          safari: 11,
-          opera: 48,
+        chrome: 62,
+        firefox: 56,
+        edge: 16,
+        safari: 11,
+        opera: 48,
       }
   },
   include = [
@@ -80,7 +81,7 @@ module.exports = {
   resolve: {
     modules: [
       'node_modules',
-      path.resolve(__dirname, 'src')
+      path.resolve(__dirname),
     ],
     alias: {
       'react': 'preact-compat',

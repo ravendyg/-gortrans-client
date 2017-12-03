@@ -1,6 +1,6 @@
-import { IStore } from '../types/state';
+import { IStore } from 'src/types/state';
 
 export interface IProvider {
-  subscribe: (store: IStore) => Promise<void>;
+  subscribe: (store: IStore) => Promise<() => void | undefined>;
 }
 

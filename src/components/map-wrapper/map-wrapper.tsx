@@ -17,7 +17,7 @@ export interface IMapWrapperProps {
   actions: IMainAction;
 }
 
-export class MapWrapperComponent extends Connected<IMapWrapperProps, IMapWrapperState> {
+export class MapWrapperComponent extends Connected<IMapWrapperProps, IMapWrapperState, IReduxState> {
 
   mapState(globalState: IReduxState): IMapWrapperState {
     const

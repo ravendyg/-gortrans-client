@@ -1,26 +1,37 @@
 import * as React from 'react';
 import { Store as IStore } from 'redux';
-import { IReduxState } from '../types/state';
 
 // is there a better way to create two similar classes extending different ones?
 
-function _componentWillMount(
-  self: React.Component, store: IStore<IReduxState>, mapState: (newState: IReduxState) => any
+function _componentWillMount<T>(
+  self: React.Component, store: IStore<T>, mapState: (newState: T) => any | null
 ) {
+  const component = self as any;
   if (store) {
-    (self as any)._unsubscribe = store.subscribe(() => {
-      _subscribeCb(self, store, mapState);
+    let mounted = true;
+    const unsub = store.subscribe(() => {
+      if (mounted) {
+        _subscribeCb<T>(self, store, mapState);
+      }
     });
+    component._unsubscribe = () => {
+      // workaround for the cases when a component unmounted during a dispatch loop
+      mounted = false;
+      unsub();
+    };
     const newState = mapState(store.getState());
-    self.setState(newState);
+    if (newState) {
+      self.setState(newState);
+    }
+    (component._unsubscribe as any).n = self.constructor.name;
   } else {
-    (self as any)._unsubscribe = () => {/**/};
+    component._unsubscribe = () => {/**/};
   }
 }
 
-function _subscribeCb(self: React.Component, store: IStore<IReduxState>, mapState: (newState: IReduxState) => any) {
+function _subscribeCb<T>(self: React.Component, store: IStore<T>, mapState: (newState: T) => any) {
   const
-    globalState: IReduxState = store.getState(),
+    globalState: T = store.getState(),
     st = mapState(globalState)
   ;
 
@@ -32,14 +43,14 @@ function _subscribeCb(self: React.Component, store: IStore<IReduxState>, mapStat
  * in `componentWillUnmount` call super.componentWillUnmount()
  * in `componentWillMount` call super.componentWillMount()
  */
-export abstract class Connected<IProps, IState> extends React.PureComponent<IProps, IState> {
+export abstract class Connected<IProps, IState, IStoreState> extends React.PureComponent<IProps, IState> {
 
   private _unsubscribe: () => void;
-  private _store: IStore<IReduxState>;
+  public mounted: boolean;
 
   constructor() {
     super();
-    this.subscribeCb = this.subscribeCb.bind(this);
+    // can't use an arrow function to keep this method abstract and not get a function/property error
     this.mapState = this.mapState.bind(this);
   }
 
@@ -51,12 +62,7 @@ export abstract class Connected<IProps, IState> extends React.PureComponent<IPro
     this._unsubscribe();
   }
 
-  private subscribeCb(): void {
-    _subscribeCb(this, this._store, this.mapState);
-  }
-
-  abstract mapState(newState: IReduxState): IState;
-
+  abstract mapState(newState: IStoreState): IState | null;
 }
 
 /**
@@ -64,14 +70,13 @@ export abstract class Connected<IProps, IState> extends React.PureComponent<IPro
  * in `componentWillUnmount` call super.componentWillUnmount()
  * in `componentWillMount` call super.componentWillMount()
  */
-export abstract class ConnectedNotPure<IProps, IState> extends React.Component<IProps, IState> {
+export abstract class ConnectedNotPure<IProps, IState, IStoreState> extends React.Component<IProps, IState> {
 
   private _unsubscribe: () => void;
-  private _store: IStore<IReduxState>;
 
   constructor() {
     super();
-    this.subscribeCb = this.subscribeCb.bind(this);
+    // can't use an arrow function to keep this method abstract and not get a function/property error
     this.mapState = this.mapState.bind(this);
   }
 
@@ -83,11 +88,6 @@ export abstract class ConnectedNotPure<IProps, IState> extends React.Component<I
     this._unsubscribe();
   }
 
-  private subscribeCb(): void {
-    _subscribeCb(this, this._store, this.mapState);
-  }
-
-  abstract mapState(newState: IReduxState): IState;
-
+  abstract mapState(newState: IStoreState): IState | null;
 }
 

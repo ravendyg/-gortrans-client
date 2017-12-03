@@ -1,14 +1,16 @@
 import { combineReducers, createStore, Reducer } from 'redux';
 // reducers
-import { apiConnection } from './connection';
-import { createMapState } from './map-state';
-import { appState } from './app-state';
-import { translation } from './translation';
-import { IStore, IReduxState } from '../types/state';
-import { IViewStorageService } from '../types/services';
-import { IConfig } from '../types';
+import { apiConnection } from 'src/store/connection';
+import { createMapState } from 'src/store/map-state';
+import { appState } from 'src/store/app-state';
+import { lang } from 'src/store/lang';
+import { IStore, IReduxState } from 'src/types/state';
+import { IViewStorageService } from 'src/types/services';
+import { IConfig } from 'src/types';
 
-export function storeFactory(storageService: IViewStorageService, config: IConfig): IStore {
+export function storeFactory(
+  storageService: IViewStorageService, config: IConfig,
+): IStore {
   const
     defViewOptions = storageService.getMapViewOptions(),
     asyncReducers: any = {},
@@ -27,7 +29,7 @@ export function storeFactory(storageService: IViewStorageService, config: IConfi
       apiConnection,
       mapState: createMapState(defViewOptions, config),
       appState,
-      translation,
+      lang,
     }, asyncReducers));
   }
 
@@ -37,7 +39,6 @@ export function storeFactory(storageService: IViewStorageService, config: IConfi
       Store.replaceReducer(createReducer());
     }
   }
-
 
   return Store;
 }

@@ -1,6 +1,6 @@
-import { IStore } from '../types/state';
-import { IControlAction } from '../types/action-types';
-import { RouterState } from '../types/data-types';
+import { IStore } from 'src/types/state';
+import { IControlAction } from 'src/types/action-types';
+import { RouterState } from 'src/types/data-types';
 
 /**
  * routing

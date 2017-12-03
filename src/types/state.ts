@@ -1,12 +1,12 @@
-import { RouterState } from './data-types';
 import { Store } from 'redux';
+import { RouterState } from 'src/types/data-types';
 
 export interface IReduxState {
   [x: string]: any;
   apiConnection: IApiConnectionState;
   mapState: IMapState;
   appState: RouterState;
-  translation: ITranslationState;
+  lang: string;
 }
 
 export interface IStore extends Store<IReduxState> {
@@ -25,11 +25,3 @@ export interface IMapState {
   lat: string;
   lng: string;
 }
-
-export interface ITranslationState {
-  lang: string;
-  text: {
-    [key: string]: string
-  };
-}
-

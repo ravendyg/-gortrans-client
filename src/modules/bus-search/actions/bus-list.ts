@@ -1,10 +1,17 @@
-import { BusList } from '../../../types/data-types';
-import { IAction } from '../../../types';
-import { BusListActions, IBusListAction, IBusListState } from '../types';
-import { cleanQuery } from '../../../services/clean-bus-search-query';
+import { BusList } from 'src/types/data-types';
+import { BusListActions, IBusListAction } from 'src/modules/bus-search/types';
+import { cleanQuery } from 'src/services/clean-bus-search-query';
+
+export type BusListActionType = {
+  type: BusListActions;
+  payload: {
+    list: BusList [];
+    query: string;
+  }
+};
 
 export function createBusListActions(
-  dispatch: (action: IAction<BusListActions, IBusListState>) => void
+  dispatch: (action: BusListActionType) => void
 ): IBusListAction {
 
   function updateBusList(list: BusList []) {
@@ -13,7 +20,6 @@ export function createBusListActions(
       payload: {
         list,
         query: '',
-        type: '0',
       }
     });
   }
@@ -26,13 +32,12 @@ export function createBusListActions(
       payload: {
         list: [],
         query,
-        type: '0',
       }
     });
   }
 
   return {
     updateBusList,
-    updateQuery
+    updateQuery,
   };
 }

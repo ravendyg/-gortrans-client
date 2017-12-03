@@ -1,4 +1,4 @@
-$sidePanelBackColor: #efefef;
+$sidePanelBackColor: #eeeeee;
 $controlBtnColot: lightsteelblue;
 
 html, body, #app, #wrapper, #mapid {
@@ -84,20 +84,4 @@ html, body, #app, #wrapper, #mapid {
   }
 }
 
-.search {
-  &__input {
-    text-align: center;
-    padding: 5px;
-    &--text {
-      font-size: 1.5rem;
-      text-align: center;
-      background: transparent;
-      border: none;
-      border-bottom: 3px solid green;
-      &:focus {
-        border-bottom: 3px solid blueviolet;
-        outline: none;
-      }
-    }
-  }
-}
+

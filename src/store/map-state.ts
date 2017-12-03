@@ -1,23 +1,27 @@
-import { LeafletActions } from '../types/action-types';
-import { IAction, IConfig } from '../types';
-import { IMapState } from '../types/state';
+import { LeafletActions } from 'src/types/action-types';
+import { IConfig } from 'src/types';
+import { IMapState } from 'src/types/state';
+import { assertNever } from 'src/services/assertNever';
+import { LeafletActionTypes } from 'src/actions/leaflet';
 
 export function createMapState(defViewOptions: IMapState, config: IConfig) {
   return function mapState(
     state: IMapState = defViewOptions,
-    action: IAction<LeafletActions, IMapState>
+    action: LeafletActionTypes,
   ): IMapState {
+
+    let newState = state;
 
     switch (action.type) {
 
       case LeafletActions.MOVE_END: {
-        let newState: IMapState = Object.assign({}, state, action.payload);
-        return newState;
+        newState = Object.assign({}, state, action.payload);
+        break;
       }
 
       case LeafletActions.ZOOM_END: {
-        let newState: IMapState = Object.assign({}, state, action.payload);
-        return newState;
+        newState = Object.assign({}, state, action.payload);
+        break;
       }
 
       case LeafletActions.ZOOM_IN: {
@@ -25,7 +29,8 @@ export function createMapState(defViewOptions: IMapState, config: IConfig) {
         if (zoom > config.mapOptions.maxZoom) {
           zoom = config.mapOptions.maxZoom;
         }
-        return Object.assign({} , state, {zoom});
+        newState = Object.assign({} , state, {zoom});
+        break;
       }
 
       case LeafletActions.ZOOM_OUT: {
@@ -33,12 +38,15 @@ export function createMapState(defViewOptions: IMapState, config: IConfig) {
         if (zoom < config.mapOptions.minZoom) {
           zoom = config.mapOptions.minZoom;
         }
-        return Object.assign({} , state, {zoom});
+        newState = Object.assign({} , state, {zoom});
+        break;
       }
 
       default: {
-        return state;
+        assertNever(action.type);
       }
     }
+
+    return newState;
   };
 }

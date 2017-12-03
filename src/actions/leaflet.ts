@@ -1,4 +1,3 @@
-import { IAction } from '../types';
 import { LeafletActions, ILeafletAction } from '../types/action-types';
 import { IMapState } from '../types/state';
 
@@ -14,8 +13,13 @@ function createMapStatePayload(ev: L.LeafletEvent): IMapState {
   return payload;
 }
 
+export type LeafletActionTypes = {
+  type: LeafletActions;
+  payload: IMapState | null;
+};
+
 export function createLeafletActions(
-  dispatch: (action: IAction<LeafletActions, IMapState | null>) => void
+  dispatch: (action: LeafletActionTypes) => void
 ): ILeafletAction {
 
   function moveend(ev: L.LeafletEvent): void {

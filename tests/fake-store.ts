@@ -1,7 +1,8 @@
 import * as sinon from 'sinon';
-import { IReduxState } from '../src/types/state';
-import { RouterState } from '../src/types/data-types';
+import { IReduxState } from 'src/types/state';
+import { RouterState } from 'src/types/data-types';
 
+// TODO: clean this mess, use the store itself
 export function storeFactory(_newState?: IReduxState) {
   let state: IReduxState = {
     mapState: {
@@ -18,18 +19,7 @@ export function storeFactory(_newState?: IReduxState) {
       query: '',
       list: [],
     },
-    translation: {
-      lang: 'ru',
-      text: {
-        searchInputPlaceholder: 'searchInputPlaceholder',
-      }
-    },
-    busSearch: {
-      '0': [],
-      '1': [],
-      '2': [],
-      '7': [],
-    }
+    lang: 'ru',
   };
 
   if (_newState) {

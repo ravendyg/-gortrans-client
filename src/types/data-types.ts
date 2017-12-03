@@ -22,7 +22,7 @@ export declare type BusListSyncResponse = {
   list?: BusList []
 };
 
-export enum RouterState {
+export const enum RouterState {
   BLANK = '',
   EMPTY = '#',
   SEARCH = '#search',

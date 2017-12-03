@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { RouterState } from '../types/data-types';
-import { Settings } from '../components/settings/settings';
-import { IStore } from '../types/state';
 import Loadable from 'react-loadable';
+import { RouterState } from 'src/types/data-types';
+import { Settings } from 'src/components/settings/settings';
+import { IStore } from 'src/types/state';
 
 const SearchWrapper = Loadable({
   loader: () => import('../modules/bus-search'),
