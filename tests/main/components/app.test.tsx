@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {} from 'mocha';
-import * as sinon from 'sinon';
 import { assert } from 'chai';
 import { shallow, ShallowWrapper } from 'enzyme';
 
@@ -8,8 +7,7 @@ import { MapWrapperComponent } from '../../../src/components/map-wrapper/map-wra
 import { Controls } from '../../../src/components/controls/controls';
 import { SidePanel } from '../../../src/components/side-panel';
 import { storeFactory } from '../../fake-store';
-import { RouterState } from '../../../src/types/data-types';
-import { App } from '../../../src/components/app';
+import { AppUnconnected, IAppProps } from '../../../src/components/app';
 
 const
   store = storeFactory(),
@@ -20,17 +18,16 @@ const
       goToRoot: () => {/**/},
     },
   },
-  mapRouterStateToPanelState = sinon.stub().returns(null),
   _win: any = {},
-  props = {
+  props: IAppProps = {
     mapProps,
     actions,
     store,
     win: _win,
-    mapRouterStateToPanelState,
+    panelContent: null,
   },
   app: ShallowWrapper = shallow(
-    <App {...props} />
+    <AppUnconnected {...props} />
   )
   ;
 
@@ -44,15 +41,13 @@ describe('<App>', () => {
     assert.equal(app.find(Controls).length, 1);
   });
 
-  it('renders Controls and not SidePanel when appState === RouterState.BLANK', () => {
-    store._setState({ appState: RouterState.BLANK });
+  it('renders Controls and not SidePanel when panelContent', () => {
     assert.equal(app.find(SidePanel).length, 0);
     assert.equal(app.find(Controls).length, 1);
   });
 
-  it('renders SidePanel and not Controls when appState !== RouterState.SEARCH', () => {
-    store._setState({ appState: RouterState.SEARCH });
-    app.setState({ panelContent: content });
+  it('renders SidePanel and not Controls when panelContent is not null', () => {
+    app.setProps({ panelContent: content });
     assert.equal(app.find(SidePanel).length, 1);
     assert.equal(app.find('[data-test-id="content"]').length, 1);
     assert.equal(app.find(Controls).length, 0);

@@ -16,7 +16,6 @@ import { createLeafletActions } from 'src/actions/leaflet';
 /** services */
 import { createViewStorageService } from 'src/services/storage/map-view';
 import { createRouter } from 'src/services/router';
-import { mapRouterStateToPanelState } from 'src/services/panel-content';
 /** /services */
 
 require('src/styles.scss');
@@ -49,7 +48,6 @@ initRouting();
 render(
   <App
     actions={actions}
-    mapRouterStateToPanelState={mapRouterStateToPanelState}
     mapProps={mapProps}
     store={Store}
     win={window}
